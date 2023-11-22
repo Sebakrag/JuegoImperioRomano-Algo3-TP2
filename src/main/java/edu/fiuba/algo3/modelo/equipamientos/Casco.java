@@ -19,4 +19,8 @@ public class Casco extends DecoradorEquipamiento {
     public int recibirAtaque() {
         return DANIO;
     }
+
+    public boolean equipoCompleto(){
+        return false;
+    }
 }

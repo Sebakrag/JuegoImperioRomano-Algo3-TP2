@@ -1,4 +1,4 @@
-MIT License
+giMIT License
 
 Copyright (c) 2020 Martin Picco, Seblaz
 

@@ -1,5 +1,4 @@
 package edu.fiuba.algo3.modelo;
-
 import javafx.scene.SceneAntialiasing;
 
 import java.util.Random;
@@ -7,20 +6,19 @@ import java.util.Random;
 public class Jugador {
     private Gladiador gladiador;
     private int turnos;
-    private int casillaActual;
+    private Celda celdaActual;
 
-    //private Casilla casilla;
-
-    public Jugador(Gladiador gladiador) {
+    public Jugador(Gladiador gladiador, Celda celdaInicial) {
         this.gladiador = gladiador;
         this.turnos = 0;
-        this.casillaActual = 0;
+        this.celdaActual = celdaInicial;
     }
 
     // -------------------------------- PUBLICOS -------------------------------- //
     public void jugarTurno() {
         int cantidadAAvanzar = this.tirarDado();
         this.avanzar(cantidadAAvanzar);
+        this.celdaActual.afectar(this);
         this.turnos++;
         this.gladiador.mejorarSeniority(this.turnos);
         this.aumentarEnergiaConSeniority();
@@ -38,8 +36,8 @@ public class Jugador {
         return this.gladiador.energiaIgualA(energia);
     }
 
-    public boolean estaEnCasilla(int numeroCasilla) {
-        return (this.casillaActual == numeroCasilla);
+    public boolean estaEnCelda(int x, int y) {
+        return (this.celdaActual.tieneCoordenadas(x, y));
     }
 
     public void recibirEnergia(int aumentoEnergia) {
@@ -58,9 +56,21 @@ public class Jugador {
         this.gladiador.recibirDanio(danio);
     }
 
+    public boolean totalmenteEquipado(){
+        return this.gladiador.totalmenteEquipado();
+    }
+
+    public void posicionar(Celda celda){
+        this.celdaActual = celda;
+    }
+
     // -------------------------------- PRIVADOS -------------------------------- //
     private void avanzar(int cantidad) {
-        this.casillaActual += cantidad;
+        for (int i = 0; i < cantidad; i++) {
+            if (!(this.celdaActual.esCeldaFinal())) {
+                this.celdaActual = this.celdaActual.celdaSiguiente();
+            }
+        }
     }
 
     private int tirarDado() {

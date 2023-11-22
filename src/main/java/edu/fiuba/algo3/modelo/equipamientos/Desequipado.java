@@ -15,4 +15,8 @@ public class Desequipado extends Equipamiento {
     public int recibirAtaque() {
         return DANIO;
     }
+
+    public boolean equipoCompleto(){
+        return false;
+    };
 }

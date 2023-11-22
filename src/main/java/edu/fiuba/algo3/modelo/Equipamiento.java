@@ -5,4 +5,5 @@ public abstract class Equipamiento {
 
     public abstract int recibirAtaque();
 
+    public abstract boolean equipoCompleto();
 }

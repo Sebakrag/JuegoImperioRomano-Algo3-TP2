@@ -18,4 +18,8 @@ public class Llave extends DecoradorEquipamiento {
     public int recibirAtaque(){
         return DANIO;
     }
+
+    public boolean equipoCompleto(){
+        return true;
+    }
 }
