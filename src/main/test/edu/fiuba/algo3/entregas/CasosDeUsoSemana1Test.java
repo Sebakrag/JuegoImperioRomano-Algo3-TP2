@@ -201,8 +201,7 @@ public class CasosDeUsoSemana1Test {
         Jugador jugador = new Jugador(gladiador, celdaInicial);
         Afectante mejorador = new MejorarEquipamiento();
         Fiera fiera = new Fiera();
-        int energiaInicial = 20;
-        int energiaEsperada = energiaInicial;
+        int energiaEsperada = 20; // igual a la energia inicial
 
         // El jugador obtiene la llave
         for (int i = 0; i < 4; i++) {
@@ -218,7 +217,23 @@ public class CasosDeUsoSemana1Test {
 
     @Test
     public void test12AlPasarTreintaTurnosYnadieLlegaAlaMetaSeTerminoElJuego() {
-        // Logica de ganar.
-    }
 
+        CeldaInicial celdaInicial = new CeldaInicial();
+        int cantidadCeldas = 3;
+        Tablero tablero = new Tablero(cantidadCeldas, celdaInicial);
+        tablero.armarMapa();
+
+        Gladiador gladiador1 = new Gladiador();
+        Gladiador gladiador2 = new Gladiador();
+        Jugador jugador1 = new Jugador(gladiador1, celdaInicial);
+        Jugador jugador2 = new Jugador(gladiador2, celdaInicial);
+
+        for (int i = 0; i < 30; i++) {
+            jugador1.jugarTurno();
+            jugador2.jugarTurno();
+        }
+
+        Assertions.assertFalse(jugador1.jugarTurno());
+        Assertions.assertFalse(jugador2.jugarTurno());
+    }
 }
