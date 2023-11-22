@@ -16,8 +16,8 @@ public class CasosDeUsoSemana1Test {
 
         CeldaInicial celdaInicial = new CeldaInicial();
         int cantidadCeldas = 3;
-        Tablero tablero = new Tablero(cantidadCeldas, celdaInicial);
-        tablero.armarMapa();
+        Tablero tablero = new Tablero(celdaInicial);
+        tablero.armarMapa(cantidadCeldas);
 
         Gladiador gladiador = new Gladiador();
         Jugador jugador = new Jugador(gladiador, celdaInicial);
@@ -39,8 +39,8 @@ public class CasosDeUsoSemana1Test {
 
         CeldaInicial celdaInicial = new CeldaInicial();
         int cantidadCeldas = 6;
-        Tablero tablero = new Tablero(cantidadCeldas, celdaInicial);
-        tablero.armarMapa();
+        Tablero tablero = new Tablero(celdaInicial);
+        tablero.armarMapa(cantidadCeldas);
 
         Gladiador gladiador = new Gladiador();
         Jugador jugador = new Jugador(gladiador, celdaInicial);
@@ -141,8 +141,8 @@ public class CasosDeUsoSemana1Test {
     public void test08AlPasarOchoTurnosElGladiadorPasaDeNovatoASemiSenior() {
         CeldaInicial celdaInicial = new CeldaInicial();
         int cantidadCeldas = 20;
-        Tablero tablero = new Tablero(cantidadCeldas, celdaInicial);
-        tablero.armarMapa();
+        Tablero tablero = new Tablero(celdaInicial);
+        tablero.armarMapa(cantidadCeldas);
 
         Gladiador gladiador = new Gladiador();
         Jugador jugador = new Jugador(gladiador, celdaInicial);
@@ -162,8 +162,8 @@ public class CasosDeUsoSemana1Test {
         // Hay que hacer la logica de ganar.
         CeldaInicial celdaInicial = new CeldaInicial();
         int cantidadCeldas = 2;
-        Tablero tablero = new Tablero(cantidadCeldas, celdaInicial);
-        tablero.armarMapa();
+        Tablero tablero = new Tablero(celdaInicial);
+        tablero.armarMapa(cantidadCeldas);
         Gladiador gladiador = new Gladiador();
         Jugador jugador = new Jugador(gladiador, celdaInicial);
         int coordenadaXMedio = 0;
@@ -176,6 +176,7 @@ public class CasosDeUsoSemana1Test {
 
     @Test
     public void test10AlSerAtacadoPorUnaFieraYConTodoElEquipamientoNoPierdeEnergia() {
+
         Celda celdaInicial = new CeldaInicial();
         Gladiador gladiador = new Gladiador();
         Jugador jugador = new Jugador(gladiador, celdaInicial);
@@ -220,8 +221,8 @@ public class CasosDeUsoSemana1Test {
 
         CeldaInicial celdaInicial = new CeldaInicial();
         int cantidadCeldas = 3;
-        Tablero tablero = new Tablero(cantidadCeldas, celdaInicial);
-        tablero.armarMapa();
+        Tablero tablero = new Tablero(celdaInicial);
+        tablero.armarMapa(cantidadCeldas);
 
         Gladiador gladiador1 = new Gladiador();
         Gladiador gladiador2 = new Gladiador();

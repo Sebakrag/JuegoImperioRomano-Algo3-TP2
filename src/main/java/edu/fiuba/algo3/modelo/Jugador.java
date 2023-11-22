@@ -26,12 +26,12 @@ public class Jugador {
         return aDevolver;
     }
 
+    // Este metodo iria en Juego:
     public boolean chequearTurno(){
         if (this.turnos != 30) {
             this.turnos ++;
             return true;
         } else {
-           //juego.terminarPartida();
             return false;
         }
     }

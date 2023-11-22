@@ -9,32 +9,31 @@ import java.util.Random;
 
 public class Tablero {
     private Celda celdaInicial;
-    private int tamanio; //
+    private int tamanio;
     //private ArrayList<Afectante> afectantes;
 
-    public Tablero(int cantidadCeldas, CeldaInicial celdaInicial) {
-        this.tamanio = cantidadCeldas;
+    public Tablero(CeldaInicial celdaInicial) {
         this.celdaInicial = celdaInicial;
         //this.afectantes = new ArrayList<>();
     }
 
-    public void armarMapa(){
+    public void armarMapa(int cantidadCeldas){
         Afectante afectante = new Vacio();  // Esto deberia ser un RANDOM siguiendo el mapa del JSON.
         Celda actual = this.celdaInicial;
         int i = 1;
-        for (; i < (this.tamanio - 1); i++) {
+        for (; i < (cantidadCeldas - 1); i++) {
             Celda celdaComun = new CeldaComun(i, i, afectante);
             actual.setSiguiente(celdaComun);
             actual = celdaComun;
         }
-        Celda celdaMedio = this.buscarCeldaDelMedio();
+        Celda celdaMedio = this.buscarCeldaDelMedio(cantidadCeldas);
         Celda celdaFinal = new CeldaFinal(celdaMedio, i, i);
         actual.setSiguiente(celdaFinal);
     }
 
-    private Celda buscarCeldaDelMedio() {
+    private Celda buscarCeldaDelMedio(int cantidadCeldas) {
         Celda celdaMedio = this.celdaInicial;
-        for (int i = 1; i < (tamanio / 2) ; i++) {
+        for (int i = 1; i < (cantidadCeldas / 2) ; i++) {
             celdaMedio = celdaMedio.celdaSiguiente();
         }
         return celdaMedio;
