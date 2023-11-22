@@ -139,11 +139,15 @@ public class CasosDeUsoSemana1Test {
 
     @Test
     public void test08AlPasarOchoTurnosElGladiadorPasaDeNovatoASemiSenior() {
-        Celda celdaInicial = new CeldaInicial();
+        CeldaInicial celdaInicial = new CeldaInicial();
+        int cantidadCeldas = 20;
+        Tablero tablero = new Tablero(cantidadCeldas, celdaInicial);
+        tablero.armarMapa();
+
         Gladiador gladiador = new Gladiador();
         Jugador jugador = new Jugador(gladiador, celdaInicial);
-        int energiaInicial = 20;
         int energiaEsperada= 25;
+
         for(int i = 0; i < 8; i++){
             jugador.jugarTurno();
         }
@@ -164,7 +168,7 @@ public class CasosDeUsoSemana1Test {
         Jugador jugador = new Jugador(gladiador, celdaInicial);
         int coordenadaXMedio = 0;
         int coordenadaYMedio = 0;
-        
+
         jugador.jugarTurno();
 
         Assertions.assertTrue(jugador.estaEnCelda(coordenadaXMedio, coordenadaYMedio));
