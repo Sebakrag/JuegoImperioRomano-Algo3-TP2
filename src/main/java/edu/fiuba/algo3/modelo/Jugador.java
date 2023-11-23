@@ -13,21 +13,25 @@ public class Jugador {
 
     // -------------------------------- PUBLICOS -------------------------------- //
     public void jugarTurno(Dado dado) {
-        // Implementar el chequeo de turno en juego
         int cantidadAAvanzar = this.tirarDado(dado);
 
         if (this.avanzar(cantidadAAvanzar))
             this.celdaActual.afectar(this.gladiador);
+            //if (this.celdaActual.esCeldaFinal()) // sabemos que hay que fletarlo
+            //    this.celdaActual = this.celdaActual.celdaSiguiente();
+
+        // jugador.ganarJuego();     A analizar...
+        // this.juego.gano(jugador);     A analizar...
 
         this.gladiador.mejorarSeniority(this.turno);
         this.gladiador.aumentarEnergia();
     }
 
     public int tirarDado(Dado dado) {
+        this.turno++;
         if (this.gladiador.tieneEnergia()) {
             return dado.tirar();
         }
-        this.turno++;
         return 0;
     }
 
@@ -43,22 +47,25 @@ public class Jugador {
         return (this.celdaActual.tieneCoordenadas(x, y));
     }
 
-    public boolean totalmenteEquipado(){
-        return this.gladiador.totalmenteEquipado();
-    }
-
-    public void posicionar(Celda celda){
-        this.celdaActual = celda;
+    public void totalmenteEquipado() {
+        if (!this.gladiador.totalmenteEquipado()) {
+            this.celdaActual = this.celdaActual.celdaSiguiente();
+        }
     }
 
     // -------------------------------- PRIVADOS -------------------------------- //
     private boolean avanzar(int cantidad) {
+
         boolean avanza = false;
         for (int i = 0; i < cantidad; i++) {
             if (!(this.celdaActual.esCeldaFinal())) {
-                this.celdaActual = this.celdaActual.celdaSiguiente();
+                this.celdaActual = this.celdaActual.celdaSiguiente(); //this.posicionar(this.celdaActual.celdaSiguiente()); ?
+            } else {
+                this.totalmenteEquipado();
+                return true;//NO nos gusta ! ver de cambiar-> es un espanto
             }
             avanza = true;
+
         }
         return avanza;
     }

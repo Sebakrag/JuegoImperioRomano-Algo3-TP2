@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.celdas;
 
 import edu.fiuba.algo3.modelo.Celda;
+import edu.fiuba.algo3.modelo.Gladiador;
 import edu.fiuba.algo3.modelo.afectantes.*;
 import edu.fiuba.algo3.modelo.Jugador;
 
@@ -13,13 +14,11 @@ public class CeldaFinal extends Celda {
         this.y = y;
     }
 
-    public void afectar(Jugador jugador) {
-        if (!(jugador.totalmenteEquipado())) {
-            jugador.posicionar(this.celdaSiguiente());
-        }
-        // jugador.ganarJuego();     A analizar...
-        // this.juego.gano(jugador);     A analizar...
+    public void afectar(Gladiador gladiador) {
+        afectante.afectar(gladiador);
     }
+
+    //public void
 
     public boolean esCeldaFinal(){
         return true;

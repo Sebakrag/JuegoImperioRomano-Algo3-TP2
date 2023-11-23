@@ -58,7 +58,7 @@ public class Gladiador extends Personaje {
         this.energia = comida.calcularEnergia(this.energia);
     }
 
-    public void recibirImpacto(MejorarEquipamiento mejorador) {
+    public void recibirImpacto(Potenciador potenciador) {
         this.equipamiento = this.equipamiento.mejorarEquipamiento();
     }
 

@@ -2,6 +2,7 @@ package edu.fiuba.algo3.modelo.celdas;
 
 import edu.fiuba.algo3.modelo.Afectante;
 import edu.fiuba.algo3.modelo.Celda;
+import edu.fiuba.algo3.modelo.Gladiador;
 import edu.fiuba.algo3.modelo.afectantes.*;
 
 public class CeldaInicial extends Celda {
@@ -16,7 +17,10 @@ public class CeldaInicial extends Celda {
         this.x = 0;
         this.y = 0;
     }
+    public void afectar(Gladiador gladiador) {
+        afectante.afectar(gladiador); //VER
 
+    }
     public boolean esCeldaFinal(){
         return false;
     }
