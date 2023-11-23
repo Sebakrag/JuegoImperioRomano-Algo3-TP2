@@ -1,9 +1,6 @@
 package edu.fiuba.algo3.modelo.equipamientos;
 
-import edu.fiuba.algo3.modelo.Afectante;
 import edu.fiuba.algo3.modelo.Equipamiento;
-import edu.fiuba.algo3.modelo.Jugador;
-import edu.fiuba.algo3.modelo.equipamientos.DecoradorEquipamiento;
 
 
 public class EscudoYEspada extends DecoradorEquipamiento {
@@ -17,8 +14,8 @@ public class EscudoYEspada extends DecoradorEquipamiento {
         return new Llave(this);
     }
 
-    public int recibirAtaque(){
-        return DANIO;
+    public int recibirAtaque(int energiaActual){
+        return (energiaActual - DANIO);
     }
 
     public boolean equipoCompleto(){

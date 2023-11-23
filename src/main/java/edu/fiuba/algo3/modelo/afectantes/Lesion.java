@@ -1,5 +1,11 @@
 package edu.fiuba.algo3.modelo.afectantes;
 
-public class Lesion {
-    //el turno siguiente no avanza
+import edu.fiuba.algo3.modelo.Afectante;
+import edu.fiuba.algo3.modelo.Gladiador;
+
+public class Lesion implements Afectante {
+
+    public void afectar(Gladiador gladiador){
+        gladiador.recibirImpacto(this);
+    }
 }

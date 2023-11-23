@@ -7,5 +7,5 @@ public abstract class DecoradorEquipamiento extends Equipamiento {
 
     public abstract Equipamiento mejorarEquipamiento();
 
-    public abstract int recibirAtaque();
+    public abstract int recibirAtaque(int energiaActual);
 }

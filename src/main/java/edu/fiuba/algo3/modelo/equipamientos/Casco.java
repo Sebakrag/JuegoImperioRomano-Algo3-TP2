@@ -16,8 +16,8 @@ public class Casco extends DecoradorEquipamiento {
         return new Armadura(this);
     }
 
-    public int recibirAtaque() {
-        return DANIO;
+    public int recibirAtaque(int energiaActual) {
+        return (energiaActual - DANIO);
     }
 
     public boolean equipoCompleto(){

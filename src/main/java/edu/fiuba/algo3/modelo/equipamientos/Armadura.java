@@ -16,8 +16,8 @@ public class Armadura extends DecoradorEquipamiento {
         return new EscudoYEspada(this);
     }
 
-    public int recibirAtaque(){
-        return DANIO;
+    public int recibirAtaque(int energiaActual){
+        return (energiaActual - DANIO);
     }
 
     public boolean equipoCompleto() {

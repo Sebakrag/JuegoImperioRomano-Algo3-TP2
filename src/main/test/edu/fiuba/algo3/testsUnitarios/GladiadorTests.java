@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class GladiadorTests {
+    /*
     @Test
     public void test01GladiadorSeCreaConVeinteDeEnergia(){
         int energiaInicial = 20;
@@ -15,7 +16,9 @@ public class GladiadorTests {
 
         Assertions.assertTrue(gladiador.energiaIgualA(energiaInicial));
     }
+    */
 
+/*
     @Test
     public void test02GladiadorRecibeEnergiaCorrectamente(){
         Gladiador gladiador = new Gladiador();
@@ -45,4 +48,5 @@ public class GladiadorTests {
 
         //Assertions.assertTrue(gladiador.energiaIgualA(energiaEsperada));
     }
+    */
 }

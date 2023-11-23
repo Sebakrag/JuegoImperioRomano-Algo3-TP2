@@ -7,24 +7,27 @@ import java.util.*;
 
 public class Juego {
     private Tablero tablero;
+    private Dado dado;
     private int cantidadJugadores;  // Lo borramos? Podemos pedirlo por interfaz grafica.
     private ArrayList<Jugador> jugadores;
+    private int ronda;
 
     public Juego() {
         // Instanciar la interfaz grafica --> se pide la cantidad de jugadores y el ingreso de los nombres.??????
         // VERIFICAR QUE LOS JUGADORES INGRESADOS SEN ENTRE 2 Y 6
-        this.jugadores = new ArrayList<Jugador>();
 
+        this.jugadores = new ArrayList<Jugador>();
         CeldaInicial celdaInicial = new CeldaInicial();
         this.tablero = new Tablero(celdaInicial);
+        this.dado = new Dado();
     }
 
     public void iniciarJuego(int cantidadCeldas){
         this.tablero.armarMapa(cantidadCeldas);
 
-        //Cantidad de jugadores a jugar -> Lo pedimos por interfaz.
-        this.crearJugadores(this.cantidadJugadores);
+        //Cantidad de jugadores a jugar -> Lo pedimos por inter
 
+        //jugador.dado();
 
     }
 
@@ -36,13 +39,13 @@ public class Juego {
         }
     }
 
-    // Este metodo va aca (no en Jugador):
-    // public boolean chequearTurno(){
-    //     if (this.turnos != 30) {
-    //         this.turnos ++;
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-    // }
+
+    public boolean chequearRonda(){
+         if (this.ronda != 30) {
+             this.ronda ++;
+             return true;
+         } else {
+             return false;
+         }
+     }
 }
