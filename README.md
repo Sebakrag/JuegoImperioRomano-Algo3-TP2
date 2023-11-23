@@ -5,7 +5,6 @@
 # TP2 Algoritmos 3: {Grupo 2}
 
 Trabajo Práctico número 2 de la materia Algoritmos y Programación III de FIUBA
-
 ## Grupo {N}
 
 - **Integrante 1** - [Florencia Pratto](https://github.com/fnpratto)

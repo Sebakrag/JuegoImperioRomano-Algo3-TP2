@@ -1,0 +1,28 @@
+package edu.fiuba.algo3.modelo;
+
+import edu.fiuba.algo3.modelo.Gladiador;
+
+public abstract class Celda {
+    protected Celda siguiente;
+    protected int x;
+    protected int y;
+    protected Afectante afectante;
+
+    public void afectar(Gladiador gladiador){
+        this.afectante.afectar(gladiador);
+    }
+
+    public boolean tieneCoordenadas(int x, int y){
+        return ((this.x == x) && (this.y == y));
+    }
+
+    public Celda celdaSiguiente(){
+        return this.siguiente;
+    }
+
+    public void setSiguiente(Celda siguiente) {
+        this.siguiente = siguiente;
+    }
+
+    public abstract boolean esCeldaFinal();
+}
