@@ -7,27 +7,33 @@ import java.util.Random;
 public class Jugador {
     private Gladiador gladiador;
     private int turnos;
-    private int casillaActual;
+    private Celda celdaActual;
 
-    //private Casilla casilla;
-
-    public Jugador(Gladiador gladiador) {
+    public Jugador(Gladiador gladiador, Celda celdaInicial) {
         this.gladiador = gladiador;
         this.turnos = 0;
-        this.casillaActual = 0;
+        this.celdaActual = celdaInicial;
     }
 
     // -------------------------------- PUBLICOS -------------------------------- //
-    public void jugarTurno() {
+    public boolean jugarTurno() {
+        boolean aDevolver = this.chequearTurno();
         int cantidadAAvanzar = this.tirarDado();
         this.avanzar(cantidadAAvanzar);
-        this.turnos++;
+        this.celdaActual.afectar(this);
         this.gladiador.mejorarSeniority(this.turnos);
-        this.aumentarEnergiaConSeniority();
+        this.gladiador.aumentarEnergiaConSeniority();
+        return aDevolver;
     }
 
-    public void aumentarEnergiaConSeniority() {
-        this.gladiador.aumentarEnergiaConSeniority();
+    // Este metodo iria en Juego:
+    public boolean chequearTurno(){
+        if (this.turnos != 30) {
+            this.turnos ++;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public boolean tieneTurnosIgualA(int cantidad) {
@@ -38,10 +44,12 @@ public class Jugador {
         return this.gladiador.energiaIgualA(energia);
     }
 
-    public boolean estaEnCasilla(int numeroCasilla) {
-        return (this.casillaActual == numeroCasilla);
+    public boolean estaEnCelda(int x, int y) {
+        return (this.celdaActual.tieneCoordenadas(x, y));
     }
 
+    // -- REFACTOR -- //
+    //public void recibirImpacto(Afectante afectante);
     public void recibirEnergia(int aumentoEnergia) {
         this.gladiador.recibirEnergia(aumentoEnergia);
     }
@@ -57,10 +65,23 @@ public class Jugador {
     public void recibirDanio(int danio) {
         this.gladiador.recibirDanio(danio);
     }
+    // -- REFACTOR -- //
+
+    public boolean totalmenteEquipado(){
+        return this.gladiador.totalmenteEquipado();
+    }
+
+    public void posicionar(Celda celda){
+        this.celdaActual = celda;
+    }
 
     // -------------------------------- PRIVADOS -------------------------------- //
     private void avanzar(int cantidad) {
-        this.casillaActual += cantidad;
+        for (int i = 0; i < cantidad; i++) {
+            if (!(this.celdaActual.esCeldaFinal())) {
+                this.celdaActual = this.celdaActual.celdaSiguiente();
+            }
+        }
     }
 
     private int tirarDado() {

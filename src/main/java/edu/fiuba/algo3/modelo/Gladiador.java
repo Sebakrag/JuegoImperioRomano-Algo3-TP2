@@ -19,6 +19,7 @@ public class Gladiador {
     }
 
     // -------------------------------- PUBLICOS -------------------------------- //
+
     public void aumentarEnergiaConSeniority(){
         this.energia += this.seniority.aumentarEnergia();
     }
@@ -47,7 +48,12 @@ public class Gladiador {
 
     public void recibirEnergia(int energia) { this.aumentarEnergia(energia); }
 
+    public boolean totalmenteEquipado(){
+        return this.equipamiento.equipoCompleto();
+    }
+
     // -------------------------------- PRIVADOS -------------------------------- //
+
     private void disminuirEnergia(int energia) {
         this.energia -= energia;
     }
