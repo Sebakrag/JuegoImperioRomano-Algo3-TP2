@@ -1,21 +1,18 @@
 package edu.fiuba.algo3.modelo.equipamientos;
 
 import edu.fiuba.algo3.modelo.Equipamiento;
+import edu.fiuba.algo3.modelo.afectantes.Potenciador;
 
 
-public class EscudoYEspada extends DecoradorEquipamiento {
-    private static final int PROTECCION = 8;
+public class EscudoYEspada implements Equipamiento {
+    private static final int DANIO = 2;
 
-    public EscudoYEspada(Equipamiento equipamiento){
-        this.equipamiento = equipamiento;
-    }
-
-    public Equipamiento mejorarEquipamiento() {
-        return new Llave(this);
+    public Equipamiento mejorarEquipamiento(Potenciador potenciador) {
+        return potenciador.equipamientoSiguiente(this);
     }
 
     public int recibirAtaque(int energiaActual){
-        return this.equipamiento.recibirAtaque(energiaActual + PROTECCION);
+        return (energiaActual - DANIO);
     }
 
     public boolean equipoCompleto(){

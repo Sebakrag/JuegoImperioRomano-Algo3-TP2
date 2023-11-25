@@ -1,9 +1,11 @@
 package edu.fiuba.algo3.modelo;
 
-public abstract class Equipamiento {
-    public abstract Equipamiento mejorarEquipamiento();
+import edu.fiuba.algo3.modelo.afectantes.Potenciador;
 
-    public abstract int recibirAtaque(int energia);
+public interface Equipamiento {
+    public Equipamiento mejorarEquipamiento(Potenciador potenciador);
 
-    public abstract boolean equipoCompleto();
+    public int recibirAtaque(int energia);
+
+    public boolean equipoCompleto();
 }

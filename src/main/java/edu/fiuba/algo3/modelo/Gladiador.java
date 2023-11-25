@@ -59,7 +59,7 @@ public class Gladiador extends Personaje {
     }
 
     public void recibirImpacto(Potenciador potenciador) {
-        this.equipamiento = this.equipamiento.mejorarEquipamiento();
+        this.equipamiento = this.equipamiento.mejorarEquipamiento(potenciador);
     }
 
     public void recibirImpacto(Vacio vacio) {
