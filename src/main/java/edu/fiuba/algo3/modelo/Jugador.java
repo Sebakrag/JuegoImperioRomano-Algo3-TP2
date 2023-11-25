@@ -14,10 +14,11 @@ public class Jugador {
     // -------------------------------- PUBLICOS -------------------------------- //
     public void jugarTurno(Dado dado) {
         this.turno++;
+        
         if (!this.gladiador.estaLesionado() && this.gladiador.tieneEnergia()) {
             int cantidadAAvanzar = dado.tirar();
             this.avanzar(cantidadAAvanzar);
-            this.celdaActual.afectar(this.gladiador);
+            this.celdaActual = this.celdaActual.afectar(this.gladiador);
 
         } else {
             this.gladiador.sanar();
@@ -51,12 +52,7 @@ public class Jugador {
     // -------------------------------- PRIVADOS -------------------------------- //
     private void avanzar(int cantidad) {
         for (int i = 0; i < cantidad; i++) {
-            if (!(this.celdaActual.esCeldaFinal())) {
-                this.celdaActual = this.celdaActual.celdaSiguiente(); //this.posicionar(this.celdaActual.celdaSiguiente()); ?
-            } else {
-                this.totalmenteEquipado();
-                return;//NO nos gusta ! ver de cambiar-> es un espanto
-            }
+            this.celdaActual = this.celdaActual.celdaSiguiente();
         }
     }
 

@@ -17,11 +17,14 @@ public class CeldaInicial extends Celda {
         this.x = 0;
         this.y = 0;
     }
-    public void afectar(Gladiador gladiador) {
-        afectante.afectar(gladiador); //VER
 
+    public Celda afectar(Gladiador gladiador){
+        this.afectante.afectar(gladiador);
+        return this;
     }
-    public boolean esCeldaFinal(){
-        return false;
+
+    @Override
+    public Celda celdaSiguiente(){
+        return this.siguiente;
     }
 }

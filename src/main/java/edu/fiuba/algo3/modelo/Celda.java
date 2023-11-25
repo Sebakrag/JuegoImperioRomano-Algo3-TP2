@@ -8,21 +8,14 @@ public abstract class Celda {
     protected int y;
     protected Afectante afectante;
 
-    public void afectar(Gladiador gladiador){
-        this.afectante.afectar(gladiador);
-    }
+    public abstract Celda afectar(Gladiador gladiador);
 
     public boolean tieneCoordenadas(int x, int y){
         return ((this.x == x) && (this.y == y));
     }
 
-    public Celda celdaSiguiente(){
-        return this.siguiente;
-    }
+    public abstract Celda celdaSiguiente();
 
-    public void setSiguiente(Celda siguiente) {
-        this.siguiente = siguiente;
-    }
+    public void setSiguiente(Celda siguiente){ this.siguiente = siguiente;};
 
-    public abstract boolean esCeldaFinal();
 }

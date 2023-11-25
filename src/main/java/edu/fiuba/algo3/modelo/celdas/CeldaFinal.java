@@ -7,20 +7,22 @@ import edu.fiuba.algo3.modelo.Jugador;
 
 public class CeldaFinal extends Celda {
 
-    public CeldaFinal(Celda siguiente, int x, int y) {
-        this.siguiente = siguiente;
+    public CeldaFinal(Celda medio, int x, int y) {
+        this.siguiente = medio;
         this.afectante = new Vacio();
         this.x = x;
         this.y = y;
     }
 
-    public void afectar(Gladiador gladiador) {
-        afectante.afectar(gladiador);
+    @Override
+    public Celda celdaSiguiente(){
+        return this;
     }
 
-    //public void
-
-    public boolean esCeldaFinal(){
-        return true;
+    public Celda afectar(Gladiador gladiador){
+        if (gladiador.totalmenteEquipado()){
+            return this;
+        }
+        return siguiente;
     }
 }
