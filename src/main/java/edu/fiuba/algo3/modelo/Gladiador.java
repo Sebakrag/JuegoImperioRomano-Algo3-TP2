@@ -9,14 +9,13 @@ public class Gladiador extends Personaje {
     private static final int ENERGIA_INICIAL = 20;
     private static final int SIN_ENERGIA = 0;
 
-    //private int energia;
-    //private Seniority seniority;
-    //private Equipamiento equipamiento;
+    private boolean lesionado;
 
     public Gladiador() {
         this.energia = ENERGIA_INICIAL;
         this.seniority = new Novato();
         this.equipamiento = new Desequipado();
+        this.lesionado = false;
     }
 
     // -------------------------------- PUBLICOS -------------------------------- //
@@ -30,7 +29,11 @@ public class Gladiador extends Personaje {
     }
 
     public boolean tieneEnergia() {
-        return this.energia > SIN_ENERGIA;
+        boolean tieneEnergia = energia > SIN_ENERGIA;
+        if(!tieneEnergia){
+            this.energia += 5;
+        }
+        return tieneEnergia;
     }
 
     public void mejorarSeniority(int turnos) {
@@ -48,10 +51,7 @@ public class Gladiador extends Personaje {
     }
 
     public void recibirImpacto(Lesion lesion) {
-        // PROBLEMA con la propuesta de cambio:
-        // Aqui el Jugador en el siguiente turno no avanza.
-        // Esta logica quizas es conveniente que este en Jugador por el hecho de que un
-        // jugador tiene la cantidad de turnos.
+        this.lesionado = true;
     }
 
     public void recibirImpacto(Comida comida) {      // Este metodo reemplaza el metodo 'recibirEnergia()' de Gladiador
@@ -66,20 +66,11 @@ public class Gladiador extends Personaje {
         //no hace nada;)
     }
 
-    /*
-    public void recibirImpacto(Afectante afectante){
-        afectante.afectar(this);
+    public void sanar(){
+        this.lesionado = false;
     }
-*/
 
+    public boolean estaLesionado(){
+        return this.lesionado;
+    }
 }
-
- /*
-    interface recibirImparto{
-        recibirImpacto()
-    }
-
-    class VacioImpacto extends recibirImpacto {
-
-    }
-    */

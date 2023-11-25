@@ -16,6 +16,7 @@ public class Potenciador implements Afectante {
     public Equipamiento equipamientoSiguiente(Casco casco) {
         return new Armadura();
     }
+
     public Equipamiento equipamientoSiguiente(Armadura armadura) {
         return new EscudoYEspada();
     }

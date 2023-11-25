@@ -7,4 +7,5 @@ public abstract class Personaje {
     protected Seniority seniority;
     protected Equipamiento equipamiento;
 
+
 }

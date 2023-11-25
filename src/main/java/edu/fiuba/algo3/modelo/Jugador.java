@@ -13,27 +13,23 @@ public class Jugador {
 
     // -------------------------------- PUBLICOS -------------------------------- //
     public void jugarTurno(Dado dado) {
-        int cantidadAAvanzar = this.tirarDado(dado);
-
-        if (this.avanzar(cantidadAAvanzar))
+        this.turno++;
+        if (!this.gladiador.estaLesionado() && this.gladiador.tieneEnergia()) {
+            int cantidadAAvanzar = dado.tirar();
+            this.avanzar(cantidadAAvanzar);
             this.celdaActual.afectar(this.gladiador);
-            //if (this.celdaActual.esCeldaFinal()) // sabemos que hay que fletarlo
-            //    this.celdaActual = this.celdaActual.celdaSiguiente();
 
-        // jugador.ganarJuego();     A analizar...
-        // this.juego.gano(jugador);     A analizar...
-
+        } else {
+            this.gladiador.sanar();
+        }
+        /*
+         * Suponemos que: el seniority se mejora independientemente de si el jugador tiro o no los dados. Dado que esta
+         * ligado a la cantidad de turnos.
+         * */
         this.gladiador.mejorarSeniority(this.turno);
         this.gladiador.aumentarEnergia();
     }
 
-    public int tirarDado(Dado dado) {
-        this.turno++;
-        if (this.gladiador.tieneEnergia()) {
-            return dado.tirar();
-        }
-        return 0;
-    }
 
     public boolean tieneTurnosIgualA(int cantidad) {
         return (this.turno == cantidad);
@@ -46,7 +42,6 @@ public class Jugador {
     public boolean estaEnCelda(int x, int y) {
         return (this.celdaActual.tieneCoordenadas(x, y));
     }
-
     public void totalmenteEquipado() {
         if (!this.gladiador.totalmenteEquipado()) {
             this.celdaActual = this.celdaActual.celdaSiguiente();
@@ -54,21 +49,17 @@ public class Jugador {
     }
 
     // -------------------------------- PRIVADOS -------------------------------- //
-    private boolean avanzar(int cantidad) {
-
-        boolean avanza = false;
+    private void avanzar(int cantidad) {
         for (int i = 0; i < cantidad; i++) {
             if (!(this.celdaActual.esCeldaFinal())) {
                 this.celdaActual = this.celdaActual.celdaSiguiente(); //this.posicionar(this.celdaActual.celdaSiguiente()); ?
             } else {
                 this.totalmenteEquipado();
-                return true;//NO nos gusta ! ver de cambiar-> es un espanto
+                return;//NO nos gusta ! ver de cambiar-> es un espanto
             }
-            avanza = true;
-
         }
-        return avanza;
     }
+
 }
 
 
