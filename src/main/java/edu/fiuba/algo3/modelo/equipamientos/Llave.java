@@ -4,7 +4,7 @@ import edu.fiuba.algo3.modelo.Equipamiento;
 
 
 public class Llave extends DecoradorEquipamiento {
-    private static final int DANIO = 0;
+    private static final int PROTECCION = 2;
 
     public Llave(Equipamiento equipamiento){
         this.equipamiento = equipamiento;
@@ -15,7 +15,7 @@ public class Llave extends DecoradorEquipamiento {
     }
 
     public int recibirAtaque(int energiaActual){
-        return (energiaActual - DANIO);
+        return this.equipamiento.recibirAtaque(energiaActual + PROTECCION);
     }
 
     public boolean equipoCompleto(){
