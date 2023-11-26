@@ -14,14 +14,15 @@ public class SemiSeniorTests {
 
         Assertions.assertEquals(semiSenior, seniortyActual);
     }
-    /*@Test
+
+   /* @Test
     public void test02SiTurnoEsDoceAscenderDevuelveSiguienteSeniority(){
         SemiSenior semiSenior = new SemiSenior();
         int turno = 12;
 
-        Seniority seniortyActual = semiSenior.ascender(turno);
+        Seniority seniorityActual = semiSenior.ascender(turno);
 
-        Assertions.assertNotEquals(semiSenior, seniortyActual);
+        Assertions.assertEquals(semiSenior, seniorityActual);
     }*/
 
 }

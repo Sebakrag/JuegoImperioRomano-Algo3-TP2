@@ -6,6 +6,4 @@ public abstract class Personaje {
     protected int energia;
     protected Seniority seniority;
     protected Equipamiento equipamiento;
-
-
 }

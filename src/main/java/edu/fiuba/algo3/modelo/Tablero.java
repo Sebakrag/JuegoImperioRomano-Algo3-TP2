@@ -10,6 +10,8 @@ import java.util.Random;
 public class Tablero {
     private Celda celdaInicial;
     private int tamanio;
+    private int ancho;
+    private int largo;
     //private ArrayList<Afectante> afectantes;
 
     public Tablero(CeldaInicial celdaInicial) {
@@ -37,5 +39,9 @@ public class Tablero {
             celdaMedio = celdaMedio.celdaSiguiente();
         }
         return celdaMedio;
+    }
+
+    public Celda getCeldaInicial(){
+        return this.celdaInicial;
     }
 }

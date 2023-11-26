@@ -10,4 +10,9 @@ public class Dado {
         Random random = new Random();
         return random.nextInt(CARAS_DADO) + 1;
     }
+    
+    public int tirarCon(int cantidadMax){
+        Random random = new Random();
+        return random.nextInt(cantidadMax);
+    }
 }

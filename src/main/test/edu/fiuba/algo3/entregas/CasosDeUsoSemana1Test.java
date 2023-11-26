@@ -1,15 +1,11 @@
 package edu.fiuba.algo3.entregas;
 
-import java.util.Arrays;
-import java.util.List;
-import edu.fiuba.algo3.modelo.seniorities.*;
+
+import edu.fiuba.algo3.modelo.excepcion.PasaronTreintaRondasYnoHuboGanadorError;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import edu.fiuba.algo3.modelo.*;
-import edu.fiuba.algo3.modelo.equipamientos.*;
 import edu.fiuba.algo3.modelo.afectantes.*;
-import java.util.Random;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import edu.fiuba.algo3.modelo.celdas.*;
 
 public class CasosDeUsoSemana1Test {
@@ -237,35 +233,10 @@ public class CasosDeUsoSemana1Test {
         Assertions.assertTrue(jugador.energiaIgualA(energiaEsperada));
     }
 
-    /*
     @Test
     public void test12AlPasarTreintaTurnosYnadieLlegaAlaMetaSeTerminoElJuego() {
-
-        int cantidadCeldas = 3;
-
-        CeldaInicial celdaInicial = new CeldaInicial();
-        Tablero tablero = new Tablero(celdaInicial);
-
-        Gladiador gladiador1 = new Gladiador();
-        Gladiador gladiador2 = new Gladiador();
-        Jugador jugador1 = new Jugador(gladiador1, celdaInicial);
-        Jugador jugador2 = new Jugador(gladiador2, celdaInicial);
-        Dado dado = new Dado();
-
-        tablero.armarMapa(cantidadCeldas);
-
-        for (int i = 0; i < 30; i++) {
-            jugador1.jugarTurno(dado);
-            jugador2.jugarTurno(dado);
-        }
-
         Juego juego = new Juego();
-        for(int i = 0; i < 30; i++){
-            juego.chequearRonda();
-        }
-        //Assertions.assertFalse(jugador1.jugarTurno(dado));
-        Assertions.assertFalse(juego.chequearRonda());
 
+        Assertions.assertThrows(PasaronTreintaRondasYnoHuboGanadorError.class, () -> juego.iniciarPartida(3,2));
     }
-*/
 }

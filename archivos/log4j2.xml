@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%-5p %c{1} [%t] - %m%n"/>
+        </Console>
+
+        <RollingFile name="main" fileName="main.log"
+                     filePattern="app-%d{MM-dd-yyyy}-%i.log">
+            <LevelRangeFilter minLevel="FATAL" maxLevel="TRACE" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="%d %d{Z} [%t] %-5p (%F:%L) - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+        </RollingFile>
+
+        <RollingFile name="user" fileName="user.log"
+                     filePattern="person-%d{MM-dd-yyyy}-%i.log">
+            <LevelRangeFilter minLevel="FATAL" maxLevel="TRACE" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="%d %d{Z} [%t] %-5p (%F:%L) - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+
+        <Logger name="Logeeer">
+            <AppenderRef ref="Logeeer"/>
+        </Logger>
+
+        <Logger name="Mensaje">
+            <AppenderRef ref="Mensaje"/>
+        </Logger>
+
+        <Root level="all">
+            <AppenderRef ref="console"/>
+        </Root>
+
+    </Loggers>
+
+</Configuration>

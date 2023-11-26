@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo;
 
 public class Jugador {
+    private static final int CANTIDAD_MAXIMA_DE_RONDAS = 30;
     private Gladiador gladiador;
     private int turno;
     private Celda celdaActual;
@@ -13,6 +14,7 @@ public class Jugador {
 
     // -------------------------------- PUBLICOS -------------------------------- //
     public void jugarTurno(Dado dado) {
+
         this.turno++;
         
         if (!this.gladiador.estaLesionado() && this.gladiador.tieneEnergia()) {
@@ -55,7 +57,6 @@ public class Jugador {
             this.celdaActual = this.celdaActual.celdaSiguiente();
         }
     }
-
 }
 
 
