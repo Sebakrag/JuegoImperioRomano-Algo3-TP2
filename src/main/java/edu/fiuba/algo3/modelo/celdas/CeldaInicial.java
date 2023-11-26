@@ -13,13 +13,22 @@ public class CeldaInicial extends Celda {
     // celda inicial.
 
     public CeldaInicial() {
-        this.afectante = new Vacio();
+        this.premio = new Vacio();
+        this.obstaculo = new Vacio();
         this.x = 0;
         this.y = 0;
     }
 
+    public CeldaInicial(int x, int y) {
+        this.premio = new Vacio();
+        this.obstaculo = new Vacio();
+        this.x = x;
+        this.y = y;
+    }
+
     public Celda afectar(Gladiador gladiador){
-        this.afectante.afectar(gladiador);
+        this.premio.afectar(gladiador);
+        this.obstaculo.afectar(gladiador);
         return this;
     }
 

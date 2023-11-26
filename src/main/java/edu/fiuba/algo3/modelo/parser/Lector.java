@@ -17,26 +17,29 @@ import org.json.simple.parser.ParseException;
 
 
 public class Lector {
-    private static final String RUTA = "/archivos/mapa.json";
+    private static final String RUTA_ARCHIVO = "/archivos/mapa.json";
 
-    public void leerArchivo(String ruta) {
+    public void leerArchivo(String ruta) throws ArchivoNoEncontradoError {
         JSONParser jsonParser = new JSONParser();
 
         try (FileReader lectorJson = new FileReader(System.getProperty("user.dir") + ruta)) {
             Object objetoParseado = jsonParser.parse(lectorJson);
             generarTablero(objetoParseado);
+
         } catch (FileNotFoundException e) {
             throw new ArchivoNoEncontradoError(System.getProperty("user.dir") + ruta);
-        } catch(IOException | ParseException e) {
+        } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
     }
 
     public void generarTablero(Object objetoParseado) {
         JSONObject tablero = (JSONObject) objetoParseado;
+        TableroParser tableroParser = new TableroParser();
 
-        ArrayList<Celda> celdas = new ArrayList<Celda>();
+        Tablero tableroCreado = tableroParser.parse(tablero);
     }
+}
 
 /*
     public Tablero parse(JSONObject tablero) {
@@ -46,8 +49,9 @@ public class Lector {
         int largo = (int) mapa.get("largo");
 
         JSONObject camino = (JSONObject) tablero.get("camino");
-        JSONArray celdas = (JSONArray) camino.get("celdas");
+        JSONArray jsCeldas = (JSONArray) camino.get("celdas");
 
+        ArrayList<Celda> celdas = parse(jsCeldas);
         for (int i = 0; i < celdas.size(); i++) {
             JSONObject celda = (JSONObject) celdas.get(i);
             int x = (int) celda.get("x");
@@ -69,5 +73,4 @@ public class Lector {
 
         return FabricaDePreguntas.CrearOrden(enunciado,respuestasOrdenadas);
     }*/
-}
 

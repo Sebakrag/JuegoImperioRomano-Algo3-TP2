@@ -7,9 +7,9 @@ import edu.fiuba.algo3.modelo.Jugador;
 
 public class CeldaFinal extends Celda {
 
-    public CeldaFinal(Celda medio, int x, int y) {
-        this.siguiente = medio;
-        this.afectante = new Vacio();
+    public CeldaFinal(int x, int y) {
+        this.premio = new Vacio();
+        this.obstaculo = new Vacio();
         this.x = x;
         this.y = y;
     }

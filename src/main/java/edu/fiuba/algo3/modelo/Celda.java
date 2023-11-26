@@ -6,7 +6,8 @@ public abstract class Celda {
     protected Celda siguiente;
     protected int x;
     protected int y;
-    protected Afectante afectante;
+    protected Afectante premio;
+    protected Afectante obstaculo;
 
     public abstract Celda afectar(Gladiador gladiador);
 
@@ -17,5 +18,4 @@ public abstract class Celda {
     public abstract Celda celdaSiguiente();
 
     public void setSiguiente(Celda siguiente){ this.siguiente = siguiente;};
-
 }
