@@ -4,6 +4,7 @@ import edu.fiuba.algo3.modelo.afectantes.Vacio;
 import edu.fiuba.algo3.modelo.celdas.CeldaComun;
 import edu.fiuba.algo3.modelo.celdas.CeldaFinal;
 import edu.fiuba.algo3.modelo.celdas.CeldaInicial;
+import edu.fiuba.algo3.modelo.excepcion.*;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -13,11 +14,6 @@ public class Tablero {
     //private int ancho;
     //private int largo;
     //private ArrayList<Afectante> afectantes;
-
-    public Tablero(Celda celdaInicial) {
-        this.celdaInicial = celdaInicial;
-        //this.afectantes = new ArrayList<>();
-    }
 
     /*
     public void armarMapa(int cantidadCeldas){
@@ -35,7 +31,10 @@ public class Tablero {
     }
 */
     public void armarMapa(ArrayList<Celda> celdas){
-        //Afectante afectante = new Vacio();  Esto deberia ser un RANDOM siguiendo el mapa del JSON.
+        if ( celdas.size() < 2 ){
+            throw new CantidadInvalidaDeCeldasError();
+        }
+        this.celdaInicial = celdas.get(0);
         Celda actual = celdas.get(0);
         int i = 1;
         for (; i < celdas.size(); i++) {

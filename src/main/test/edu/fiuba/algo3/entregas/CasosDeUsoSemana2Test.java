@@ -1,26 +1,29 @@
 package edu.fiuba.algo3.entregas;
 
-import edu.fiuba.algo3.modelo.excepcion.ArchivoNoEncontradoError;
+import edu.fiuba.algo3.modelo.parser.TableroParser;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
-import edu.fiuba.algo3.modelo.parser.Lector;
 
 
 public class CasosDeUsoSemana2Test {
 
     @Test
     public void test13ElFormatoDelMapaJsonEsValido(){
-        String rutaJsonValida = "archivos/mapa.json";
-        Lector lector = new Lector();
+        String rutaJsonValida = "/archivos/mapa.json";
+        TableroParser tableroParser = new TableroParser();
 
-        Assertions.assertDoesNotThrow(() -> lector.leerArchivo(rutaJsonValida));
+        Assertions.assertDoesNotThrow(() -> tableroParser.leerArchivo(rutaJsonValida));
     }
-
 
     @Test
-    public void test15ElFormatoJsonEsValidoYConversionDeObstaculosHecha(){
+    public void test14ElFormatoDelMapaJsonEsInvalido(){
 
     }
+
+    @Test
+    public void test15ElFormatoJsonEsValidoYConversionDeObstaculosHecha(){ }
+
+
 
     @Test
     public void test16ElFormatoJsonEsValidoYConversionDelMapaHecha(){

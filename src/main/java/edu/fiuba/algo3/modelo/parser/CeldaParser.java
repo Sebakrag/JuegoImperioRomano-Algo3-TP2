@@ -4,7 +4,7 @@ import org.json.simple.JSONObject;
 import edu.fiuba.algo3.modelo.Celda;
 import edu.fiuba.algo3.modelo.celdas.*;
 import edu.fiuba.algo3.modelo.afectantes.*;
-import edu.fiuba.algo3.modelo.excepcion.TipoDeCeldaEnArchivoNoValidaError;
+import edu.fiuba.algo3.modelo.excepcion.*;
 
 /*
 *       "x": 17,
@@ -18,23 +18,26 @@ import edu.fiuba.algo3.modelo.excepcion.TipoDeCeldaEnArchivoNoValidaError;
 public class CeldaParser {
 
     public Celda parse(JSONObject celda) {
-        int x = (int) celda.get("x");
-        int y = (int) celda.get("y");
+        long x = (long) celda.get("x");
+        long y = (long) celda.get("y");
 
         String tipo = (String) celda.get("tipo");
         String premio = (String) celda.get("premio");
         String obstaculo = (String) celda.get("obstaculo");
 
+        int coorX = (int) x; // VER si hay mejor forma de hacerlo
+        int coorY = (int) y;
+
         switch(tipo){
             case "Salida":
-                return new CeldaInicial(x, y);
+                return new CeldaInicial(coorX, coorY);
             case "Camino":
-                CeldaComun celdaComun = new CeldaComun(x, y);
+                CeldaComun celdaComun = new CeldaComun(coorX, coorY);
                 setPremioACelda(celdaComun, premio);
                 setObstaculoACelda(celdaComun, obstaculo);
-                return new CeldaComun(x, y );
+                return new CeldaComun(coorX, coorY);
             case "Llegada":
-                return new CeldaFinal(x, y);
+                return new CeldaFinal(coorX, coorY);
             default:
                 throw new TipoDeCeldaEnArchivoNoValidaError();
         }
@@ -45,10 +48,15 @@ public class CeldaParser {
         switch (afectante){
             case "Equipamiento":
                 celda.setPremio(new Potenciador());
+                break;
             case "Comida":
                 celda.setPremio(new Comida());
+                break;
             case "":
                 celda.setPremio(new Vacio());
+                break;
+            default:
+                throw new AfectanteInvalidoError();
         }
     }
 
@@ -56,12 +64,18 @@ public class CeldaParser {
         switch (afectante){
             case "Lesion":
                 celda.setObstaculo(new Lesion());
+                break;
             case "Bacanal":
                 celda.setObstaculo(new Bacanal());
+                break;
             case "Fiera":
                 celda.setObstaculo(new Fiera());
+                break;
             case "":
                 celda.setObstaculo(new Vacio());
+                break;
+            default:
+                throw new AfectanteInvalidoError();
         }
     }
 }

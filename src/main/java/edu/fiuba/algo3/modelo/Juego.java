@@ -18,13 +18,13 @@ public class Juego {
         // VERIFICAR QUE LOS JUGADORES INGRESADOS SEN ENTRE 2 Y 6
 
         CeldaInicial celdaInicial = new CeldaInicial();
-        this.tablero = new Tablero(celdaInicial);
+        this.tablero = new Tablero();
         this.dado = new Dado();
         this.jugadores = new ArrayList<>();
     }
 
     public void iniciarPartida(int cantidadCeldas, int cantidadJugadores) {
-        this.tablero.armarMapa(cantidadCeldas);
+        //this.tablero.armarMapa(cantidadCeldas);
         this.crearJugadores(cantidadJugadores);
         this.ronda = 1;
 

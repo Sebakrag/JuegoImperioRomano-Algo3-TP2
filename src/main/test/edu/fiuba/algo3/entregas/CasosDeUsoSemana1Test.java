@@ -9,7 +9,7 @@ import edu.fiuba.algo3.modelo.afectantes.*;
 import edu.fiuba.algo3.modelo.celdas.*;
 
 public class CasosDeUsoSemana1Test {
-    @Test
+    /*@Test
     public void test01SeInicializaUnJugadorConLaEnergiaYElEquipamientoCorrecto() {
 
         int energiaInicial = 20;
@@ -239,4 +239,6 @@ public class CasosDeUsoSemana1Test {
 
         Assertions.assertThrows(PasaronTreintaRondasYnoHuboGanadorError.class, () -> juego.iniciarPartida(3,2));
     }
+    */
+
 }

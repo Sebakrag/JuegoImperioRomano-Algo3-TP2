@@ -1,4 +1,3 @@
-// Un objeto con 2 objetos adentro que, a su vez uno de ellos tiene una lista de objetos celda
 {
   "mapa": {
     "ancho": 10,
