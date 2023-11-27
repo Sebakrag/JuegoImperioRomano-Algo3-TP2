@@ -3,6 +3,7 @@ package edu.fiuba.algo3.entregas;
 import edu.fiuba.algo3.modelo.parser.TableroParser;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
+import edu.fiuba.algo3.modelo.excepcion.*;
 
 
 public class CasosDeUsoSemana2Test {
@@ -16,8 +17,11 @@ public class CasosDeUsoSemana2Test {
     }
 
     @Test
-    public void test14ElFormatoDelMapaJsonEsInvalido(){
+    public void test14AlNoEncontrarElArchivoTableroParserLevantaUnaExcepcion(){
+        String rutaJsonValida = "/mapa.json";
+        TableroParser tableroParser = new TableroParser();
 
+        Assertions.assertThrows(ArchivoNoEncontradoError.class,() -> tableroParser.leerArchivo(rutaJsonValida));
     }
 
     @Test
