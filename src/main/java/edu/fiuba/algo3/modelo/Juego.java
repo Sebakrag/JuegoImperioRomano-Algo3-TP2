@@ -16,8 +16,6 @@ public class Juego {
     public Juego() {
         // Instanciar la interfaz grafica --> se pide la cantidad de jugadores y el ingreso de los nombres.??????
         // VERIFICAR QUE LOS JUGADORES INGRESADOS SEN ENTRE 2 Y 6
-
-        CeldaInicial celdaInicial = new CeldaInicial();
         this.tablero = new Tablero();
         this.dado = new Dado();
         this.jugadores = new ArrayList<>();

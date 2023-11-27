@@ -25,6 +25,7 @@ public class CeldaComun extends Celda {
     }
 
     public Celda afectar(Gladiador gladiador){
+
         this.premio.afectar(gladiador);
         this.obstaculo.afectar(gladiador);
         return this;

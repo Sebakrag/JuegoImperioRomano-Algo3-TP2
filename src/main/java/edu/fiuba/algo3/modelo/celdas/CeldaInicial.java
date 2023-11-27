@@ -12,12 +12,6 @@ public class CeldaInicial extends Celda {
     // y que instanciemos CeldaComun con x=0 e y=0 para crear la
     // celda inicial.
 
-    public CeldaInicial() {
-        this.premio = new Vacio();
-        this.obstaculo = new Vacio();
-        this.x = 0;
-        this.y = 0;
-    }
 
     public CeldaInicial(int x, int y) {
         this.premio = new Vacio();

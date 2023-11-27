@@ -35,19 +35,19 @@ public class CeldaParser {
                 CeldaComun celdaComun = new CeldaComun(coorX, coorY);
                 setPremioACelda(celdaComun, premio);
                 setObstaculoACelda(celdaComun, obstaculo);
-                return new CeldaComun(coorX, coorY);
+                return celdaComun;
             case "Llegada":
                 return new CeldaFinal(coorX, coorY);
             default:
                 throw new TipoDeCeldaEnArchivoNoValidaError();
         }
-
     }
 
     public void setPremioACelda(CeldaComun celda, String afectante){
         switch (afectante){
             case "Equipamiento":
-                celda.setPremio(new Potenciador());
+                Potenciador potenciador = new Potenciador();
+                celda.setPremio(potenciador);
                 break;
             case "Comida":
                 celda.setPremio(new Comida());

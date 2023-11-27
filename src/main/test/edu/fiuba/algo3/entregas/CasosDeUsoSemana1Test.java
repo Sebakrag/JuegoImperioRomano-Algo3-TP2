@@ -17,7 +17,7 @@ public class CasosDeUsoSemana1Test {
         int energiaInicial = 20;
         int energiaLuegoDeSerAtacado = 0;
 
-        CeldaInicial celdaInicial = new CeldaInicial();
+        CeldaInicial celdaInicial = new CeldaInicial(0, 0);
         Gladiador gladiador = new Gladiador();
         Jugador jugador = new Jugador(gladiador, celdaInicial);
         Fiera fiera = new Fiera();
@@ -36,7 +36,7 @@ public class CasosDeUsoSemana1Test {
         int coordenadaYInicial = 0;
 
         Dado dado = new Dado();
-        CeldaInicial celdaInicial = new CeldaInicial();
+        CeldaInicial celdaInicial = new CeldaInicial(0, 0);
         CeldaFinal celdaFinal = new CeldaFinal(0,1);
         ArrayList<Celda> celdas = new ArrayList<>();
         celdas.add(celdaInicial);
@@ -61,7 +61,7 @@ public class CasosDeUsoSemana1Test {
         int coordenadaYInicial = 0;
 
         Dado dado = new Dado();
-        Celda celdaInicial = new CeldaInicial();
+        Celda celdaInicial = new CeldaInicial(0, 0);
         Gladiador gladiador = new Gladiador();
         Jugador jugador = new Jugador(gladiador, celdaInicial);
         Afectante fiera = new Fiera();
@@ -79,7 +79,7 @@ public class CasosDeUsoSemana1Test {
         int energiaInicial = 20;
         int energiaEsperada = energiaInicial + 15;  // La comida incrementa 15 de energia.
 
-        Celda celdaInicial = new CeldaInicial();
+        Celda celdaInicial = new CeldaInicial(0,0);
         Gladiador gladiador = new Gladiador();
         Jugador jugador = new Jugador(gladiador, celdaInicial);
         Afectante comida = new Comida();
@@ -95,7 +95,7 @@ public class CasosDeUsoSemana1Test {
         int danioCasco = 15;
         int energiaEsperada = energiaInicial - danioCasco;
 
-        Celda celdaInicial = new CeldaInicial();
+        Celda celdaInicial = new CeldaInicial(0,0);
         Gladiador gladiador = new Gladiador();
         Jugador jugador = new Jugador(gladiador, celdaInicial);
 
@@ -114,7 +114,7 @@ public class CasosDeUsoSemana1Test {
         int danioEscudoYEspada = 2;
         int energiaEsperada = energiaInicial - danioEscudoYEspada;
 
-        Celda celdaInicial = new CeldaInicial();
+        Celda celdaInicial = new CeldaInicial(0,0);
         Gladiador gladiador = new Gladiador();
         Jugador jugador = new Jugador(gladiador, celdaInicial);
         Afectante mejora = new Potenciador();
@@ -135,7 +135,7 @@ public class CasosDeUsoSemana1Test {
         int energiaInicial = 20;
         int energiaEsperada = energiaInicial - 15;
 
-        Celda celdaInicial = new CeldaInicial();
+        Celda celdaInicial = new CeldaInicial(0,0);
         Gladiador gladiador = new Gladiador();
         Jugador jugador = new Jugador(gladiador, celdaInicial);
         Afectante mejora = new Potenciador();
@@ -152,7 +152,7 @@ public class CasosDeUsoSemana1Test {
 
         int energiaEsperada= 25;
 
-        CeldaInicial celdaInicial = new CeldaInicial();
+        CeldaInicial celdaInicial = new CeldaInicial(0,0);
         CeldaFinal celdaFinal = new CeldaFinal(0,1);
         Gladiador gladiador = new Gladiador();
         Jugador jugador = new Jugador(gladiador, celdaInicial);
@@ -177,7 +177,7 @@ public class CasosDeUsoSemana1Test {
         int coordenadaXMedio = 0;
         int coordenadaYMedio = 0;
 
-       CeldaInicial celdaInicial = new CeldaInicial();
+       CeldaInicial celdaInicial = new CeldaInicial(0,0);
        CeldaFinal celdaFinal = new CeldaFinal(0,1);
        ArrayList<Celda> celdas = new ArrayList<Celda>();
        celdas.add(celdaInicial);
@@ -203,7 +203,7 @@ public class CasosDeUsoSemana1Test {
         int energiaInicial = 20;
         int energiaEsperada = energiaInicial;
 
-        Celda celdaInicial = new CeldaInicial();
+        Celda celdaInicial = new CeldaInicial(0,0);
         Gladiador gladiador = new Gladiador();
         Jugador jugador = new Jugador(gladiador, celdaInicial);
         Afectante mejora = new Potenciador();
@@ -224,7 +224,7 @@ public class CasosDeUsoSemana1Test {
 
         int energiaEsperada = 20; // igual a la energia inicial
 
-        Celda celdaInicial = new CeldaInicial();
+        Celda celdaInicial = new CeldaInicial(0,0);
         Gladiador gladiador = new Gladiador();
         Jugador jugador = new Jugador(gladiador, celdaInicial);
         Afectante mejora = new Potenciador();
@@ -245,7 +245,7 @@ public class CasosDeUsoSemana1Test {
     @Test
     public void test12AlPasarTreintaTurnosYnadieLlegaAlaMetaSeTerminoElJuego() {
         Juego juego = new Juego();
-        CeldaInicial celdaInicial = new CeldaInicial();
+        CeldaInicial celdaInicial = new CeldaInicial(0,0);
         CeldaFinal celdaFinal = new CeldaFinal(0,1);
         ArrayList<Celda> celdas = new ArrayList<Celda>();
         celdas.add(celdaInicial);

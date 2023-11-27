@@ -1,6 +1,5 @@
-module edu.fiuba.algo3 {
+module edu.fiuba {
     requires javafx.controls;
-    requires com.fasterxml.jackson.databind;
     requires json.simple;
     exports edu.fiuba.algo3;
 }

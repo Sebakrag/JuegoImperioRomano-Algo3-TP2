@@ -33,7 +33,6 @@ public class Jugador {
         this.gladiador.aumentarEnergia();
     }
 
-
     public boolean tieneTurnosIgualA(int cantidad) {
         return (this.turno == cantidad);
     }
@@ -43,14 +42,8 @@ public class Jugador {
     }
 
     public boolean estaEnCelda(int x, int y) {
-        return (this.celdaActual.tieneCoordenadas(x, y));
-    }
+        return (this.celdaActual.tieneCoordenadas(x, y));}
 
-    public void totalmenteEquipado() {
-        if (!this.gladiador.totalmenteEquipado()) {
-            this.celdaActual = this.celdaActual.celdaSiguiente();
-        }
-    }
 
     // -------------------------------- PRIVADOS -------------------------------- //
     private void avanzar(int cantidad) {
