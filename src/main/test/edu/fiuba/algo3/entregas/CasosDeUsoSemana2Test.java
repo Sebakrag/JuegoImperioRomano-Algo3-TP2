@@ -1,13 +1,12 @@
 package edu.fiuba.algo3.entregas;
 
-import edu.fiuba.algo3.modelo.Equipamiento;
-import edu.fiuba.algo3.modelo.Gladiador;
-import edu.fiuba.algo3.modelo.Tablero;
+import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.parsers.TableroParser;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import edu.fiuba.algo3.modelo.excepcion.*;
-import edu.fiuba.algo3.modelo.Celda;
+import edu.fiuba.algo3.modelo.celdas.*;
 
 
 public class CasosDeUsoSemana2Test {
@@ -33,6 +32,7 @@ public class CasosDeUsoSemana2Test {
         String rutaJsonValida = "/archivos/mapa.json";
         TableroParser tableroParser = new TableroParser();
         Tablero tablero = tableroParser.leerArchivo(rutaJsonValida);
+
         Celda celda = tablero.getCeldaInicial();
         int coordenadaXInicial = 1;
         int coordenadaYInicial = 7;
@@ -59,25 +59,46 @@ public class CasosDeUsoSemana2Test {
     }
 
     @Test
-    public void test17VerificoQueElMapaSeHayaCreadoAcordeAlJson(){
+    public void test17ElJsonAlTenerCoordenadasIncorrectasLanzaError(){
+        String rutaJsonInvalido = "/archivos/mapaConCoordenadaInvalida.json";
+        TableroParser tableroParser = new TableroParser();
 
+        Assertions.assertThrows(CoordenadaInvalidaError.class, () -> tableroParser.leerArchivo(rutaJsonInvalido));
+    }
+    
+    @Test
+    public void test18ElJsonAlTenerUnaSolaCeldaLanzaError(){
+        String rutaJsonInvalido = "/archivos/mapaConUnaCelda.json";
+        TableroParser tableroParser = new TableroParser();
+
+        Assertions.assertThrows(CantidadInvalidaDeCeldasError.class, () -> tableroParser.leerArchivo(rutaJsonInvalido));
+    }
+
+    @Test
+    public void test19TipoDeCeldaEnArchivoNoValidaError(){
+        String rutaJsonInvalido = "/archivos/mapaConTipoInvalido.json";
+        TableroParser tableroParser = new TableroParser();
+
+        Assertions.assertThrows(TipoDeCeldaEnArchivoNoValidaError.class, () -> tableroParser.leerArchivo(rutaJsonInvalido));
+    }
+
+    @Test
+    public void test20AfectanteInvalidoError(){
+        String rutaJsonInvalido = "/archivos/mapaConAfectanteInvalido.json";
+        TableroParser tableroParser = new TableroParser();
+
+        Assertions.assertThrows(AfectanteInvalidoError.class, () -> tableroParser.leerArchivo(rutaJsonInvalido));
     }
 
     /*
-
-
     @Test
-    public void test18LogSistemaAlSerAtacadoPorUnAnimal() {
+    public void testLogSistemaAlSerAtacadoPorUnAnimal() {
 
         logger = new Logger();
         mensaje = new Mensaje();
         String mensajeEsperado = ""Nombre de Gladiador"";
 
        Assertions.assertEquals(mensajeEsperado, logger.informar(mensaje));
-
-
-
-
     }
 */
 }

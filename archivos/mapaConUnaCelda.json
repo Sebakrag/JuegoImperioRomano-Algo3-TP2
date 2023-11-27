@@ -1,0 +1,17 @@
+{
+  "mapa": {
+    "ancho": 10,
+    "largo": 18
+  },
+  "camino": {
+    "celdas": [
+      {
+        "x": 1,
+        "y": 7,
+        "tipo": "Salida",
+        "obstaculo": "",
+        "premio": ""
+      }
+    ]
+  }
+}

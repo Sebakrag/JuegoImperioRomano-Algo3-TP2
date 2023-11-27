@@ -1,0 +1,31 @@
+{
+  "mapa": {
+    "ancho": 10,
+    "largo": 18
+  },
+  "camino": {
+    "celdas": [
+      {
+        "x": 2,
+        "y": -5,
+        "tipo": "Camino",
+        "obstaculo": "Lesion",
+        "premio": ""
+      },
+      {
+        "x": 2,
+        "y": 4,
+        "tipo": "Camino",
+        "obstaculo": "Fiera",
+        "premio": ""
+      },
+      {
+        "x": 2,
+        "y": 3,
+        "tipo": "Camino",
+        "obstaculo": "Bacanal",
+        "premio": "Equipamiento"
+      }
+    ]
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "mapa": {
+    "ancho": 10,
+    "largo": 18
+  },
+  "camino": {
+    "celdas": [
+      {
+        "x": 1,
+        "y": 7,
+        "tipo": "Salida",
+        "obstaculo": "",
+        "premio": ""
+      },
+      {
+        "x": 17,
+        "y": 8,
+        "tipo": "Camino",
+        "obstaculo": "Lesion",
+        "premio": ""
+      },
+      {
+        "x": 17,
+        "y": 7,
+        "tipo": "CUALCA",
+        "obstaculo": "Bacanal",
+        "premio": ""
+      },
+      {
+        "x": 17,
+        "y": 6,
+        "tipo": "Camino",
+        "obstaculo": "",
+        "premio": "Equipamiento"
+      },
+      {
+        "x": 17,
+        "y": 5,
+        "tipo": "Llegada",
+        "obstaculo": "",
+        "premio": "Equipamiento"
+      }
+
+    ]
+  }
+}
