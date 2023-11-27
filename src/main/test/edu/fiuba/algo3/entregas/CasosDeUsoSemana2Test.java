@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.entregas;
 
-import edu.fiuba.algo3.modelo.parser.TableroParser;
+import edu.fiuba.algo3.parsers.TableroParser;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import edu.fiuba.algo3.modelo.excepcion.*;

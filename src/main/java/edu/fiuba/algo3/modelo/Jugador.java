@@ -45,6 +45,7 @@ public class Jugador {
     public boolean estaEnCelda(int x, int y) {
         return (this.celdaActual.tieneCoordenadas(x, y));
     }
+
     public void totalmenteEquipado() {
         if (!this.gladiador.totalmenteEquipado()) {
             this.celdaActual = this.celdaActual.celdaSiguiente();

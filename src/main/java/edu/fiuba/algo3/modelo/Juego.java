@@ -23,8 +23,8 @@ public class Juego {
         this.jugadores = new ArrayList<>();
     }
 
-    public void iniciarPartida(int cantidadCeldas, int cantidadJugadores) {
-        //this.tablero.armarMapa(cantidadCeldas);
+    public void iniciarPartida(ArrayList<Celda> celdas, int cantidadJugadores) {
+        this.tablero.armarMapa(celdas);
         this.crearJugadores(cantidadJugadores);
         this.ronda = 1;
 

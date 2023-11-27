@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.modelo.parser;
+package edu.fiuba.algo3.parsers;
 
 
 import edu.fiuba.algo3.modelo.Celda;
