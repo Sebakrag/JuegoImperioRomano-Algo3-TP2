@@ -17,7 +17,6 @@ public class Juego {
         // Instanciar la interfaz grafica --> se pide la cantidad de jugadores y el ingreso de los nombres.??????
         // VERIFICAR QUE LOS JUGADORES INGRESADOS SEN ENTRE 2 Y 6
         this.tablero = new Tablero();
-        this.dado = new Dado();
         this.jugadores = new ArrayList<>();
     }
 
@@ -25,8 +24,9 @@ public class Juego {
         this.tablero.armarMapa(celdas);
         this.crearJugadores(cantidadJugadores);
         this.ronda = 1;
+        this.dado = new Dado(cantidadJugadores);
 
-        int i = this.dado.tirarCon(cantidadJugadores);
+        int i = this.dado.tirar();
         int jugadoresQueJugaron = 0;
         while(chequearRonda()) {
             for (; i < cantidadJugadores; i++ ) {

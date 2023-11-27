@@ -65,7 +65,7 @@ public class CasosDeUsoSemana2Test {
 
         Assertions.assertThrows(CoordenadaInvalidaError.class, () -> tableroParser.leerArchivo(rutaJsonInvalido));
     }
-    
+
     @Test
     public void test18ElJsonAlTenerUnaSolaCeldaLanzaError(){
         String rutaJsonInvalido = "/archivos/mapaConUnaCelda.json";

@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.modelo.excepcion.TurnoPerdidoError;
+
 public class Jugador {
     private static final int CANTIDAD_MAXIMA_DE_RONDAS = 30;
     private Gladiador gladiador;
@@ -24,6 +26,9 @@ public class Jugador {
 
         } else {
             this.gladiador.sanar();
+            this.gladiador.mejorarSeniority(this.turno);
+            this.gladiador.aumentarEnergia();
+            throw new TurnoPerdidoError();
         }
         /*
          * Suponemos que: el seniority se mejora independientemente de si el jugador tiro o no los dados. Dado que esta
@@ -32,6 +37,7 @@ public class Jugador {
         this.gladiador.mejorarSeniority(this.turno);
         this.gladiador.aumentarEnergia();
     }
+
 
     public boolean tieneTurnosIgualA(int cantidad) {
         return (this.turno == cantidad);
