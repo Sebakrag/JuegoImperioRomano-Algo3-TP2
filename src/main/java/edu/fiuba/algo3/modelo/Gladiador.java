@@ -24,10 +24,6 @@ public class Gladiador extends Personaje {
         this.energia += this.seniority.aumentarEnergia();
     }
 
-    public boolean energiaIgualA(int energia) {
-        return this.energia == energia;
-    }
-
     public boolean tieneEnergia() {
         boolean tieneEnergia = energia > SIN_ENERGIA;
         if(!tieneEnergia){

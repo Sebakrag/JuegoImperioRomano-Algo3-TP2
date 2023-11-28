@@ -11,10 +11,6 @@ public abstract class Celda {
 
     public abstract Celda afectar(Gladiador gladiador);
 
-    public boolean tieneCoordenadas(int x, int y){
-        return ((this.x == x) && (this.y == y));
-    }
-
     public abstract Celda celdaSiguiente();
 
     public void setSiguiente(Celda siguiente){ this.siguiente = siguiente;};

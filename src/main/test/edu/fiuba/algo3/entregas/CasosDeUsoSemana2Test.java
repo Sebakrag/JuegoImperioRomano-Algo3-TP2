@@ -15,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 
 
 public class CasosDeUsoSemana2Test {
+
     public void inhabilitarGladiador(Gladiador gladiador, int i){
         Fiera fiera = new Fiera();
 
@@ -22,6 +23,7 @@ public class CasosDeUsoSemana2Test {
             fiera.afectar(gladiador);
         }
     }
+
     @Test
     public void test13ElFormatoDelMapaJsonEsValido(){
         String rutaJsonValida = "/archivos/mapa.json";

@@ -24,7 +24,6 @@ public class TableroParser {
         try (FileReader lectorJson = new FileReader(System.getProperty("user.dir") + ruta)) {
             Object objetoParseado = jsonParser.parse(lectorJson);
             generarTablero(objetoParseado, tablero);
-
         } catch (FileNotFoundException e) {
             throw new ArchivoNoEncontradoError(System.getProperty("user.dir") + ruta);
         } catch (IOException | ParseException e) {
@@ -35,7 +34,6 @@ public class TableroParser {
 
     public void generarTablero(Object objetoParseado, Tablero tablero) {
         JSONObject jsonTablero = (JSONObject) objetoParseado;
-
 
         ArrayList<Celda> celdasCreadas = new ArrayList<>();
         this.parse(jsonTablero, celdasCreadas);
@@ -59,7 +57,7 @@ public class TableroParser {
 
     }
 
-    public void agregarCeldas(JSONArray celdas, ArrayList<Celda> celdasCreadas) throws CoordenadaInvalidaError{
+    public void agregarCeldas(JSONArray celdas, ArrayList<Celda> celdasCreadas) throws CoordenadaInvalidaError {
         CeldaParser celdaParser = new CeldaParser();
 
         for (Object celda : celdas) {

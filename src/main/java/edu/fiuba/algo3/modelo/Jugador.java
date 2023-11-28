@@ -39,18 +39,6 @@ public class Jugador {
     }
 
 
-    public boolean tieneTurnosIgualA(int cantidad) {
-        return (this.turno == cantidad);
-    }
-
-    public boolean energiaIgualA(int energia) {
-        return this.gladiador.energiaIgualA(energia);
-    }
-
-    public boolean estaEnCelda(int x, int y) {
-        return (this.celdaActual.tieneCoordenadas(x, y));}
-
-
     // -------------------------------- PRIVADOS -------------------------------- //
     private void avanzar(int cantidad) {
         for (int i = 0; i < cantidad; i++) {

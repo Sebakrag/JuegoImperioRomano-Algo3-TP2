@@ -21,16 +21,9 @@ public class CasosDeUsoSemana1Test {
         }
     }
 
-    public void obtenerEscudoYEspada(Gladiador gladiador, Afectante mejora){
+    public void potenciarHasta(Gladiador gladiador, Afectante mejora, int cantidad) {
         // El jugador obtiene un Escudo Y Espada.
-        for (int i = 0; i < 3; i++) {
-            mejora.afectar(gladiador);
-        }
-    }
-
-    public void obtenerLlave(Gladiador gladiador, Afectante mejora){
-        // El jugador obtiene un Escudo Y Espada.
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < cantidad; i++) {
             mejora.afectar(gladiador);
         }
     }
@@ -65,7 +58,6 @@ public class CasosDeUsoSemana1Test {
         celdas.add(celdaInicial);
         celdas.add(celdaComun);
 
-        
         Gladiador gladiador = new Gladiador();
         Jugador jugador = new Jugador(gladiador, celdaInicial);
         Tablero tablero = new Tablero();
@@ -124,7 +116,7 @@ public class CasosDeUsoSemana1Test {
         Jugador jugador = new Jugador(gladiador, celdaInicial);
         Afectante mejora = new Potenciador();
 
-        obtenerEscudoYEspada(gladiador, mejora);
+        potenciarHasta(gladiador, mejora, 3);  // El jugador obtiene un Escudo Y Espada.
 
         inhabilitarGladiador(gladiador, 10); //para sacarle toda la energia debe ser atacado 10 veces
 
@@ -208,7 +200,7 @@ public class CasosDeUsoSemana1Test {
         Jugador jugador = new Jugador(gladiador, celdaInicial);
         Afectante mejora = new Potenciador();
 
-        obtenerLlave(gladiador,mejora);
+        potenciarHasta(gladiador,mejora,4);  /// El jugador obtiene una Llave.
 
         inhabilitarGladiador(gladiador, 1000); //no va a perder nunca energia al ser atacado infinitas veces
 
@@ -228,7 +220,7 @@ public class CasosDeUsoSemana1Test {
         Jugador jugador = new Jugador(gladiador, celdaInicial);
         Afectante mejora = new Potenciador();
 
-        obtenerLlave(gladiador,mejora);
+        potenciarHasta(gladiador,mejora, 4);  // El jugador obtiene una Llave.
 
         mejora.afectar(gladiador); //No recibe nada, sigue con llave.
 
