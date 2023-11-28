@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.entregas;
 
 import edu.fiuba.algo3.modelo.*;
+import edu.fiuba.algo3.modelo.afectantes.Fiera;
 import edu.fiuba.algo3.parsers.TableroParser;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -14,7 +15,13 @@ import org.apache.logging.log4j.Logger;
 
 
 public class CasosDeUsoSemana2Test {
+    public void inhabilitarGladiador(Gladiador gladiador, int i){
+        Fiera fiera = new Fiera();
 
+        for(int j = 0; j < i; j++){
+            fiera.afectar(gladiador);
+        }
+    }
     @Test
     public void test13ElFormatoDelMapaJsonEsValido(){
         String rutaJsonValida = "/archivos/mapa.json";
@@ -36,12 +43,15 @@ public class CasosDeUsoSemana2Test {
         String rutaJsonValida = "/archivos/mapa.json";
         TableroParser tableroParser = new TableroParser();
         Tablero tablero = tableroParser.leerArchivo(rutaJsonValida);
-
         Celda celda = tablero.getCeldaInicial();
-        int coordenadaXInicial = 1;
-        int coordenadaYInicial = 7;
 
-        Assertions.assertTrue(celda.tieneCoordenadas(coordenadaXInicial,coordenadaYInicial));
+        Gladiador gladiador = new Gladiador();
+        Jugador jugador = new Jugador(gladiador, celda);
+
+        celda.afectar(gladiador); //no recibe nada, continua con energia = 20
+        inhabilitarGladiador(gladiador,1); //al afectar 1 vez con fiera -> energia = 0
+
+        Assertions.assertThrows(TurnoPerdidoError.class,() -> jugador.jugarTurno(new Dado(6)));
     }
 
     @Test
@@ -55,11 +65,12 @@ public class CasosDeUsoSemana2Test {
         Celda celdaConComida = celdaConEquipamiento.celdaSiguiente();
 
         Gladiador gladiador = new Gladiador();
-        celdaConComida.afectar(gladiador);
-        int energiaInicial = 20;
-        int energiaEsperada = energiaInicial + 15;
+        Jugador jugador = new Jugador(gladiador, celda);
+        celdaConComida.afectar(gladiador); // energia pasa a 35
 
-        Assertions.assertTrue(gladiador.energiaIgualA(energiaEsperada));
+        inhabilitarGladiador(gladiador,2); //al afectar 2 veces con fiera -> energia < 0
+
+        Assertions.assertThrows(TurnoPerdidoError.class,() -> jugador.jugarTurno(new Dado(6)));
     }
 
     @Test

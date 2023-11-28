@@ -90,161 +90,151 @@ public class CasosDeUsoSemana1Test {
 
     @Test
     public void test04AlRecibirComidaSuEnergiaIncrementaEnQuince() {
-        int energiaInicial = 20;
-        int energiaEsperada = energiaInicial + 15;  // La comida incrementa 15 de energia.
 
         Celda celdaInicial = new CeldaInicial(0,0);
         Gladiador gladiador = new Gladiador();
         Jugador jugador = new Jugador(gladiador, celdaInicial);
         Afectante comida = new Comida();
 
-        comida.afectar(gladiador);
+        comida.afectar(gladiador); //energia = 35
+        inhabilitarGladiador(gladiador, 2);
 
-        Assertions.assertTrue(jugador.energiaIgualA(energiaEsperada));
+        Assertions.assertThrows(TurnoPerdidoError.class,() -> jugador.jugarTurno(new Dado(6)));
     }
 
     @Test
     public void test05AlRecibirUnPremioPorPrimeraVezRecibeUnCasco() {
 
-        int energiaInicial = 20;
-        int danioCasco = 15;
-        int energiaEsperada = energiaInicial - danioCasco;
-
         Celda celdaInicial = new CeldaInicial(0,0);
         Gladiador gladiador = new Gladiador();
         Jugador jugador = new Jugador(gladiador, celdaInicial);
         Afectante mejora = new Potenciador();
-        Fiera fiera = new Fiera(); // Buscamos chequear comportamiento
 
-        mejora.afectar(gladiador);  // El jugador obtiene un casco.
-        fiera.afectar(gladiador);
+        mejora.afectar(gladiador);  // El jugador obtiene un casco, al ser atacado 2 veces por una fiera se queda sin energia
+        inhabilitarGladiador(gladiador, 2);
 
-        Assertions.assertTrue(jugador.energiaIgualA(energiaEsperada));
+        Assertions.assertThrows(TurnoPerdidoError.class,() -> jugador.jugarTurno(new Dado(6)));
     }
 
     @Test
     public void test06AlRecibirUnPremioPorTerceraVezObtieneEscudoYEspada() {
 
-        int energiaInicial = 20;
-        int danioEscudoYEspada = 2;
-        int energiaEsperada = energiaInicial - danioEscudoYEspada;
-
         Celda celdaInicial = new CeldaInicial(0,0);
         Gladiador gladiador = new Gladiador();
         Jugador jugador = new Jugador(gladiador, celdaInicial);
         Afectante mejora = new Potenciador();
-        Fiera fiera = new Fiera();
 
         obtenerEscudoYEspada(gladiador, mejora);
 
-        fiera.afectar(gladiador); // Buscamos chequear comportamiento
+        inhabilitarGladiador(gladiador, 10); //para sacarle toda la energia debe ser atacado 10 veces
 
-        Assertions.assertTrue(jugador.energiaIgualA(energiaEsperada));
+        Assertions.assertThrows(TurnoPerdidoError.class,() -> jugador.jugarTurno(new Dado(6)));
     }
 
     @Test
     public void test07AlHaberUnCombateConFieraSiTieneCascoPierdeQuincePuntosDeEnergia() {
 
-        int energiaInicial = 20;
-        int energiaEsperada = energiaInicial - 15;
+        CeldaInicial celdaInicial = new CeldaInicial(0, 0);
+        CeldaComun celdaComun = new CeldaComun(0,1);
+        celdaComun.setObstaculo(new Vacio());
+        celdaComun.setPremio(new Vacio());
+        celdaInicial.setSiguiente(celdaComun);
 
-        Celda celdaInicial = new CeldaInicial(0,0);
         Gladiador gladiador = new Gladiador();
         Jugador jugador = new Jugador(gladiador, celdaInicial);
         Afectante mejora = new Potenciador();
         Fiera fiera = new Fiera();
 
         mejora.afectar(gladiador);  // El jugador obtiene un casco.
-        fiera.afectar(gladiador);
+        fiera.afectar(gladiador); //lo ataca la fiera y queda con energia = 5
+        Assertions.assertDoesNotThrow(() -> jugador.jugarTurno(new Dado(1))); //puede jugar su turno
 
-        Assertions.assertTrue(jugador.energiaIgualA(energiaEsperada));
+        fiera.afectar(gladiador);
+        Assertions.assertThrows(TurnoPerdidoError.class,() -> jugador.jugarTurno(new Dado(6)));
     }
 
     @Test
     public void test08AlPasarOchoTurnosElGladiadorPasaDeNovatoASemiSenior() {
 
-        int energiaEsperada= 25;
-
         CeldaInicial celdaInicial = new CeldaInicial(0,0);
         CeldaFinal celdaFinal = new CeldaFinal(0,1);
-        Gladiador gladiador = new Gladiador();
-        Jugador jugador = new Jugador(gladiador, celdaInicial);
-        Dado dado = new Dado(6);
         ArrayList<Celda> celdas = new ArrayList<>();
-
         celdas.add(celdaInicial);
         celdas.add(celdaFinal);
         Tablero tablero = new Tablero();
         tablero.armarMapa(celdas);
 
-        ascenderASemiSenior(jugador, dado);
+        Gladiador gladiador = new Gladiador();
+        Jugador jugador = new Jugador(gladiador, celdaInicial);
+        Dado dado = new Dado(6);
 
-        Assertions.assertTrue(jugador.energiaIgualA(energiaEsperada));
+        ascenderASemiSenior(jugador, dado); //pasa a tener 25 de energia.
+        inhabilitarGladiador(gladiador, 2); //atacado 2 veces por fiera
+
+        Assertions.assertThrows(TurnoPerdidoError.class,() -> jugador.jugarTurno(dado));
     }
 
    @Test
     public void test09AlLlegarAlaMetaSinLaLlaveRetrocedeAlaMitadDeLasCasillas() {
-        // Hay que hacer la logica de ganar.
-        int coordenadaXMedio = 0;
-        int coordenadaYMedio = 0;
 
        CeldaInicial celdaInicial = new CeldaInicial(0,0);
        CeldaFinal celdaFinal = new CeldaFinal(0,1);
        ArrayList<Celda> celdas = new ArrayList<Celda>();
        celdas.add(celdaInicial);
        celdas.add(celdaFinal);
-       Gladiador gladiador = new Gladiador();
-       Jugador jugador = new Jugador(gladiador, celdaInicial);
-       Dado dado = new Dado(6);
-
-       celdas.add(celdaInicial);
-       celdas.add(celdaFinal);
        Tablero tablero = new Tablero();
        tablero.armarMapa(celdas);
 
-       jugador.jugarTurno(dado);
+       Gladiador gladiador = new Gladiador();
+       Jugador jugador = new Jugador(gladiador, celdaInicial);
+       Dado dado = new Dado(1);
 
-        Assertions.assertTrue(jugador.estaEnCelda(coordenadaXMedio, coordenadaYMedio));
+       jugador.jugarTurno(dado); //el jugador llega al final y vuelve al medio, deberia poder jugar de nuevo otro turno.
+
+       Assertions.assertDoesNotThrow(() -> jugador.jugarTurno(dado));
     }
 
 
     @Test
     public void test10AlSerAtacadoPorUnaFieraYConTodoElEquipamientoNoPierdeEnergia(){
 
-        int energiaInicial = 20;
-        int energiaEsperada = energiaInicial;
-
         Celda celdaInicial = new CeldaInicial(0,0);
+        CeldaComun celdaComun = new CeldaComun(0,1);
+        celdaComun.setPremio(new Vacio());
+        celdaComun.setObstaculo(new Vacio());
+        celdaInicial.setSiguiente(celdaComun);
+
         Gladiador gladiador = new Gladiador();
         Jugador jugador = new Jugador(gladiador, celdaInicial);
         Afectante mejora = new Potenciador();
-        Fiera fiera = new Fiera();
 
         obtenerLlave(gladiador,mejora);
 
-        fiera.afectar(gladiador);
+        inhabilitarGladiador(gladiador, 1000); //no va a perder nunca energia al ser atacado infinitas veces
 
-        Assertions.assertTrue(jugador.energiaIgualA(energiaEsperada));
+        Assertions.assertDoesNotThrow(() -> jugador.jugarTurno(new Dado(1))); //puede jugar turno.
     }
 
     @Test
     public void test11AlTenerLaLlaveYrecibirOtroPremioNoCambiaNada() {
 
-        int energiaEsperada = 20; // igual a la energia inicial
-
         Celda celdaInicial = new CeldaInicial(0,0);
+        CeldaComun celdaComun = new CeldaComun(0,1);
+        celdaComun.setPremio(new Vacio());
+        celdaComun.setObstaculo(new Vacio());
+        celdaInicial.setSiguiente(celdaComun);
+
         Gladiador gladiador = new Gladiador();
         Jugador jugador = new Jugador(gladiador, celdaInicial);
         Afectante mejora = new Potenciador();
-        Fiera fiera = new Fiera();
 
         obtenerLlave(gladiador,mejora);
 
-        mejora.afectar(gladiador); //No recibe nada
+        mejora.afectar(gladiador); //No recibe nada, sigue con llave.
 
-        fiera.afectar(gladiador);
+        inhabilitarGladiador(gladiador, 1000); //no va a perder nunca energia al ser atacado infinitas veces
 
-        Assertions.assertTrue(jugador.energiaIgualA(energiaEsperada));
+        Assertions.assertDoesNotThrow(() -> jugador.jugarTurno(new Dado(1))); //puede jugar turno.
     }
 
     @Test

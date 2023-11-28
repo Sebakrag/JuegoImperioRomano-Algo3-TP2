@@ -41,7 +41,7 @@ public class Juego {
             i = 0;
         }
 
-        throw new PasaronTreintaRondasYnoHuboGanadorError("Pasaron 30 rondas y no hubo ganador");
+        throw new PasaronTreintaRondasYnoHuboGanadorError();
     }
 
     public void crearJugadores(int cantidadJugadores) {
