@@ -8,6 +8,10 @@ import org.junit.jupiter.api.Assertions;
 import edu.fiuba.algo3.modelo.excepcion.*;
 import edu.fiuba.algo3.modelo.celdas.*;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+
 
 public class CasosDeUsoSemana2Test {
 
@@ -90,15 +94,18 @@ public class CasosDeUsoSemana2Test {
         Assertions.assertThrows(AfectanteInvalidoError.class, () -> tableroParser.leerArchivo(rutaJsonInvalido));
     }
 
-    /*
+
     @Test
     public void testLogSistemaAlSerAtacadoPorUnAnimal() {
 
-        logger = new Logger();
-        mensaje = new Mensaje();
-        String mensajeEsperado = ""Nombre de Gladiador"";
+        Logger logger = LogManager.getLogger();
 
-       Assertions.assertEquals(mensajeEsperado, logger.informar(mensaje));
+        logger.info("Hello world!");
+        logger.trace("Entering method doSomething with parameters (param1=5, param2=10)");
+        logger.debug("Processing request for user ID 12345");
+        logger.info("user with ID '1234' just signed in");
+        logger.warn("Potential security vulnerability detected in user input: '...'");
+        logger.error("Failed to connect to database: java.sql.SQLException: Connection refused");
     }
-*/
+
 }
