@@ -9,24 +9,15 @@ import edu.fiuba.algo3.modelo.excepcion.CoordenadaInvalidaError;
 public class CeldaComun extends Celda {
     private Afectante premio;
     private Afectante obstaculo;
-    public CeldaComun(int x, int y){
-        if(x < 0 || y < 0) {
-            throw new CoordenadaInvalidaError();
-        }
+    public CeldaComun(int x, int y, Afectante premio, Afectante obstaculo){
+        this.coordenadasValidas(x,y);
         this.x = x;
         this.y = y;
-    }
-
-    public void setPremio(Afectante unPremio){
-        this.premio = unPremio;
-    }
-
-    public void setObstaculo(Afectante unObstaculo){
-        this.obstaculo = unObstaculo;
+        this.premio = premio;
+        this.obstaculo = obstaculo;
     }
 
     public Celda afectar(Gladiador gladiador){
-
         this.premio.afectar(gladiador);
         this.obstaculo.afectar(gladiador);
         return this;
