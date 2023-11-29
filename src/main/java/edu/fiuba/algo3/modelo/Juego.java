@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.modelo.celdas.CeldaInicial;
+import edu.fiuba.algo3.modelo.celdas.Celda;
 import edu.fiuba.algo3.modelo.excepcion.PasaronTreintaRondasYnoHuboGanadorError;
 import java.util.*;
 

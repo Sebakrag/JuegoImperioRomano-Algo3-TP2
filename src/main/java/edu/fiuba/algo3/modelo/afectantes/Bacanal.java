@@ -1,9 +1,7 @@
 package edu.fiuba.algo3.modelo.afectantes;
 
-import edu.fiuba.algo3.modelo.Afectante;
 import edu.fiuba.algo3.modelo.Gladiador;
 import edu.fiuba.algo3.modelo.Dado;
-import java.util.Random;
 
 
 public class Bacanal implements Afectante {
@@ -23,4 +21,5 @@ public class Bacanal implements Afectante {
     public int calcularEnergia(int energiaActual) {
         return (energiaActual - (ENERGIA_POR_COPA * this.cantidadCopas));
     }
+
 }

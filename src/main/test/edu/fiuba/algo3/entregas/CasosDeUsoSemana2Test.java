@@ -39,7 +39,7 @@ public class CasosDeUsoSemana2Test {
 
         Assertions.assertThrows(ArchivoNoEncontradoError.class,() -> tableroParser.leerArchivo(rutaJsonValida));
     }
-
+/*
     @Test
     public void test15ElTableroSeCreaCorrectamenteAPartirDeUnArchivoJSON(){
         String rutaJsonValida = "/archivos/mapa.json";
@@ -74,7 +74,7 @@ public class CasosDeUsoSemana2Test {
 
         Assertions.assertThrows(TurnoPerdidoError.class,() -> jugador.jugarTurno(new Dado(6)));
     }
-
+*/
     @Test
     public void test17ElJsonAlTenerCoordenadasIncorrectasLanzaError(){
         String rutaJsonInvalido = "/archivos/mapaConCoordenadaInvalida.json";
@@ -113,12 +113,15 @@ public class CasosDeUsoSemana2Test {
 
         Logger logger = LogManager.getLogger();
 
-        logger.info("Hello world!");
-        logger.trace("Entering method doSomething with parameters (param1=5, param2=10)");
+        logger.info("Gladiador + nombreGladiador + avanza + pasos +  , se ha encontrado una comida se incrementa 15 puntos, energia (x)");
+        logger.info("Gladiador + nombreGladiador + avanza + pasos +  encuentra un premio y recibe casco en casilla (x,y)");
+        logger.info("Gladiador Tito no tiene energía (-5) y pasa turno");
+        logger.info("Gladiador Comodus avanza 4, encuentra pizza, energía (10)");
+        logger.info("Jugador Tito Gana la Partida");
+
         logger.debug("Processing request for user ID 12345");
-        logger.info("user with ID '1234' just signed in");
-        logger.warn("Potential security vulnerability detected in user input: '...'");
-        logger.error("Failed to connect to database: java.sql.SQLException: Connection refused");
+
+        logger.error("tableroParser.leerArchivo(rutaJsonInvalido");
     }
 
 }

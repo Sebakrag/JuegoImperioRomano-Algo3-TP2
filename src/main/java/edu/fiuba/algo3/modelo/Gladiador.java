@@ -1,40 +1,38 @@
 package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.modelo.celdas.CeldaComun;
-import edu.fiuba.algo3.modelo.celdas.CeldaFinal;
-import edu.fiuba.algo3.modelo.celdas.CeldaInicial;
+import edu.fiuba.algo3.modelo.equipamientos.Equipamiento;
 import edu.fiuba.algo3.modelo.seniorities.Novato;
 import edu.fiuba.algo3.modelo.equipamientos.Desequipado;
 import edu.fiuba.algo3.modelo.afectantes.*;
+import edu.fiuba.algo3.modelo.estados.*;
+import edu.fiuba.algo3.modelo.seniorities.Seniority;
+/*import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;*/
 
-public class Gladiador extends Personaje {
-    //Declaramos constantes ? -> SI
+
+public class Gladiador {
+
     private static final int ENERGIA_INICIAL = 20;
-    private static final int SIN_ENERGIA = 0;
-
-    // TODO: Nos dimos cuenta que hay estados...
-    private boolean lesionado;
+    private int energia;
+    private Seniority seniority;
+    private Equipamiento equipamiento;
+    private Estado estado;
 
     public Gladiador() {
         this.energia = ENERGIA_INICIAL;
         this.seniority = new Novato();
         this.equipamiento = new Desequipado();
-        this.lesionado = false;
+        this.estado = new Sano();
     }
+
+    /*private static Logger logger = LogManager.getLogger();*/
 
     // -------------------------------- PUBLICOS -------------------------------- //
 
     public void aumentarEnergia() {
         this.energia += this.seniority.aumentarEnergia();
-    }
+        /*logger.info("Se ha aumentado la energía. Nueva energía: " + this.energia);*/
 
-    // TODO: diu
-    public boolean tieneEnergia() {
-        boolean tieneEnergia = energia > SIN_ENERGIA;
-        if(!tieneEnergia){
-            this.energia += 5;
-        }
-        return tieneEnergia;
     }
 
     public void mejorarSeniority(int turnos) {
@@ -45,18 +43,23 @@ public class Gladiador extends Personaje {
 
     public void recibirImpacto(Fiera fiera) {
         this.energia = this.equipamiento.recibirAtaque(this.energia);
+        this.estado = this.estado.cansar(this.energia);
     }
 
     public void recibirImpacto(Bacanal bacanal) {
         this.energia = bacanal.calcularEnergia(this.energia);
+        // TODO: preguntar:
+        //bacanal.modificarEnergia(this.estado);
+        this.estado = this.estado.cansar(this.energia);
     }
 
     public void recibirImpacto(Lesion lesion) {
-        this.lesionado = true;
+        this.estado = this.estado.lesionar();
     }
 
-    public void recibirImpacto(Comida comida) {      // Este metodo reemplaza el metodo 'recibirEnergia()' de Gladiador
+    public void recibirImpacto(Comida comida) {
         this.energia = comida.calcularEnergia(this.energia);
+        this.estado = this.estado.sanar();
     }
 
     public void recibirImpacto(Potenciador potenciador) {
@@ -67,13 +70,10 @@ public class Gladiador extends Personaje {
         //no hace nada;)
     }
 
-    //TODO: tan modificando el estado desde fuera!!. Cuando la celda pase por este estado, esto vuela
-    public void sanar(){
-        this.lesionado = false;
+    public int avanzar(int avances) {
+        int cantidad = this.estado.avanzar(avances);
+        this.energia = this.estado.calcularEnergia(this.energia);
+        this.estado = this.estado.sanar();
+        return cantidad;
     }
-
-    public boolean estaLesionado(){
-        return this.lesionado;
-    }
-
 }

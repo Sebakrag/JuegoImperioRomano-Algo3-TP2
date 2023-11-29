@@ -1,11 +1,4 @@
 package edu.fiuba.algo3.testsUnitarios;
-import edu.fiuba.algo3.modelo.Equipamiento;
-import edu.fiuba.algo3.modelo.Gladiador;
-import edu.fiuba.algo3.modelo.Seniority;
-import edu.fiuba.algo3.modelo.seniorities.Novato;
-import edu.fiuba.algo3.modelo.equipamientos.Desequipado;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 public class GladiadorTests {
     /*

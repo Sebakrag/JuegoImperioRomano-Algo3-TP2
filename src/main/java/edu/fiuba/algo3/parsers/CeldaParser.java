@@ -1,8 +1,8 @@
 package edu.fiuba.algo3.parsers;
 
-import edu.fiuba.algo3.modelo.Afectante;
+import edu.fiuba.algo3.modelo.afectantes.Afectante;
 import org.json.simple.JSONObject;
-import edu.fiuba.algo3.modelo.Celda;
+import edu.fiuba.algo3.modelo.celdas.Celda;
 import edu.fiuba.algo3.modelo.celdas.*;
 import edu.fiuba.algo3.modelo.afectantes.*;
 import edu.fiuba.algo3.modelo.excepcion.*;

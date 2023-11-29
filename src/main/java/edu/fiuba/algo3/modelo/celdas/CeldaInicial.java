@@ -1,10 +1,6 @@
 package edu.fiuba.algo3.modelo.celdas;
 
-import edu.fiuba.algo3.modelo.Afectante;
-import edu.fiuba.algo3.modelo.Celda;
 import edu.fiuba.algo3.modelo.Gladiador;
-import edu.fiuba.algo3.modelo.afectantes.*;
-import edu.fiuba.algo3.modelo.excepcion.CoordenadaInvalidaError;
 
 public class CeldaInicial extends Celda {
     

@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.modelo;
+package edu.fiuba.algo3.modelo.celdas;
 
 import edu.fiuba.algo3.modelo.Gladiador;
 import edu.fiuba.algo3.modelo.excepcion.CoordenadaInvalidaError;

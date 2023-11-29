@@ -1,10 +1,9 @@
 package edu.fiuba.algo3.parsers;
 
 
-import edu.fiuba.algo3.modelo.Celda;
+import edu.fiuba.algo3.modelo.celdas.Celda;
 import edu.fiuba.algo3.modelo.Tablero;
 import edu.fiuba.algo3.modelo.excepcion.ArchivoNoEncontradoError;
-import edu.fiuba.algo3.modelo.excepcion.CoordenadaInvalidaError;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;

@@ -22,7 +22,6 @@ public class CasosDeUsoSemana1Test {
     }
 
     public void potenciarHasta(Gladiador gladiador, Afectante mejora, int cantidad) {
-        // El jugador obtiene un Escudo Y Espada.
         for (int i = 0; i < cantidad; i++) {
             mejora.afectar(gladiador);
         }
@@ -50,22 +49,15 @@ public class CasosDeUsoSemana1Test {
 
         Dado dado = new Dado(1);
         CeldaInicial celdaInicial = new CeldaInicial(0, 0);
-        CeldaComun celdaComun = new CeldaComun(0,1);
-        celdaComun.setObstaculo(new Fiera());
-        celdaComun.setPremio(new Vacio());
-        ArrayList<Celda> celdas = new ArrayList<>();
-
-        celdas.add(celdaInicial);
-        celdas.add(celdaComun);
+        CeldaComun celdaComun = new CeldaComun(0,1, new Vacio(), new Fiera());
+        celdaInicial.setSiguiente(celdaComun);
 
         Gladiador gladiador = new Gladiador();
         Jugador jugador = new Jugador(gladiador, celdaInicial);
-        Tablero tablero = new Tablero();
-        tablero.armarMapa(celdas);
 
         jugador.jugarTurno(dado); //pasa a la siguiente celda que tiene una fiera
 
-        Assertions.assertThrows(TurnoPerdidoError.class,() -> jugador.jugarTurno(new Dado(6)));
+        Assertions.assertThrows(TurnoPerdidoError.class,() -> jugador.jugarTurno(dado));
     }
 
     @Test
@@ -127,9 +119,7 @@ public class CasosDeUsoSemana1Test {
     public void test07AlHaberUnCombateConFieraSiTieneCascoPierdeQuincePuntosDeEnergia() {
 
         CeldaInicial celdaInicial = new CeldaInicial(0, 0);
-        CeldaComun celdaComun = new CeldaComun(0,1);
-        celdaComun.setObstaculo(new Vacio());
-        celdaComun.setPremio(new Vacio());
+        CeldaComun celdaComun = new CeldaComun(0,1, new Vacio(), new Vacio());
         celdaInicial.setSiguiente(celdaComun);
 
         Gladiador gladiador = new Gladiador();
@@ -186,14 +176,11 @@ public class CasosDeUsoSemana1Test {
        Assertions.assertDoesNotThrow(() -> jugador.jugarTurno(dado));
     }
 
-
     @Test
     public void test10AlSerAtacadoPorUnaFieraYConTodoElEquipamientoNoPierdeEnergia(){
 
         Celda celdaInicial = new CeldaInicial(0,0);
-        CeldaComun celdaComun = new CeldaComun(0,1);
-        celdaComun.setPremio(new Vacio());
-        celdaComun.setObstaculo(new Vacio());
+        CeldaComun celdaComun = new CeldaComun(0,1, new Vacio(), new Vacio());
         celdaInicial.setSiguiente(celdaComun);
 
         Gladiador gladiador = new Gladiador();
@@ -211,9 +198,7 @@ public class CasosDeUsoSemana1Test {
     public void test11AlTenerLaLlaveYrecibirOtroPremioNoCambiaNada() {
 
         Celda celdaInicial = new CeldaInicial(0,0);
-        CeldaComun celdaComun = new CeldaComun(0,1);
-        celdaComun.setPremio(new Vacio());
-        celdaComun.setObstaculo(new Vacio());
+        CeldaComun celdaComun = new CeldaComun(0,1, new Vacio(), new Vacio());
         celdaInicial.setSiguiente(celdaComun);
 
         Gladiador gladiador = new Gladiador();

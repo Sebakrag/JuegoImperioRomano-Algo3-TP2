@@ -1,19 +1,19 @@
 package edu.fiuba.algo3.modelo.equipamientos;
 
-import edu.fiuba.algo3.modelo.Equipamiento;
 import edu.fiuba.algo3.modelo.afectantes.Potenciador;
 
-public class Casco implements Equipamiento {
-    private static final int DANIO = 15;
+public class Casco extends Equipamiento{
 
+    public Casco(){
+        this.danio = 15;
+    }
+
+    @Override
     public Equipamiento mejorarEquipamiento(Potenciador potenciador) {
         return potenciador.equipamientoSiguiente(this);
     }
 
-    public int recibirAtaque(int energiaActual) {
-        return (energiaActual - DANIO);
-    }
-
+    @Override
     public boolean equipoCompleto(){
         return false;
     }

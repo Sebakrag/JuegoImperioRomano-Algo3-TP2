@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.modelo;
+package edu.fiuba.algo3.modelo.seniorities;
 
 public interface Seniority {
     public Seniority ascender(int turno);

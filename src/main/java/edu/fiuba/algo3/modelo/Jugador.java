@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.modelo.celdas.Celda;
 import edu.fiuba.algo3.modelo.excepcion.TurnoPerdidoError;
 
 public class Jugador {
@@ -28,27 +29,26 @@ public class Jugador {
     * */
 
     public void jugarTurno(Dado dado) {
-
-        this.turno++;
-        
-        if (!this.gladiador.estaLesionado() && this.gladiador.tieneEnergia()) {
-            int avances = dado.tirar();
-            //this.avanzar(avances);
-            //this.celdaActual = this.celdaActual.afectar(this.gladiador);
-        } else {
-            this.gladiador.sanar();
-            this.gladiador.mejorarSeniority(this.turno);
-            this.gladiador.aumentarEnergia();
-            throw new TurnoPerdidoError();
-        }
         /*
          * Suponemos que: el seniority se mejora independientemente de si el jugador tiro o no los dados. Dado que esta
          * ligado a la cantidad de turnos.
          * */
-        this.gladiador.mejorarSeniority(this.turno);
-        this.gladiador.aumentarEnergia();
-    }
+        this.turno++;
 
+        try {
+            int avances = this.gladiador.avanzar(dado.tirar());
+            this.avanzar(avances);
+            celdaActual.afectar(this.gladiador);
+            this.gladiador.mejorarSeniority(this.turno);
+            this.gladiador.aumentarEnergia();
+        } catch(TurnoPerdidoError e) {
+            this.gladiador.mejorarSeniority(this.turno);
+            this.gladiador.aumentarEnergia();
+            // TODO: poner logger con mensajito ;)
+            // TODO: sacarlo y reformular los tests:
+            throw e;
+        }
+    }
 
     private void avanzar(int cantidad) {
         for (int i = 0; i < cantidad; i++) {
