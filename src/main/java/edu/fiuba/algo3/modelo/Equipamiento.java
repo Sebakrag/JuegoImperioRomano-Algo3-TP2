@@ -7,4 +7,6 @@ public interface Equipamiento {
     public Equipamiento mejorarEquipamiento(Potenciador potenciador);
 
     public int recibirAtaque(int energia);
+
+    public boolean equipoCompleto();
 }

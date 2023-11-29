@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.entregas;
 
 
-
 import edu.fiuba.algo3.modelo.excepcion.PasaronTreintaRondasYnoHuboGanadorError;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -44,11 +43,10 @@ public class CasosDeUsoSemana1Test {
 
         inhabilitarGladiador(gladiador, 1);
         Assertions.assertThrows(TurnoPerdidoError.class,() -> jugador.jugarTurno(new Dado(6)));
-
     }
 
     @Test
-
+    public void test02JugadorSaleCorrectamenteDeLaCasillaInicial(){
 
         Dado dado = new Dado(1);
         CeldaInicial celdaInicial = new CeldaInicial(0, 0);
@@ -68,12 +66,10 @@ public class CasosDeUsoSemana1Test {
         jugador.jugarTurno(dado); //pasa a la siguiente celda que tiene una fiera
 
         Assertions.assertThrows(TurnoPerdidoError.class,() -> jugador.jugarTurno(new Dado(6)));
-
     }
 
     @Test
     public void test03UnJugadorSinEnergiaPierdeElTurno(){
-
 
         Celda celdaInicial = new CeldaInicial(0, 0);
         Gladiador gladiador = new Gladiador();
@@ -82,30 +78,24 @@ public class CasosDeUsoSemana1Test {
         inhabilitarGladiador(gladiador,1);
 
         Assertions.assertThrows(TurnoPerdidoError.class,() -> jugador.jugarTurno(new Dado(6)));
-
     }
 
     @Test
     public void test04AlRecibirComidaSuEnergiaIncrementaEnQuince() {
 
-
         Celda celdaInicial = new CeldaInicial(0,0);
-
         Gladiador gladiador = new Gladiador();
         Jugador jugador = new Jugador(gladiador, celdaInicial);
         Afectante comida = new Comida();
-
 
         comida.afectar(gladiador); //energia = 35
         inhabilitarGladiador(gladiador, 2);
 
         Assertions.assertThrows(TurnoPerdidoError.class,() -> jugador.jugarTurno(new Dado(6)));
-
     }
 
     @Test
     public void test05AlRecibirUnPremioPorPrimeraVezRecibeUnCasco() {
-
 
         Celda celdaInicial = new CeldaInicial(0,0);
         Gladiador gladiador = new Gladiador();
@@ -116,7 +106,6 @@ public class CasosDeUsoSemana1Test {
         inhabilitarGladiador(gladiador, 2);
 
         Assertions.assertThrows(TurnoPerdidoError.class,() -> jugador.jugarTurno(new Dado(6)));
-
     }
 
     @Test
@@ -132,12 +121,10 @@ public class CasosDeUsoSemana1Test {
         inhabilitarGladiador(gladiador, 10); //para sacarle toda la energia debe ser atacado 10 veces
 
         Assertions.assertThrows(TurnoPerdidoError.class,() -> jugador.jugarTurno(new Dado(6)));
-
     }
 
     @Test
     public void test07AlHaberUnCombateConFieraSiTieneCascoPierdeQuincePuntosDeEnergia() {
-
 
         CeldaInicial celdaInicial = new CeldaInicial(0, 0);
         CeldaComun celdaComun = new CeldaComun(0,1);
@@ -145,25 +132,21 @@ public class CasosDeUsoSemana1Test {
         celdaComun.setPremio(new Vacio());
         celdaInicial.setSiguiente(celdaComun);
 
-
         Gladiador gladiador = new Gladiador();
         Jugador jugador = new Jugador(gladiador, celdaInicial);
         Afectante mejora = new Potenciador();
         Fiera fiera = new Fiera();
 
         mejora.afectar(gladiador);  // El jugador obtiene un casco.
-
         fiera.afectar(gladiador); //lo ataca la fiera y queda con energia = 5
         Assertions.assertDoesNotThrow(() -> jugador.jugarTurno(new Dado(1))); //puede jugar su turno
 
         fiera.afectar(gladiador);
         Assertions.assertThrows(TurnoPerdidoError.class,() -> jugador.jugarTurno(new Dado(6)));
-
     }
 
     @Test
     public void test08AlPasarOchoTurnosElGladiadorPasaDeNovatoASemiSenior() {
-
 
         CeldaInicial celdaInicial = new CeldaInicial(0,0);
         CeldaFinal celdaFinal = new CeldaFinal(0,1);
@@ -181,7 +164,6 @@ public class CasosDeUsoSemana1Test {
         inhabilitarGladiador(gladiador, 2); //atacado 2 veces por fiera
 
         Assertions.assertThrows(TurnoPerdidoError.class,() -> jugador.jugarTurno(dado));
-
     }
 
    @Test
@@ -223,7 +205,6 @@ public class CasosDeUsoSemana1Test {
         inhabilitarGladiador(gladiador, 1000); //no va a perder nunca energia al ser atacado infinitas veces
 
         Assertions.assertDoesNotThrow(() -> jugador.jugarTurno(new Dado(1))); //puede jugar turno.
-
     }
 
     @Test

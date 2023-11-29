@@ -5,15 +5,13 @@ import edu.fiuba.algo3.modelo.excepcion.PasaronTreintaRondasYnoHuboGanadorError;
 import java.util.*;
 
 
-
+public class Juego {
     private static final int CANTIDAD_MAXIMA_DE_RONDAS = 30;
-
     private Tablero tablero;
     private Dado dado;
     private int cantidadJugadores;  // Lo borramos? Podemos pedirlo por interfaz grafica.
     private ArrayList<Jugador> jugadores;
     private int ronda;
-
 
     public Juego() {
         // Instanciar la interfaz grafica --> se pide la cantidad de jugadores y el ingreso de los nombres.??????
@@ -46,5 +44,17 @@ import java.util.*;
         throw new PasaronTreintaRondasYnoHuboGanadorError();
     }
 
+    public void crearJugadores(int cantidadJugadores) {
+        for (int i = 0; i < cantidadJugadores; i++) {
+            Gladiador gladiador = new Gladiador();
+            Jugador jugador = new Jugador(gladiador, this.tablero.getCeldaInicial());
+            this.jugadores.add(jugador);
+        }
+    }
+
+    public boolean chequearRonda(){
+        return (this.ronda <= CANTIDAD_MAXIMA_DE_RONDAS);
+    }
+}
 
 

@@ -1,6 +1,5 @@
 package edu.fiuba.algo3.modelo;
 
-
 import edu.fiuba.algo3.modelo.excepcion.*;
 import java.util.ArrayList;
 
@@ -27,6 +26,5 @@ public class Tablero {
 
     public Celda getCeldaInicial(){
         return this.celdaInicial;
-
     }
 }

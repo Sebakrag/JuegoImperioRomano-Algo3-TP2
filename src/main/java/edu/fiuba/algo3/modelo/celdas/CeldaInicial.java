@@ -32,6 +32,6 @@ public class CeldaInicial extends Celda {
 
     @Override
     public Celda celdaSiguiente(){
-        return
+        return this.siguiente;
     }
 }

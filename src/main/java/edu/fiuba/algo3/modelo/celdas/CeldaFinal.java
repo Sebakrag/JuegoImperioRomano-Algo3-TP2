@@ -15,7 +15,6 @@ public class CeldaFinal extends Celda {
 
         this.premio = new Vacio();
         this.obstaculo = new Vacio();
-
         this.x = x;
         this.y = y;
     }

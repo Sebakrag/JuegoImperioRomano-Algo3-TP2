@@ -9,15 +9,12 @@ public class Gladiador extends Personaje {
     private static final int ENERGIA_INICIAL = 20;
     private static final int SIN_ENERGIA = 0;
 
-
     private boolean lesionado;
-
 
     public Gladiador() {
         this.energia = ENERGIA_INICIAL;
         this.seniority = new Novato();
         this.equipamiento = new Desequipado();
-
         this.lesionado = false;
     }
 
@@ -32,6 +29,7 @@ public class Gladiador extends Personaje {
         if(!tieneEnergia){
             this.energia += 5;
         }
+        return tieneEnergia;
     }
 
     public void mejorarSeniority(int turnos) {

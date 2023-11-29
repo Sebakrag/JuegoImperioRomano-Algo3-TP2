@@ -16,7 +16,6 @@ public class SemiSeniorTests {
     }
 
    /* @Test
-
     public void test02SiTurnoEsDoceAscenderDevuelveSiguienteSeniority(){
         SemiSenior semiSenior = new SemiSenior();
         int turno = 12;
@@ -24,7 +23,6 @@ public class SemiSeniorTests {
         Seniority seniorityActual = semiSenior.ascender(turno);
 
         Assertions.assertEquals(semiSenior, seniorityActual);
-
     }*/
 
 }
