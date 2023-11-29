@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class Tablero {
     private Celda celdaInicial;
 
+    // TODO: Siento que es al pedo esta clase, que ese metodo puede estar privado en el parser
     public void armarMapa(ArrayList<Celda> celdas) throws CantidadInvalidaDeCeldasError{
 
         if ( celdas.size() < 2 ){

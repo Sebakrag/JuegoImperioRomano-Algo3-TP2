@@ -14,15 +14,27 @@ public class Jugador {
         this.celdaActual = celdaInicial;
     }
 
+    // TODO: Mejorar lógica (mirar patron State y Visitor)
+
+    /*
+    Parece ser que la celda de alguna manera debe pasar por el gladiador para poder avanzar o no.
+    Por lo tanto la logica de movimiento debe invertirse de manera que si el gladiador tiene x estado e y equipamiento
+    Permita o no mover y hacia donde moverse
+
+    Incluso, algunas de las
+    this.gladiador.mejorarSeniority(this.turno);
+    this.gladiador.aumentarEnergia();
+    pueden desaparecer
+    * */
+
     public void jugarTurno(Dado dado) {
 
         this.turno++;
         
         if (!this.gladiador.estaLesionado() && this.gladiador.tieneEnergia()) {
             int avances = dado.tirar();
-            this.avanzar(avances);
-            this.celdaActual = this.celdaActual.afectar(this.gladiador);
-
+            //this.avanzar(avances);
+            //this.celdaActual = this.celdaActual.afectar(this.gladiador);
         } else {
             this.gladiador.sanar();
             this.gladiador.mejorarSeniority(this.turno);
