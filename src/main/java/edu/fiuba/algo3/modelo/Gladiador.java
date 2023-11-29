@@ -1,11 +1,13 @@
 package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.equipamientos.Equipamiento;
+import edu.fiuba.algo3.modelo.excepcion.TurnoPerdidoError;
 import edu.fiuba.algo3.modelo.seniorities.Novato;
 import edu.fiuba.algo3.modelo.equipamientos.Desequipado;
 import edu.fiuba.algo3.modelo.afectantes.*;
 import edu.fiuba.algo3.modelo.estados.*;
 import edu.fiuba.algo3.modelo.seniorities.Seniority;
+import edu.fiuba.algo3.modelo.celdas.Celda;
 /*import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;*/
 
@@ -29,14 +31,10 @@ public class Gladiador {
 
     // -------------------------------- PUBLICOS -------------------------------- //
 
-    public void aumentarEnergia() {
-        this.energia += this.seniority.aumentarEnergia();
-        /*logger.info("Se ha aumentado la energía. Nueva energía: " + this.energia);*/
-
-    }
-
     public void mejorarSeniority(int turnos) {
         this.seniority = this.seniority.ascender(turnos);
+        this.energia += this.seniority.aumentarEnergia();
+        /*logger.info("Se ha aumentado la energía. Nueva energía: " + this.energia);*/
     }
 
     public boolean totalmenteEquipado() { return this.equipamiento.equipoCompleto(); }
@@ -48,7 +46,7 @@ public class Gladiador {
 
     public void recibirImpacto(Bacanal bacanal) {
         this.energia = bacanal.calcularEnergia(this.energia);
-        // TODO: preguntar:
+        // TODO: preguntar: Conviene que la energia sea un atributo del estado del gladiador? Eso nos obliga a modificar bacanal, fiera y comida
         //bacanal.modificarEnergia(this.estado);
         this.estado = this.estado.cansar(this.energia);
     }
@@ -70,10 +68,26 @@ public class Gladiador {
         //no hace nada;)
     }
 
-    public int avanzar(int avances) {
-        int cantidad = this.estado.avanzar(avances);
-        this.energia = this.estado.calcularEnergia(this.energia);
-        this.estado = this.estado.sanar();
-        return cantidad;
+    public Celda mover(int avances, Celda celdaActual, int turnos) throws TurnoPerdidoError {
+        this.mejorarSeniority(turnos);
+
+        try {
+            this.estado.avanzar(avances);
+            celdaActual = this.avanzar(avances, celdaActual);
+            celdaActual = celdaActual.afectar(this);
+            return celdaActual;
+        } catch (TurnoPerdidoError e) {
+            this.energia = this.estado.calcularEnergia(this.energia);
+            this.estado = this.estado.sanar();
+            throw e;
+        }
+    }
+
+    // ------------------------------ PRIVADOS ----------------------------- //
+    private Celda avanzar(int avances, Celda celdaActual) {
+        for (int i = 0; i < avances; i++) {
+            celdaActual = celdaActual.celdaSiguiente();
+        }
+        return celdaActual;
     }
 }

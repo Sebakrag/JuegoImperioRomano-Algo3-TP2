@@ -1,6 +1,5 @@
 package edu.fiuba.algo3.parsers;
 
-
 import edu.fiuba.algo3.modelo.celdas.Celda;
 import edu.fiuba.algo3.modelo.Tablero;
 import edu.fiuba.algo3.modelo.excepcion.ArchivoNoEncontradoError;
@@ -17,13 +16,11 @@ import java.util.ArrayList;
 public class TableroParser {
 
     public Tablero leerArchivo(String ruta) throws ArchivoNoEncontradoError, IOException, ParseException {
-        try (FileReader lectorJson = new FileReader(System.getProperty("user.dir") + ruta)) {
 
+        try (FileReader lectorJson = new FileReader(System.getProperty("user.dir") + ruta)) {
             JSONParser jsonParser = new JSONParser();
             JSONObject json = (JSONObject) jsonParser.parse(lectorJson);
-
             return generarTablero(json);
-
         } catch (FileNotFoundException e) {
             throw new ArchivoNoEncontradoError(System.getProperty("user.dir") + ruta);
         } catch (IOException | ParseException e) {
@@ -39,10 +36,10 @@ public class TableroParser {
         return tablero;
     }
 
-    private ArrayList<Celda> parsearCeldas(JSONObject tablero) throws ArchivoNoEncontradoError{
+    private ArrayList<Celda> parsearCeldas(JSONObject tablero) throws ArchivoNoEncontradoError {
         JSONArray celdas = (JSONArray)((JSONObject) tablero.get("camino")).get("celdas");
 
-        if (celdas == null){ throw new ArchivoNoEncontradoError("El mapa no es valido"); }
+        if (celdas == null) { throw new ArchivoNoEncontradoError("El mapa no es valido"); }
         CeldaParser celdaParser = new CeldaParser();
         ArrayList<Celda> celdasParseadas = new ArrayList<>();
 
@@ -53,6 +50,4 @@ public class TableroParser {
 
         return celdasParseadas;
     }
-
 }
-

@@ -39,6 +39,15 @@ public class CasosDeUsoSemana2Test {
 
         Assertions.assertThrows(ArchivoNoEncontradoError.class,() -> tableroParser.leerArchivo(rutaJsonValida));
     }
+
+    /*
+    * Nos aparece un error en leerArchivo ya que no siempre va a retornar un Tablero valido, sino que
+    * hay casos en los que lanza alguno de estos errores:
+    *                   ArchivoNoEncontradoError
+    *                   IOException
+    *                   ParseException
+    * Nos parece muy diu hacer un try-catch en los tests.
+    **/
 /*
     @Test
     public void test15ElTableroSeCreaCorrectamenteAPartirDeUnArchivoJSON(){
