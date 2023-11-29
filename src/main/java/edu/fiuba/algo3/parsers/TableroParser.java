@@ -17,58 +17,43 @@ import java.util.ArrayList;
 
 public class TableroParser {
 
-    public Tablero leerArchivo(String ruta) throws ArchivoNoEncontradoError {
-        JSONParser jsonParser = new JSONParser();
-        Tablero tablero = new Tablero();
-
+    public Tablero leerArchivo(String ruta) throws ArchivoNoEncontradoError, IOException, ParseException {
         try (FileReader lectorJson = new FileReader(System.getProperty("user.dir") + ruta)) {
-            Object objetoParseado = jsonParser.parse(lectorJson);
-            generarTablero(objetoParseado, tablero);
+
+            JSONParser jsonParser = new JSONParser();
+            JSONObject json = (JSONObject) jsonParser.parse(lectorJson);
+
+            return generarTablero(json);
+
         } catch (FileNotFoundException e) {
             throw new ArchivoNoEncontradoError(System.getProperty("user.dir") + ruta);
         } catch (IOException | ParseException e) {
             e.printStackTrace();
+            throw e;
         }
+    }
+
+    private Tablero generarTablero(JSONObject jsonTablero) {
+        ArrayList<Celda> celdas = this.parsearCeldas(jsonTablero);
+        Tablero tablero = new Tablero();
+        tablero.armarMapa(celdas);
         return tablero;
     }
 
-    public void generarTablero(Object objetoParseado, Tablero tablero) {
-        JSONObject jsonTablero = (JSONObject) objetoParseado;
+    private ArrayList<Celda> parsearCeldas(JSONObject tablero) throws ArchivoNoEncontradoError{
+        JSONArray celdas = (JSONArray)((JSONObject) tablero.get("camino")).get("celdas");
 
-        ArrayList<Celda> celdasCreadas = new ArrayList<>();
-        this.parse(jsonTablero, celdasCreadas);
-
-        tablero.armarMapa(celdasCreadas);
-    }
-
-
-    public void parse(JSONObject tablero, ArrayList<Celda> celdasCreadas){
-
-        /* Nos es util ?
-        JSONObject mapa = (JSONObject) tablero.get("mapa");
-
-        int ancho = (int) mapa.get("ancho");
-        int largo = (int) mapa.get("largo");
-    */
-        JSONObject camino = (JSONObject) tablero.get("camino");
-        JSONArray celdas = (JSONArray) camino.get("celdas");
-
-        agregarCeldas(celdas, celdasCreadas);
-
-    }
-
-    public void agregarCeldas(JSONArray celdas, ArrayList<Celda> celdasCreadas) throws CoordenadaInvalidaError {
+        if (celdas == null){ throw new ArchivoNoEncontradoError("El mapa no es valido"); }
         CeldaParser celdaParser = new CeldaParser();
+        ArrayList<Celda> celdasParseadas = new ArrayList<>();
 
         for (Object celda : celdas) {
-            try {
-                Celda celdaCreada = celdaParser.parse((JSONObject) celda);
-                celdasCreadas.add(celdaCreada);
-            } catch (CoordenadaInvalidaError e) {
-                //e.printStackTrace();{
-                throw new CoordenadaInvalidaError();
-            }
+            Celda celdaCreada = celdaParser.parse((JSONObject) celda);
+            celdasParseadas.add(celdaCreada);
         }
+
+        return celdasParseadas;
     }
+
 }
 
