@@ -7,7 +7,8 @@ import edu.fiuba.algo3.modelo.Gladiador;
 import edu.fiuba.algo3.modelo.excepcion.CoordenadaInvalidaError;
 
 public class CeldaComun extends Celda {
-
+    private Afectante premio;
+    private Afectante obstaculo;
     public CeldaComun(int x, int y){
         if(x < 0 || y < 0) {
             throw new CoordenadaInvalidaError();

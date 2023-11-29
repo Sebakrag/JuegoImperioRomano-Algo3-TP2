@@ -14,14 +14,13 @@ public class Jugador {
         this.celdaActual = celdaInicial;
     }
 
-    // -------------------------------- PUBLICOS -------------------------------- //
     public void jugarTurno(Dado dado) {
 
         this.turno++;
         
         if (!this.gladiador.estaLesionado() && this.gladiador.tieneEnergia()) {
-            int cantidadAAvanzar = dado.tirar();
-            this.avanzar(cantidadAAvanzar);
+            int avances = dado.tirar();
+            this.avanzar(avances);
             this.celdaActual = this.celdaActual.afectar(this.gladiador);
 
         } else {
@@ -39,22 +38,9 @@ public class Jugador {
     }
 
 
-    // -------------------------------- PRIVADOS -------------------------------- //
     private void avanzar(int cantidad) {
         for (int i = 0; i < cantidad; i++) {
             this.celdaActual = this.celdaActual.celdaSiguiente();
         }
     }
 }
-
-
-// NOTA APARTE:
-// No implementamos Personaje.
-// Si creamos esta abstraccion e implementamos el metodo recibirImpacto como esta planteado arriba
-// podriamos extender nuestro codigo a que tenga distintos tipos de personajes que reaccionen de distinta manera
-// a los afectantes.
-// Esto se veria como:
-// public void recibirImpacto(Afectante afectante) {
-//      this.personaje.recibirImpacto(afectante);
-//}
-// Entonces cada tipo de personaje tendria su propio metodo ante cada tipo de Afectante.

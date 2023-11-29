@@ -6,11 +6,12 @@ import java.util.ArrayList;
 public class Tablero {
     private Celda celdaInicial;
 
+    public int armarMapa(ArrayList<Celda> celdas) throws CantidadInvalidaDeCeldasError{
 
-    public void armarMapa(ArrayList<Celda> celdas){
         if ( celdas.size() < 2 ){
             throw new CantidadInvalidaDeCeldasError();
         }
+
         this.celdaInicial = celdas.get(0);
         Celda actual = celdas.get(0);
         int i = 1;

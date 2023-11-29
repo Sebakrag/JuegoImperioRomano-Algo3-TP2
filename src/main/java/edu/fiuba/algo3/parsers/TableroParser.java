@@ -35,7 +35,9 @@ public class TableroParser {
 
     private Tablero generarTablero(JSONObject jsonTablero) {
         ArrayList<Celda> celdas = this.parsearCeldas(jsonTablero);
-        return new Tablero(celdas);
+        Tablero tablero = new Tablero();
+        tablero.armarMapa(celdas);
+        return tablero;
     }
 
     private ArrayList<Celda> parsearCeldas(JSONObject tablero) throws ArchivoNoEncontradoError{
@@ -52,5 +54,6 @@ public class TableroParser {
 
         return celdasParseadas;
     }
+
 }
 
