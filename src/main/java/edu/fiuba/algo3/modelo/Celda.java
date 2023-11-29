@@ -12,6 +12,4 @@ public abstract class Celda {
     public abstract Celda afectar(Gladiador gladiador);
 
     public abstract Celda celdaSiguiente();
-
-    public void setSiguiente(Celda siguiente){ this.siguiente = siguiente;};
 }

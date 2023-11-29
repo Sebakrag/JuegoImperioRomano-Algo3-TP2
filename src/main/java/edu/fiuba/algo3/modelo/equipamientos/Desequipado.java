@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.equipamientos;
 
 import edu.fiuba.algo3.modelo.Equipamiento;
+
 import edu.fiuba.algo3.modelo.afectantes.Potenciador;
 
 public class Desequipado implements Equipamiento {
@@ -8,6 +9,7 @@ public class Desequipado implements Equipamiento {
 
     public Equipamiento mejorarEquipamiento(Potenciador potenciador) {
         return potenciador.equipamientoSiguiente(this);
+
     }
 
     public int recibirAtaque(int energiaActual) {

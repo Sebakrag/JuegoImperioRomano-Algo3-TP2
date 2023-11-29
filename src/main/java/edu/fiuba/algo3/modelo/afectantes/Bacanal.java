@@ -15,6 +15,7 @@ public class Bacanal implements Afectante {
 
     public void afectar(Gladiador gladiador){
         Dado dado = new Dado(6);
+
         this.cantidadCopas = dado.tirar();    // Se puede vincular la accion de un boton al metodo tirar() de Dado?
         // En vez de necesitar una instancia de Jugador para poder tirar el dado.
         // Si decidimos dejar estas dos lineas de codigo de Dado, deberian ir en calcularEnergia.
