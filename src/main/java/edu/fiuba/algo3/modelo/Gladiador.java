@@ -8,8 +8,8 @@ import edu.fiuba.algo3.modelo.afectantes.*;
 import edu.fiuba.algo3.modelo.estados.*;
 import edu.fiuba.algo3.modelo.seniorities.Seniority;
 import edu.fiuba.algo3.modelo.celdas.Celda;
-/*import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;*/
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 
 public class Gladiador {
@@ -27,14 +27,14 @@ public class Gladiador {
         this.estado = new Sano();
     }
 
-    /*private static Logger logger = LogManager.getLogger();*/
+    private static final Logger logger = LogManager.getLogger();
 
     // -------------------------------- PUBLICOS -------------------------------- //
 
     public void mejorarSeniority(int turnos) {
         this.seniority = this.seniority.ascender(turnos);
         this.energia += this.seniority.aumentarEnergia();
-        /*logger.info("Se ha aumentado la energía. Nueva energía: " + this.energia);*/
+        logger.info("Se ha aumentado la energía. Nueva energía: " + this.energia);
     }
 
     public boolean totalmenteEquipado() { return this.equipamiento.equipoCompleto(); }
@@ -53,11 +53,13 @@ public class Gladiador {
 
     public void recibirImpacto(Lesion lesion) {
         this.estado = this.estado.lesionar();
+        logger.info("Se ha recibido un impacto de tipo Lesion. Nuevo estado: " + this.estado);
     }
 
     public void recibirImpacto(Comida comida) {
         this.energia = comida.calcularEnergia(this.energia);
         this.estado = this.estado.sanar();
+        logger.info("Se ha recibido un impacto de tipo Comida. Nueva energía: " + this.energia + ", Nuevo estado: " + this.estado);
     }
 
     public void recibirImpacto(Potenciador potenciador) {
@@ -75,10 +77,12 @@ public class Gladiador {
             this.estado.avanzar(avances);
             celdaActual = this.avanzar(avances, celdaActual);
             celdaActual = celdaActual.afectar(this);
+            logger.info("Movimiento exitoso. Nueva celda: " + celdaActual);
             return celdaActual;
         } catch (TurnoPerdidoError e) {
             this.energia = this.estado.calcularEnergia(this.energia);
             this.estado = this.estado.sanar();
+            logger.error("Turno perdido. Energía actual: " + this.energia + ", Nuevo estado: " + this.estado);
             throw e;
         }
     }

@@ -2,6 +2,11 @@ package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.celdas.Celda;
 import edu.fiuba.algo3.modelo.excepcion.PasaronTreintaRondasYnoHuboGanadorError;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.*;
 
 
@@ -12,6 +17,7 @@ public class Juego {
     private int cantidadJugadores;  // Lo borramos? Podemos pedirlo por interfaz grafica.
     private ArrayList<Jugador> jugadores;
     private int ronda;
+    private static final Logger logger = LogManager.getLogger();
 
     public Juego() {
         // Instanciar la interfaz grafica --> se pide la cantidad de jugadores y el ingreso de los nombres.??????
@@ -41,6 +47,7 @@ public class Juego {
             i = 0;
         }
 
+        logger.info("La partida ha terminado sin un ganador después de 30 rondas.");
         throw new PasaronTreintaRondasYnoHuboGanadorError();
     }
 

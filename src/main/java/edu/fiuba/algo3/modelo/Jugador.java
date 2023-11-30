@@ -2,11 +2,15 @@ package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.celdas.Celda;
 import edu.fiuba.algo3.modelo.excepcion.TurnoPerdidoError;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Jugador {
     private Gladiador gladiador;
     private Celda celdaActual;
     private int turno;
+
+    private static final Logger logger = LogManager.getLogger();
 
     public Jugador(Gladiador gladiador, Celda celdaInicial) {
         this.gladiador = gladiador;
@@ -23,8 +27,9 @@ public class Jugador {
 
         try {
             this.celdaActual = this.gladiador.mover(dado.tirar(), this.celdaActual, this.turno);
+            logger.info("Turno jugado con éxito. Nueva celda del gladiador: " + this.celdaActual);
         } catch(TurnoPerdidoError e) {
-            // TODO: poner logger con mensajito ;)
+            logger.error("Turno perdido durante el juego. Detalles: " + e.getMessage());
             // TODO: sacarlo y reformular los tests:
             throw e;
         }
