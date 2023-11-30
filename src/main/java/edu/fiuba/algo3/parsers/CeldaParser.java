@@ -6,6 +6,8 @@ import edu.fiuba.algo3.modelo.celdas.Celda;
 import edu.fiuba.algo3.modelo.celdas.*;
 import edu.fiuba.algo3.modelo.afectantes.*;
 import edu.fiuba.algo3.modelo.excepcion.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /*
 *       "x": 17,
@@ -55,9 +57,10 @@ public class CeldaParser {
     }
 
     private Afectante parsearObstaculo(String afectante){
+        /*Logger logger = LogManager.getLogger();*/
         switch (afectante){
             case "Lesion":
-                return new Lesion();
+                return new Lesion(/*logger*/);
             case "Bacanal":
                 return new Bacanal();
             case "Fiera":

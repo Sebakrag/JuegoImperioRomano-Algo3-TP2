@@ -10,12 +10,13 @@ public class Jugador {
     private Celda celdaActual;
     private int turno;
 
-    private static final Logger logger = LogManager.getLogger();
+    /*private final Logger logger;*/
 
-    public Jugador(Gladiador gladiador, Celda celdaInicial) {
+    public Jugador(Gladiador gladiador, Celda celdaInicial/*,Logger logger*/) {
         this.gladiador = gladiador;
         this.turno = 0;
         this.celdaActual = celdaInicial;
+        /*this.logger = logger;*/
     }
 
     /*
@@ -27,9 +28,9 @@ public class Jugador {
 
         try {
             this.celdaActual = this.gladiador.mover(dado.tirar(), this.celdaActual, this.turno);
-            logger.info("Turno jugado con éxito. Nueva celda del gladiador: " + this.celdaActual);
+            /*logger.info("Turno jugado con éxito. Nueva celda del gladiador: " + this.celdaActual);*/
         } catch(TurnoPerdidoError e) {
-            logger.error("Turno perdido durante el juego. Detalles: " + e.getMessage());
+            /*logger.error("Turno perdido durante el juego. Detalles: " + e.getMessage());*/
             // TODO: sacarlo y reformular los tests:
             throw e;
         }

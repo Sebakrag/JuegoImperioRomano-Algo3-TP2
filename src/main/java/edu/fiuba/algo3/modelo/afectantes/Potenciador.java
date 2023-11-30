@@ -7,34 +7,34 @@ import org.apache.logging.log4j.Logger;
 
 public class Potenciador implements Afectante {
 
-    private static final Logger logger = LogManager.getLogger();
+    /*private static final Logger logger = LogManager.getLogger();*/
 
     public void afectar(Gladiador gladiador) {
         gladiador.recibirImpacto(this);
     }
 
     public Equipamiento equipamientoSiguiente(Desequipado desequipado) {
-        logger.info("Mejorando equipamiento a Casco.");
+       /* logger.info("Mejorando equipamiento a Casco.");*/
         return new Casco();
     }
 
     public Equipamiento equipamientoSiguiente(Casco casco) {
-        logger.info("Mejorando equipamiento a Armadura.");
+        /*logger.info("Mejorando equipamiento a Armadura.");*/
         return new Armadura();
     }
 
     public Equipamiento equipamientoSiguiente(Armadura armadura) {
-        logger.info("Mejorando equipamiento a Escudo y Espada.");
+        /*logger.info("Mejorando equipamiento a Escudo y Espada.");*/
         return new EscudoYEspada();
     }
 
     public Equipamiento equipamientoSiguiente(EscudoYEspada escudoYEspada) {
-        logger.info("Mejorando equipamiento a Llave.");
+        /*logger.info("Mejorando equipamiento a Llave.");*/
         return new Llave();
     }
 
     public Equipamiento equipamientoSiguiente(Llave llave) {
-        logger.info("Equipamiento actual: Llave. No hay mejora.");
+        /*logger.info("Equipamiento actual: Llave. No hay mejora.");*/
         return llave;
     }
 }

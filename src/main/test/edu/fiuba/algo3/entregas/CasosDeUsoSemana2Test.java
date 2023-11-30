@@ -58,7 +58,8 @@ public class CasosDeUsoSemana2Test {
         Tablero tablero = tableroParser.leerArchivo(rutaJsonValida);
         Celda celda = tablero.getCeldaInicial();
 
-        Gladiador gladiador = new Gladiador();
+        Logger logger = LogManager.getLogger();
+        Gladiador gladiador = new Gladiador(logger);
         Jugador jugador = new Jugador(gladiador, celda);
 
         celda.afectar(gladiador); //no recibe nada, continua con energia = 20
@@ -77,7 +78,8 @@ public class CasosDeUsoSemana2Test {
         Celda celdaConEquipamiento = celda.celdaSiguiente();
         Celda celdaConComida = celdaConEquipamiento.celdaSiguiente();
 
-        Gladiador gladiador = new Gladiador();
+        Logger logger = LogManager.getLogger();
+        Gladiador gladiador = new Gladiador(logger);
         Jugador jugador = new Jugador(gladiador, celda);
         celdaConComida.afectar(gladiador); // energia pasa a 35
 

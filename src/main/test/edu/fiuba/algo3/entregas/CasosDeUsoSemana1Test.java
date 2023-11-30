@@ -2,12 +2,15 @@ package edu.fiuba.algo3.entregas;
 
 
 import edu.fiuba.algo3.modelo.excepcion.PasaronTreintaRondasYnoHuboGanadorError;
+import org.apache.logging.log4j.LogManager;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.modelo.afectantes.*;
 import edu.fiuba.algo3.modelo.celdas.*;
 import edu.fiuba.algo3.modelo.excepcion.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 
@@ -37,7 +40,8 @@ public class CasosDeUsoSemana1Test {
     public void test01SeInicializaUnJugadorConLaEnergiaYElEquipamientoCorrecto() {
 
         CeldaInicial celdaInicial = new CeldaInicial(0, 0);
-        Gladiador gladiador = new Gladiador();
+        Logger logger = LogManager.getLogger();
+        Gladiador gladiador = new Gladiador(logger);
         Jugador jugador = new Jugador(gladiador, celdaInicial);
 
         inhabilitarGladiador(gladiador, 1);
@@ -52,7 +56,8 @@ public class CasosDeUsoSemana1Test {
         CeldaComun celdaComun = new CeldaComun(0,1, new Vacio(), new Fiera());
         celdaInicial.setSiguiente(celdaComun);
 
-        Gladiador gladiador = new Gladiador();
+        Logger logger = LogManager.getLogger();
+        Gladiador gladiador = new Gladiador(logger);
         Jugador jugador = new Jugador(gladiador, celdaInicial);
 
         jugador.jugarTurno(dado); //pasa a la siguiente celda que tiene una fiera
@@ -64,7 +69,8 @@ public class CasosDeUsoSemana1Test {
     public void test03UnJugadorSinEnergiaPierdeElTurno(){
 
         Celda celdaInicial = new CeldaInicial(0, 0);
-        Gladiador gladiador = new Gladiador();
+        Logger logger = LogManager.getLogger();
+        Gladiador gladiador = new Gladiador(logger);
         Jugador jugador = new Jugador(gladiador, celdaInicial);
 
         inhabilitarGladiador(gladiador,1);
@@ -76,7 +82,8 @@ public class CasosDeUsoSemana1Test {
     public void test04AlRecibirComidaSuEnergiaIncrementaEnQuince() {
 
         Celda celdaInicial = new CeldaInicial(0,0);
-        Gladiador gladiador = new Gladiador();
+        Logger logger = LogManager.getLogger();
+        Gladiador gladiador = new Gladiador(logger);
         Jugador jugador = new Jugador(gladiador, celdaInicial);
         Afectante comida = new Comida();
 
@@ -90,7 +97,8 @@ public class CasosDeUsoSemana1Test {
     public void test05AlRecibirUnPremioPorPrimeraVezRecibeUnCasco() {
 
         Celda celdaInicial = new CeldaInicial(0,0);
-        Gladiador gladiador = new Gladiador();
+        Logger logger = LogManager.getLogger();
+        Gladiador gladiador = new Gladiador(logger);
         Jugador jugador = new Jugador(gladiador, celdaInicial);
         Afectante mejora = new Potenciador();
 
@@ -104,7 +112,8 @@ public class CasosDeUsoSemana1Test {
     public void test06AlRecibirUnPremioPorTerceraVezObtieneEscudoYEspada() {
 
         Celda celdaInicial = new CeldaInicial(0,0);
-        Gladiador gladiador = new Gladiador();
+        Logger logger = LogManager.getLogger();
+        Gladiador gladiador = new Gladiador(logger);
         Jugador jugador = new Jugador(gladiador, celdaInicial);
         Afectante mejora = new Potenciador();
 
@@ -122,7 +131,8 @@ public class CasosDeUsoSemana1Test {
         CeldaComun celdaComun = new CeldaComun(0,1, new Vacio(), new Vacio());
         celdaInicial.setSiguiente(celdaComun);
 
-        Gladiador gladiador = new Gladiador();
+        Logger logger = LogManager.getLogger();
+        Gladiador gladiador = new Gladiador(logger);
         Jugador jugador = new Jugador(gladiador, celdaInicial);
         Afectante mejora = new Potenciador();
         Fiera fiera = new Fiera();
@@ -146,7 +156,8 @@ public class CasosDeUsoSemana1Test {
         Tablero tablero = new Tablero();
         tablero.armarMapa(celdas);
 
-        Gladiador gladiador = new Gladiador();
+        Logger logger = LogManager.getLogger();
+        Gladiador gladiador = new Gladiador(logger);
         Jugador jugador = new Jugador(gladiador, celdaInicial);
         Dado dado = new Dado(6);
 
@@ -167,7 +178,8 @@ public class CasosDeUsoSemana1Test {
        Tablero tablero = new Tablero();
        tablero.armarMapa(celdas);
 
-       Gladiador gladiador = new Gladiador();
+       Logger logger = LogManager.getLogger();
+       Gladiador gladiador = new Gladiador(logger);
        Jugador jugador = new Jugador(gladiador, celdaInicial);
        Dado dado = new Dado(1);
 
@@ -182,8 +194,8 @@ public class CasosDeUsoSemana1Test {
         Celda celdaInicial = new CeldaInicial(0,0);
         CeldaComun celdaComun = new CeldaComun(0,1, new Vacio(), new Vacio());
         celdaInicial.setSiguiente(celdaComun);
-
-        Gladiador gladiador = new Gladiador();
+        Logger logger = LogManager.getLogger();
+        Gladiador gladiador = new Gladiador(logger);
         Jugador jugador = new Jugador(gladiador, celdaInicial);
         Afectante mejora = new Potenciador();
 
@@ -201,7 +213,8 @@ public class CasosDeUsoSemana1Test {
         CeldaComun celdaComun = new CeldaComun(0,1, new Vacio(), new Vacio());
         celdaInicial.setSiguiente(celdaComun);
 
-        Gladiador gladiador = new Gladiador();
+        Logger logger = LogManager.getLogger();
+        Gladiador gladiador = new Gladiador(logger);
         Jugador jugador = new Jugador(gladiador, celdaInicial);
         Afectante mejora = new Potenciador();
 
@@ -217,7 +230,8 @@ public class CasosDeUsoSemana1Test {
     @Test
     public void test12AlPasarTreintaTurnosYnadieLlegaAlaMetaSeTerminoElJuego() {
 
-        Juego juego = new Juego();
+        Logger logger =LogManager.getLogger();
+        Juego juego = new Juego(logger);
         CeldaInicial celdaInicial = new CeldaInicial(0,0);
         CeldaFinal celdaFinal = new CeldaFinal(0,1);
         ArrayList<Celda> celdas = new ArrayList<Celda>();

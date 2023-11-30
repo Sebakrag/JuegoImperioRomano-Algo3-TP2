@@ -17,18 +17,19 @@ public class Juego {
     private int cantidadJugadores;  // Lo borramos? Podemos pedirlo por interfaz grafica.
     private ArrayList<Jugador> jugadores;
     private int ronda;
-    private static final Logger logger = LogManager.getLogger();
+    private final Logger logger;
 
-    public Juego() {
+    public Juego(Logger logger) {
         // Instanciar la interfaz grafica --> se pide la cantidad de jugadores y el ingreso de los nombres.??????
         // VERIFICAR QUE LOS JUGADORES INGRESADOS SEN ENTRE 2 Y 6
         this.tablero = new Tablero();
         this.jugadores = new ArrayList<>();
+        this.logger =  logger;
     }
 
     public void iniciarPartida(ArrayList<Celda> celdas, int cantidadJugadores) {
         this.tablero.armarMapa(celdas);
-        this.crearJugadores(cantidadJugadores);
+        this.crearJugadores(cantidadJugadores, logger);
         this.ronda = 1;
         this.dado = new Dado(cantidadJugadores);
 
@@ -51,9 +52,9 @@ public class Juego {
         throw new PasaronTreintaRondasYnoHuboGanadorError();
     }
 
-    public void crearJugadores(int cantidadJugadores) {
+    public void crearJugadores(int cantidadJugadores, Logger logger) {
         for (int i = 0; i < cantidadJugadores; i++) {
-            Gladiador gladiador = new Gladiador();
+            Gladiador gladiador = new Gladiador(logger);
             Jugador jugador = new Jugador(gladiador, this.tablero.getCeldaInicial());
             this.jugadores.add(jugador);
         }

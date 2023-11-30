@@ -8,7 +8,6 @@ import edu.fiuba.algo3.modelo.afectantes.*;
 import edu.fiuba.algo3.modelo.estados.*;
 import edu.fiuba.algo3.modelo.seniorities.Seniority;
 import edu.fiuba.algo3.modelo.celdas.Celda;
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 
@@ -16,18 +15,20 @@ public class Gladiador {
 
     private static final int ENERGIA_INICIAL = 20;
     private int energia;
+    private final Logger logger;
     private Seniority seniority;
     private Equipamiento equipamiento;
     private Estado estado;
 
-    public Gladiador() {
+    public Gladiador(Logger logger) {
         this.energia = ENERGIA_INICIAL;
         this.seniority = new Novato();
         this.equipamiento = new Desequipado();
         this.estado = new Sano();
+        this.logger = logger;
     }
 
-    private static final Logger logger = LogManager.getLogger();
+
 
     // -------------------------------- PUBLICOS -------------------------------- //
 
