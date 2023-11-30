@@ -2,12 +2,13 @@ package edu.fiuba.algo3.modelo.celdas;
 
 import edu.fiuba.algo3.modelo.Gladiador;
 import edu.fiuba.algo3.modelo.excepcion.CoordenadaInvalidaError;
+import org.apache.logging.log4j.Logger;
 
 public abstract class Celda {
     protected Celda siguiente;
     protected int x;
     protected int y;
-
+    protected Logger logger;
 
     protected void coordenadasValidas(int x, int y) {
         if(x < 0 || y < 0) {

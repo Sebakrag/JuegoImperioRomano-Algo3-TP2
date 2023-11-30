@@ -9,14 +9,6 @@ public class Tablero {
 
     // TODO: Siento que es al pedo esta clase, que ese metodo puede estar privado en el parser
 
-    /*
-    * Si eliminamos esta clase, deberiamos modificar los tests y utilizar el parser para crear la celdaInicial.
-    * Ademas, si eliminamos la clase Tablero, el parser ya no devolveria un Tablero sino, como mencionamos, deberia
-    * devolver una celdaInicial.
-    * Tema ancho y alto?? donde lo guardamos si la sacamos a la clase?
-    * Pensarlo bien.
-    * */
-
     public void armarMapa(ArrayList<Celda> celdas) throws CantidadInvalidaDeCeldasError {
 
         if ( celdas.size() < 2 ){
@@ -38,5 +30,12 @@ public class Tablero {
 
     public Celda getCeldaInicial(){
         return this.celdaInicial;
+    }
+
+    public Celda avanzar(int avances, Celda celdaActual) {
+        for (int i = 0; i < avances; i++) {
+            celdaActual = celdaActual.celdaSiguiente();
+        }
+        return celdaActual;
     }
 }

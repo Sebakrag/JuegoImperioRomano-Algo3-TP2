@@ -7,15 +7,15 @@ import org.apache.logging.log4j.Logger;
 
 public class Jugador {
     private Gladiador gladiador;
-    private Celda celdaActual;
+    private Tablero tablero;
     private int turno;
 
     private final Logger logger;
 
-    public Jugador(Gladiador gladiador, Celda celdaInicial,Logger logger) {
+    public Jugador(Gladiador gladiador, Tablero tablero, Logger logger) {
         this.gladiador = gladiador;
         this.turno = 0;
-        this.celdaActual = celdaInicial;
+        this.tablero = tablero;
         this.logger = logger;
     }
 
@@ -24,10 +24,11 @@ public class Jugador {
      * ligado a la cantidad de turnos.
      * */
     public void jugarTurno(Dado dado) throws TurnoPerdidoError {
+        logger.info("string de jugador 1 /2 jugando");
         this.turno++;
 
         try {
-            this.celdaActual = this.gladiador.mover(dado.tirar(), this.celdaActual, this.turno);
+            this.gladiador.mover(dado.tirar(), this.tablero, this.turno);
             /*logger.info("Turno jugado con éxito. Nueva celda del gladiador: " + this.celdaActual);*/
         } catch(TurnoPerdidoError e) {
             logger.error("Turno perdido durante el juego. Detalles: " + e.getMessage());

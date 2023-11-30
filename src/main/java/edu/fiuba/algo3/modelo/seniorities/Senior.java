@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.seniorities;
 
+import edu.fiuba.algo3.modelo.estados.Estado;
 
 public class Senior implements Seniority {
     private static final int AUMENTO_ENERGIA = 10;
@@ -9,7 +10,8 @@ public class Senior implements Seniority {
         return this;
     }
 
-    public int aumentarEnergia(){
-        return AUMENTO_ENERGIA;
+    public Estado aumentarEnergia(Estado estado){
+        estado.aumentarEnergia(AUMENTO_ENERGIA);
+        return estado;
     }
 }

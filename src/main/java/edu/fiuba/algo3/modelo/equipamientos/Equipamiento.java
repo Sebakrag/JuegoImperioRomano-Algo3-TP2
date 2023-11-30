@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.equipamientos;
 
 import edu.fiuba.algo3.modelo.afectantes.Potenciador;
+import edu.fiuba.algo3.modelo.estados.Estado;
 
 public abstract class Equipamiento {
 
@@ -8,12 +9,8 @@ public abstract class Equipamiento {
 
     public abstract Equipamiento mejorarEquipamiento(Potenciador potenciador);
 
-    public int recibirAtaque(int energiaActual) {
-        int energiaNueva = (energiaActual - danio);
-        if (energiaNueva < 0) {
-            return 0;
-        }
-        return energiaNueva;
+    public Estado recibirAtaque(Estado estado) {
+        return estado.reducirEnergia(this.danio);
     }
 
     public abstract boolean equipoCompleto();

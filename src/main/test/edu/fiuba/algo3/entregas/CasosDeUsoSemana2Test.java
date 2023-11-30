@@ -60,8 +60,8 @@ public class CasosDeUsoSemana2Test {
         Celda celda = tablero.getCeldaInicial();
 
         Logger logger = LogManager.getLogger();
-        Gladiador gladiador = new Gladiador(logger);
-        Jugador jugador = new Jugador(gladiador, celda,logger);
+        Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
+        Jugador jugador = new Jugador(gladiador, tablero, logger);
 
         celda.afectar(gladiador); //no recibe nada, continua con energia = 20
         inhabilitarGladiador(gladiador,1); //al afectar 1 vez con fiera -> energia = 0
@@ -80,8 +80,8 @@ public class CasosDeUsoSemana2Test {
         Celda celdaConComida = celdaConEquipamiento.celdaSiguiente();
 
         Logger logger = LogManager.getLogger();
-        Gladiador gladiador = new Gladiador(logger);
-        Jugador jugador = new Jugador(gladiador, celda,logger);
+        Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
+        Jugador jugador = new Jugador(gladiador, tablero,logger);
         celdaConComida.afectar(gladiador); // energia pasa a 35
 
         inhabilitarGladiador(gladiador,2); //al afectar 2 veces con fiera -> energia < 0

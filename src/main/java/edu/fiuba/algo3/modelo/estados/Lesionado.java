@@ -3,24 +3,31 @@ import edu.fiuba.algo3.modelo.excepcion.TurnoPerdidoError;
 
 public class Lesionado implements Estado {
 
+    private int energiaActual;
+
+    public Lesionado(int energia){
+        this.energiaActual = energia;
+    }
+
+    public Estado reducirEnergia(int energia) {
+        return this;
+    }
+
     public int avanzar(int avances) {
         throw new TurnoPerdidoError();
     }
 
     public Estado sanar() {
-        return new Sano();
+        return new Sano(this.energiaActual);
     }
 
     public Estado lesionar() {
         return this;
     }
 
-    // TODO: PREGUNTAR ESTO: no tiene sentido que lesionado se canse pero por solucion polimorfica debemos implementarlo.
-    public Estado cansar(int energia) {
-        return new Cansado();
+    public Estado aumentarEnergia(int energia){
+        return this;
     }
 
-    public int calcularEnergia(int energia) {
-        return energia;
-    }
+    // TODO: PREGUNTAR ESTO: no tiene sentido que lesionado se canse pero por solucion polimorfica debemos implementarlo.
 }

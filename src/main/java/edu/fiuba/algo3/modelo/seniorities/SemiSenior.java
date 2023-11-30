@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.seniorities;
 
+import edu.fiuba.algo3.modelo.estados.Estado;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,7 +22,8 @@ public class SemiSenior implements Seniority {
         return this;
     }
 
-    public int aumentarEnergia(){
-        return AUMENTO_ENERGIA;
+    public Estado aumentarEnergia(Estado estado){
+        estado.aumentarEnergia(AUMENTO_ENERGIA);
+        return estado;
     }
 }

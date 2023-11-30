@@ -1,7 +1,9 @@
 package edu.fiuba.algo3.entregas;
 
 
+import com.tngtech.archunit.thirdparty.com.google.common.collect.Table;
 import edu.fiuba.algo3.modelo.excepcion.PasaronTreintaRondasYnoHuboGanadorError;
+import javafx.scene.control.Tab;
 import org.apache.logging.log4j.LogManager;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -24,7 +26,9 @@ public class CasosDeUsoSemana1Test {
         }
     }
 
-    public void potenciarHasta(Gladiador gladiador, Afectante mejora, int cantidad) {
+    public void potenciarHasta(Gladiador gladiador, int cantidad) {
+        Afectante mejora = new Potenciador();
+
         for (int i = 0; i < cantidad; i++) {
             mejora.afectar(gladiador);
         }
@@ -38,11 +42,17 @@ public class CasosDeUsoSemana1Test {
 
     @Test
     public void test01SeInicializaUnJugadorConLaEnergiaYElEquipamientoCorrecto() {
-
-        CeldaInicial celdaInicial = new CeldaInicial(0, 0);
         Logger logger = LogManager.getLogger();
-        Gladiador gladiador = new Gladiador(logger);
-        Jugador jugador = new Jugador(gladiador, celdaInicial, logger);
+        CeldaInicial celdaInicial = new CeldaInicial(0, 0, logger);
+        CeldaFinal celdaFinal = new CeldaFinal(0,1,logger);
+        ArrayList<Celda> celdas = new ArrayList<>();
+        celdas.add(celdaInicial);
+        celdas.add(celdaFinal);
+
+        Tablero tablero = new Tablero();
+        tablero.armarMapa(celdas);
+        Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
+        Jugador jugador = new Jugador(gladiador, tablero, logger);
 
         inhabilitarGladiador(gladiador, 1);
         Assertions.assertThrows(TurnoPerdidoError.class,() -> jugador.jugarTurno(new Dado(6)));
@@ -50,15 +60,19 @@ public class CasosDeUsoSemana1Test {
 
     @Test
     public void test02JugadorSaleCorrectamenteDeLaCasillaInicial(){
-
-        Dado dado = new Dado(1);
-        CeldaInicial celdaInicial = new CeldaInicial(0, 0);
-        CeldaComun celdaComun = new CeldaComun(0,1, new Vacio(), new Fiera());
-        celdaInicial.setSiguiente(celdaComun);
         Logger logger = LogManager.getLogger();
+        Dado dado = new Dado(1);
+        CeldaInicial celdaInicial = new CeldaInicial(0, 0, logger);
+        CeldaComun celdaComun = new CeldaComun(0,1, new Vacio(), new Fiera(), logger);
+        //celdaInicial.setSiguiente(celdaComun);
+        ArrayList<Celda> celdas = new ArrayList<>();
+        celdas.add(celdaInicial);
+        celdas.add(celdaComun);
 
-        Gladiador gladiador = new Gladiador(logger);
-        Jugador jugador = new Jugador(gladiador, celdaInicial,logger);
+        Tablero tablero = new Tablero();
+        tablero.armarMapa(celdas);
+        Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
+        Jugador jugador = new Jugador(gladiador, tablero, logger);
 
         jugador.jugarTurno(dado); //pasa a la siguiente celda que tiene una fiera
 
@@ -67,11 +81,17 @@ public class CasosDeUsoSemana1Test {
 
     @Test
     public void test03UnJugadorSinEnergiaPierdeElTurno(){
-
-        Celda celdaInicial = new CeldaInicial(0, 0);
         Logger logger = LogManager.getLogger();
-        Gladiador gladiador = new Gladiador(logger);
-        Jugador jugador = new Jugador(gladiador, celdaInicial,logger);
+        CeldaInicial celdaInicial = new CeldaInicial(0, 0, logger);
+        CeldaFinal celdaFinal = new CeldaFinal(0,1,logger);
+        ArrayList<Celda> celdas = new ArrayList<>();
+        celdas.add(celdaInicial);
+        celdas.add(celdaFinal);
+
+        Tablero tablero = new Tablero();
+        tablero.armarMapa(celdas);
+        Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
+        Jugador jugador = new Jugador(gladiador, tablero, logger);
 
         inhabilitarGladiador(gladiador,1);
 
@@ -80,11 +100,17 @@ public class CasosDeUsoSemana1Test {
 
     @Test
     public void test04AlRecibirComidaSuEnergiaIncrementaEnQuince() {
-
-        Celda celdaInicial = new CeldaInicial(0,0);
         Logger logger = LogManager.getLogger();
-        Gladiador gladiador = new Gladiador(logger);
-        Jugador jugador = new Jugador(gladiador, celdaInicial,logger);
+        CeldaInicial celdaInicial = new CeldaInicial(0, 0, logger);
+        CeldaFinal celdaFinal = new CeldaFinal(0,1,logger);
+        ArrayList<Celda> celdas = new ArrayList<>();
+        celdas.add(celdaInicial);
+        celdas.add(celdaFinal);
+
+        Tablero tablero = new Tablero();
+        tablero.armarMapa(celdas);
+        Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
+        Jugador jugador = new Jugador(gladiador, tablero, logger);
         Afectante comida = new Comida();
 
         comida.afectar(gladiador); //energia = 35
@@ -95,15 +121,21 @@ public class CasosDeUsoSemana1Test {
 
     @Test
     public void test05AlRecibirUnPremioPorPrimeraVezRecibeUnCasco() {
-
-        Celda celdaInicial = new CeldaInicial(0,0);
         Logger logger = LogManager.getLogger();
-        Gladiador gladiador = new Gladiador(logger);
-        Jugador jugador = new Jugador(gladiador, celdaInicial,logger);
-        Afectante mejora = new Potenciador();
+        CeldaInicial celdaInicial = new CeldaInicial(0, 0, logger);
+        CeldaFinal celdaFinal = new CeldaFinal(0,1,logger);
+        ArrayList<Celda> celdas = new ArrayList<>();
+        celdas.add(celdaInicial);
+        celdas.add(celdaFinal);
 
-        mejora.afectar(gladiador);  // El jugador obtiene un casco, al ser atacado 2 veces por una fiera se queda sin energia
-        inhabilitarGladiador(gladiador, 2);
+        Tablero tablero = new Tablero();
+        tablero.armarMapa(celdas);
+        Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
+        Jugador jugador = new Jugador(gladiador, tablero, logger);
+
+        potenciarHasta(gladiador, 1);  // El jugador obtiene un casco
+
+        inhabilitarGladiador(gladiador, 2); // al ser atacado 2 veces por una fiera se queda sin energia.
 
         Assertions.assertThrows(TurnoPerdidoError.class,() -> jugador.jugarTurno(new Dado(6)));
     }
@@ -111,13 +143,19 @@ public class CasosDeUsoSemana1Test {
     @Test
     public void test06AlRecibirUnPremioPorTerceraVezObtieneEscudoYEspada() {
 
-        Celda celdaInicial = new CeldaInicial(0,0);
         Logger logger = LogManager.getLogger();
-        Gladiador gladiador = new Gladiador(logger);
-        Jugador jugador = new Jugador(gladiador, celdaInicial,logger);
-        Afectante mejora = new Potenciador();
+        CeldaInicial celdaInicial = new CeldaInicial(0, 0, logger);
+        CeldaFinal celdaFinal = new CeldaFinal(0,1,logger);
+        ArrayList<Celda> celdas = new ArrayList<>();
+        celdas.add(celdaInicial);
+        celdas.add(celdaFinal);
 
-        potenciarHasta(gladiador, mejora, 3);  // El jugador obtiene un Escudo Y Espada.
+        Tablero tablero = new Tablero();
+        tablero.armarMapa(celdas);
+        Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
+        Jugador jugador = new Jugador(gladiador, tablero, logger);
+
+        potenciarHasta(gladiador, 3);  // El jugador obtiene un Escudo Y Espada.
 
         inhabilitarGladiador(gladiador, 10); //para sacarle toda la energia debe ser atacado 10 veces
 
@@ -127,13 +165,18 @@ public class CasosDeUsoSemana1Test {
     @Test
     public void test07AlHaberUnCombateConFieraSiTieneCascoPierdeQuincePuntosDeEnergia() {
 
-        CeldaInicial celdaInicial = new CeldaInicial(0, 0);
-        CeldaComun celdaComun = new CeldaComun(0,1, new Vacio(), new Vacio());
-        celdaInicial.setSiguiente(celdaComun);
-
         Logger logger = LogManager.getLogger();
-        Gladiador gladiador = new Gladiador(logger);
-        Jugador jugador = new Jugador(gladiador, celdaInicial,logger);
+        CeldaInicial celdaInicial = new CeldaInicial(0, 0, logger);
+        CeldaComun celdaComun = new CeldaComun(0,1, new Vacio(), new Vacio(), logger);
+        //celdaInicial.setSiguiente(celdaComun);
+        ArrayList<Celda> celdas = new ArrayList<>();
+        celdas.add(celdaInicial);
+        celdas.add(celdaComun);
+
+        Tablero tablero = new Tablero();
+        tablero.armarMapa(celdas);
+        Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
+        Jugador jugador = new Jugador(gladiador, tablero,logger);
         Afectante mejora = new Potenciador();
         Fiera fiera = new Fiera();
 
@@ -148,17 +191,17 @@ public class CasosDeUsoSemana1Test {
     @Test
     public void test08AlPasarOchoTurnosElGladiadorPasaDeNovatoASemiSenior() {
 
-        CeldaInicial celdaInicial = new CeldaInicial(0,0);
-        CeldaFinal celdaFinal = new CeldaFinal(0,1);
+        Logger logger = LogManager.getLogger();
+        CeldaInicial celdaInicial = new CeldaInicial(0, 0, logger);
+        CeldaFinal celdaFinal = new CeldaFinal(0,1,logger);
         ArrayList<Celda> celdas = new ArrayList<>();
         celdas.add(celdaInicial);
         celdas.add(celdaFinal);
+        
         Tablero tablero = new Tablero();
         tablero.armarMapa(celdas);
-
-        Logger logger = LogManager.getLogger();
-        Gladiador gladiador = new Gladiador(logger);
-        Jugador jugador = new Jugador(gladiador, celdaInicial,logger);
+        Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
+        Jugador jugador = new Jugador(gladiador, tablero,logger);
         Dado dado = new Dado(6);
 
         ascenderASemiSenior(jugador, dado); //pasa a tener 25 de energia.
@@ -170,17 +213,17 @@ public class CasosDeUsoSemana1Test {
    @Test
     public void test09AlLlegarAlaMetaSinLaLlaveRetrocedeAlaMitadDeLasCasillas() {
 
-       CeldaInicial celdaInicial = new CeldaInicial(0,0);
-       CeldaFinal celdaFinal = new CeldaFinal(0,1);
-       ArrayList<Celda> celdas = new ArrayList<Celda>();
+       Logger logger = LogManager.getLogger();
+       CeldaInicial celdaInicial = new CeldaInicial(0,0, logger);
+       CeldaFinal celdaFinal = new CeldaFinal(0,1,logger);
+       ArrayList<Celda> celdas = new ArrayList<>();
        celdas.add(celdaInicial);
        celdas.add(celdaFinal);
+
        Tablero tablero = new Tablero();
        tablero.armarMapa(celdas);
-
-       Logger logger = LogManager.getLogger();
-       Gladiador gladiador = new Gladiador(logger);
-       Jugador jugador = new Jugador(gladiador, celdaInicial,logger);
+       Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
+       Jugador jugador = new Jugador(gladiador, tablero,logger);
        Dado dado = new Dado(1);
 
        jugador.jugarTurno(dado); //el jugador llega al final y vuelve al medio, deberia poder jugar de nuevo otro turno.
@@ -190,16 +233,20 @@ public class CasosDeUsoSemana1Test {
 
     @Test
     public void test10AlSerAtacadoPorUnaFieraYConTodoElEquipamientoNoPierdeEnergia(){
-
-        Celda celdaInicial = new CeldaInicial(0,0);
-        CeldaComun celdaComun = new CeldaComun(0,1, new Vacio(), new Vacio());
-        celdaInicial.setSiguiente(celdaComun);
         Logger logger = LogManager.getLogger();
-        Gladiador gladiador = new Gladiador(logger);
-        Jugador jugador = new Jugador(gladiador, celdaInicial,logger);
-        Afectante mejora = new Potenciador();
+        CeldaInicial celdaInicial = new CeldaInicial(0,0, logger);
+        CeldaComun celdaComun = new CeldaComun(0,1, new Vacio(), new Vacio(), logger);
+        //celdaInicial.setSiguiente(celdaComun);
+        ArrayList<Celda> celdas = new ArrayList<>();
+        celdas.add(celdaInicial);
+        celdas.add(celdaComun);
 
-        potenciarHasta(gladiador,mejora,4);  /// El jugador obtiene una Llave.
+        Tablero tablero = new Tablero();
+        tablero.armarMapa(celdas);
+        Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
+        Jugador jugador = new Jugador(gladiador, tablero,logger);
+
+        potenciarHasta(gladiador,4);  /// El jugador obtiene una Llave.
 
         inhabilitarGladiador(gladiador, 1000); //no va a perder nunca energia al ser atacado infinitas veces
 
@@ -208,19 +255,20 @@ public class CasosDeUsoSemana1Test {
 
     @Test
     public void test11AlTenerLaLlaveYrecibirOtroPremioNoCambiaNada() {
-
-        Celda celdaInicial = new CeldaInicial(0,0);
-        CeldaComun celdaComun = new CeldaComun(0,1, new Vacio(), new Vacio());
-        celdaInicial.setSiguiente(celdaComun);
-
         Logger logger = LogManager.getLogger();
-        Gladiador gladiador = new Gladiador(logger);
-        Jugador jugador = new Jugador(gladiador, celdaInicial,logger);
-        Afectante mejora = new Potenciador();
+        CeldaInicial celdaInicial = new CeldaInicial(0,0, logger);
+        CeldaComun celdaComun = new CeldaComun(0,1, new Vacio(), new Vacio(), logger);
+        //celdaInicial.setSiguiente(celdaComun);
+        ArrayList<Celda> celdas = new ArrayList<>();
+        celdas.add(celdaInicial);
+        celdas.add(celdaComun);
 
-        potenciarHasta(gladiador,mejora, 4);  // El jugador obtiene una Llave.
+        Tablero tablero = new Tablero();
+        tablero.armarMapa(celdas);
+        Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
+        Jugador jugador = new Jugador(gladiador, tablero, logger);
 
-        mejora.afectar(gladiador); //No recibe nada, sigue con llave.
+        potenciarHasta(gladiador, 5);  // El jugador obtiene una Llave y se le aplica una mejora mas (sin obtener nada)
 
         inhabilitarGladiador(gladiador, 1000); //no va a perder nunca energia al ser atacado infinitas veces
 
@@ -232,9 +280,9 @@ public class CasosDeUsoSemana1Test {
 
         Logger logger =LogManager.getLogger();
         Juego juego = new Juego(logger);
-        CeldaInicial celdaInicial = new CeldaInicial(0,0);
-        CeldaFinal celdaFinal = new CeldaFinal(0,1);
-        ArrayList<Celda> celdas = new ArrayList<Celda>();
+        CeldaInicial celdaInicial = new CeldaInicial(0,0,logger);
+        CeldaFinal celdaFinal = new CeldaFinal(0,1, logger);
+        ArrayList<Celda> celdas = new ArrayList<>();
         celdas.add(celdaInicial);
         celdas.add(celdaFinal);
 
