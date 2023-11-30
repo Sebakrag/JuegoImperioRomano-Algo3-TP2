@@ -3,6 +3,7 @@ package edu.fiuba.algo3.entregas;
 import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.modelo.afectantes.Fiera;
 import edu.fiuba.algo3.parsers.TableroParser;
+import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
@@ -12,6 +13,7 @@ import edu.fiuba.algo3.modelo.celdas.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.IOException;
 
 
 public class CasosDeUsoSemana2Test {
@@ -48,9 +50,9 @@ public class CasosDeUsoSemana2Test {
     *                   ParseException
     * Nos parece muy diu hacer un try-catch en los tests.
     **/
-/*
+
     @Test
-    public void test15ElTableroSeCreaCorrectamenteAPartirDeUnArchivoJSON(){
+    public void test15ElTableroSeCreaCorrectamenteAPartirDeUnArchivoJSON() throws IOException, ParseException {
         String rutaJsonValida = "/archivos/mapa.json";
         TableroParser tableroParser = new TableroParser();
         Tablero tablero = tableroParser.leerArchivo(rutaJsonValida);
@@ -66,7 +68,7 @@ public class CasosDeUsoSemana2Test {
     }
 
     @Test
-    public void test16ElFormatoJsonEsValidoYConversionDelMapaHecha(){
+    public void test16ElFormatoJsonEsValidoYConversionDelMapaHecha()throws IOException, ParseException{
 
         String rutaJsonValida = "/archivos/mapa.json";
         TableroParser tableroParser = new TableroParser();
@@ -83,7 +85,7 @@ public class CasosDeUsoSemana2Test {
 
         Assertions.assertThrows(TurnoPerdidoError.class,() -> jugador.jugarTurno(new Dado(6)));
     }
-*/
+
     @Test
     public void test17ElJsonAlTenerCoordenadasIncorrectasLanzaError(){
         String rutaJsonInvalido = "/archivos/mapaConCoordenadaInvalida.json";
