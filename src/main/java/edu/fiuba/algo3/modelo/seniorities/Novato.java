@@ -7,12 +7,17 @@ public class Novato implements Seniority {
     private  static final int AUMENTO_ENERGIA = 0;
     /*private static final Logger logger = LogManager.getLogger();*/
 
+    private final Logger logger;
+
+    public Novato(Logger logger) {
+        this.logger = logger;
+    }
     public Seniority ascender(int turno) {
         int turnosAscenso = 8;
 
         if (turno == turnosAscenso) {
-            /*logger.info("Ascendiendo a SemiSenior después de " + turnosAscenso + " turnos.");*/
-            return new SemiSenior();
+            logger.info("Ascendiendo a SemiSenior después de " + turnosAscenso + " turnos.");
+            return new SemiSenior(logger);
         }
         return this;
     }

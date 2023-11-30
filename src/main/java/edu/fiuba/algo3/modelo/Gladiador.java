@@ -22,7 +22,7 @@ public class Gladiador {
 
     public Gladiador(Logger logger) {
         this.energia = ENERGIA_INICIAL;
-        this.seniority = new Novato();
+        this.seniority = new Novato(logger);
         this.equipamiento = new Desequipado();
         this.estado = new Sano();
         this.logger = logger;
@@ -43,6 +43,7 @@ public class Gladiador {
     public void recibirImpacto(Fiera fiera) {
         this.energia = this.equipamiento.recibirAtaque(this.energia);
         this.estado = this.estado.cansar(this.energia);
+        logger.info("es atacado por un animal en casilla (X,Y) y pierde energía 10");
     }
 
     public void recibirImpacto(Bacanal bacanal) {
@@ -50,6 +51,7 @@ public class Gladiador {
         // TODO: preguntar: Conviene que la energia sea un atributo del estado del gladiador? Eso nos obliga a modificar bacanal, fiera y comida
         //bacanal.modificarEnergia(this.estado);
         this.estado = this.estado.cansar(this.energia);
+        logger.info(" El jugador asiste a un Bacanal y saca 4 puntos de energía por cada a trago tomado.");
     }
 
     public void recibirImpacto(Lesion lesion) {
@@ -60,11 +62,12 @@ public class Gladiador {
     public void recibirImpacto(Comida comida) {
         this.energia = comida.calcularEnergia(this.energia);
         this.estado = this.estado.sanar();
-        logger.info("Se ha recibido un impacto de tipo Comida. Nueva energía: " + this.energia + ", Nuevo estado: " + this.estado);
+        logger.info("Gladiador afectado. Se ha encontrado una comida, se incrementan 15 puntos (+" + this.energia + ").");
     }
 
     public void recibirImpacto(Potenciador potenciador) {
         this.equipamiento = this.equipamiento.mejorarEquipamiento(potenciador);
+        logger.info("Mejorando equipamiento.");
     }
 
     public void recibirImpacto(Vacio vacio) {

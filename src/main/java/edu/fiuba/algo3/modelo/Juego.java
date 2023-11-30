@@ -55,7 +55,7 @@ public class Juego {
     public void crearJugadores(int cantidadJugadores, Logger logger) {
         for (int i = 0; i < cantidadJugadores; i++) {
             Gladiador gladiador = new Gladiador(logger);
-            Jugador jugador = new Jugador(gladiador, this.tablero.getCeldaInicial());
+            Jugador jugador = new Jugador(gladiador, this.tablero.getCeldaInicial(), logger);
             this.jugadores.add(jugador);
         }
     }

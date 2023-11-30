@@ -5,12 +5,17 @@ import org.apache.logging.log4j.Logger;
 
 public class SemiSenior implements Seniority {
     private static final int AUMENTO_ENERGIA = 5;
+    private final Logger logger;
+
+    public SemiSenior(Logger logger) {
+        this.logger = logger;
+    }
     private static final int TURNOS_ASCENSO = 8;
     /*private static final Logger logger = LogManager.getLogger();*/
 
     public Seniority ascender(int turno) {
         if (turno == TURNOS_ASCENSO) {
-            /*logger.info("Ascendiendo a Senior después de " + TURNOS_ASCENSO + " turnos.");*/
+            logger.info("Ascendiendo a Senior después de " + TURNOS_ASCENSO + " turnos.");
             return new Senior();
         }
         return this;

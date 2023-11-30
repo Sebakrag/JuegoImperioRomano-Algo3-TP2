@@ -19,6 +19,7 @@ import java.io.IOException;
 public class CasosDeUsoSemana2Test {
 
     public void inhabilitarGladiador(Gladiador gladiador, int i){
+        Logger logger = LogManager.getLogger();
         Fiera fiera = new Fiera();
 
         for(int j = 0; j < i; j++){
@@ -60,7 +61,7 @@ public class CasosDeUsoSemana2Test {
 
         Logger logger = LogManager.getLogger();
         Gladiador gladiador = new Gladiador(logger);
-        Jugador jugador = new Jugador(gladiador, celda);
+        Jugador jugador = new Jugador(gladiador, celda,logger);
 
         celda.afectar(gladiador); //no recibe nada, continua con energia = 20
         inhabilitarGladiador(gladiador,1); //al afectar 1 vez con fiera -> energia = 0
@@ -80,7 +81,7 @@ public class CasosDeUsoSemana2Test {
 
         Logger logger = LogManager.getLogger();
         Gladiador gladiador = new Gladiador(logger);
-        Jugador jugador = new Jugador(gladiador, celda);
+        Jugador jugador = new Jugador(gladiador, celda,logger);
         celdaConComida.afectar(gladiador); // energia pasa a 35
 
         inhabilitarGladiador(gladiador,2); //al afectar 2 veces con fiera -> energia < 0

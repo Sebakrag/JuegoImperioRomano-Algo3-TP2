@@ -2,6 +2,8 @@ package edu.fiuba.algo3.testsUnitarios;
 
 import edu.fiuba.algo3.modelo.seniorities.Seniority;
 import edu.fiuba.algo3.modelo.seniorities.Novato;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
@@ -9,7 +11,8 @@ public class NovatoTests {
     @Test
     //mockito ?
     public void test01SiTurnoEsMenorQueOchoAscenderDevuelveASiMismo(){
-        Novato novato = new Novato();
+        Logger logger = LogManager.getLogger();
+        Novato novato = new Novato(logger);
         int turno = 4;
 
         Seniority seniortyActual = novato.ascender(turno);
@@ -20,7 +23,8 @@ public class NovatoTests {
 
     @Test
     public void test02SiTurnoEsOchoAscenderDevuelveSiguienteSeniority() {
-        Novato novato = new Novato();
+        Logger logger = LogManager.getLogger();
+        Novato novato = new Novato(logger);
         int turno = 8;
 
         // A CHEQUEAR !
