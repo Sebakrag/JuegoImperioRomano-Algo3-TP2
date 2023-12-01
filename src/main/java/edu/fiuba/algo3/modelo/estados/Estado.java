@@ -9,6 +9,6 @@ public interface Estado {
     Estado avanzar(int avances, Tablero tablero, Gladiador gladiador, Logger logger);
     Estado reducirEnergia(int energia);
     Estado aumentarEnergia(int energia);
-
+    public boolean puedoMoverme();
     int obtenerEnergia();
 }

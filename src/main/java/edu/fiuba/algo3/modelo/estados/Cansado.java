@@ -3,6 +3,7 @@ package edu.fiuba.algo3.modelo.estados;
 import edu.fiuba.algo3.modelo.Gladiador;
 import edu.fiuba.algo3.modelo.Tablero;
 import org.apache.logging.log4j.Logger;
+import edu.fiuba.algo3.modelo.excepcion.TurnoPerdidoError;
 
 public class Cansado implements Estado {
 
@@ -13,16 +14,12 @@ public class Cansado implements Estado {
         this.energiaActual = ENERGIA_CANSADO;
     }
 
-    public Estado avanzar(int avances, Tablero tablero, Gladiador gladiador, Logger logger) {
-        logger.warn("Estoy cansado no puedo :(");
+    public Estado avanzar(int avances, Tablero tablero, Gladiador gladiador, Logger logger){
+        logger.warn("Estoy cansado Jefe :(");
         int energia = 5;
         return new Sano(energia);
     }
 
-    //TODO: idem Lesionado con cansar.
-    public Estado lesionar() {
-        return this;
-    }
     public Estado reducirEnergia(int energia) {
         return this;
     }
@@ -36,5 +33,7 @@ public class Cansado implements Estado {
         return this.energiaActual;
     }
 
-
+    public boolean puedoMoverme(){
+        return false;
+    }
 }

@@ -31,5 +31,9 @@ public class Lesionado implements Estado {
         return 0;
     }
 
+    public boolean puedoMoverme(){
+        return false;
+    }
+
     // TODO: PREGUNTAR ESTO: no tiene sentido que lesionado se canse pero por solucion polimorfica debemos implementarlo.
 }

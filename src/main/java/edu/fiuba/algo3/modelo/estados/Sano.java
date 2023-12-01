@@ -42,4 +42,8 @@ public class Sano implements Estado {
     public int obtenerEnergia() {
         return this.energiaActual;
     }
+
+    public boolean puedoMoverme(){
+        return true;
+    }
 }

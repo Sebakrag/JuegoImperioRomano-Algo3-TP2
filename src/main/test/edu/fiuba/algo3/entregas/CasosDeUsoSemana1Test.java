@@ -76,7 +76,7 @@ public class CasosDeUsoSemana1Test {
 
         jugador.jugarTurno(dado); //pasa a la siguiente celda que tiene una fiera
 
-        Assertions.assertThrows(TurnoPerdidoError.class,() -> jugador.jugarTurno(dado));
+        Assertions.assertDoesNotThrow(() -> jugador.jugarTurno(dado));
     }
 
     @Test

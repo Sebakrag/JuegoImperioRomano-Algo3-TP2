@@ -54,7 +54,6 @@ public class Gladiador {
     }
 
     public void recibirImpacto(Comida comida) {
-        // No hace falta actualizar el estado porque siempre que recibe comida es porque SANO
         this.estado = comida.modificarEnergia(this.estado);
         logger.info("Se ha encontrado un choripan, se incrementan 15 puntos");
     }
@@ -69,9 +68,12 @@ public class Gladiador {
     }
 
     public void mover(int avances, Tablero tablero, int turnos) throws TurnoPerdidoError {
-        this.estado = this.estado.avanzar(avances, tablero, this, logger);
+        boolean puedeMoverse = this.estado.puedoMoverme();
 
+        this.estado = this.estado.avanzar(avances, tablero, this, logger);
         this.mejorarSeniority(turnos);
+
+        if (!puedeMoverse) { throw new TurnoPerdidoError(); }
     }
 
     public void mover(int avances, Tablero tablero){
