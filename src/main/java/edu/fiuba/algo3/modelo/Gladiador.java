@@ -49,7 +49,7 @@ public class Gladiador {
     }
 
     public void recibirImpacto(Lesion lesion) {
-        this.estado = this.estado.lesionar();
+        this.estado = new Lesionado(this.estado.obtenerEnergia());
         logger.info("Se ha recibido un impacto de tipo Lesion");
     }
 
@@ -68,20 +68,14 @@ public class Gladiador {
         logger.info("El destino jugara con ti otro turno , descansa");
     }
 
-    public Celda mover(int avances, Tablero tablero, int turnos) throws TurnoPerdidoError {
-        try {
-            this.estado.avanzar(avances);
-            celdaActual = tablero.avanzar(avances, celdaActual);
-            celdaActual = celdaActual.afectar(this);
-            logger.info("Movimiento exitoso.");  //HACK: hay que crear getters para logger?
-            this.mejorarSeniority(turnos);
-            return celdaActual;
+    public void mover(int avances, Tablero tablero, int turnos) throws TurnoPerdidoError {
+        this.estado = this.estado.avanzar(avances, tablero, this, logger);
+        celdaActual = tablero.avanzar(avances, celdaActual);
+        celdaActual = celdaActual.afectar(this);
+        this.mejorarSeniority(turnos);
+    }
 
-        } catch (TurnoPerdidoError e) {
-            this.estado = this.estado.sanar();
-            this.mejorarSeniority(turnos);
-            logger.error("Turno perdido.");
-            throw e;
-        }
+    public void mover2(int avances, Tablero tablero){
+
     }
 }
