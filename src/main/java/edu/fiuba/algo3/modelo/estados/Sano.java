@@ -21,7 +21,7 @@ public class Sano implements Estado {
 
     public Estado avanzar (int avances, Tablero tablero, Gladiador gladiador, Logger logger) {
         logger.info("Movimiento exitoso.");
-        gladiador.avanzar(avances,tablero);
+        gladiador.mover(avances,tablero);
         return this;
     }
 

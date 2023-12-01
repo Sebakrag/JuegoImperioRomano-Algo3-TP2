@@ -74,7 +74,7 @@ public class Gladiador {
         this.mejorarSeniority(turnos);
     }
 
-    public void avanzar(int avances, Tablero tablero){
+    public void mover(int avances, Tablero tablero){
         celdaActual = tablero.avanzar(avances, celdaActual);
         celdaActual = celdaActual.afectar(this);
     }
