@@ -70,12 +70,12 @@ public class Gladiador {
 
     public void mover(int avances, Tablero tablero, int turnos) throws TurnoPerdidoError {
         this.estado = this.estado.avanzar(avances, tablero, this, logger);
-        celdaActual = tablero.avanzar(avances, celdaActual);
-        celdaActual = celdaActual.afectar(this);
+
         this.mejorarSeniority(turnos);
     }
 
-    public void mover2(int avances, Tablero tablero){
-
+    public void avanzar(int avances, Tablero tablero){
+        celdaActual = tablero.avanzar(avances, celdaActual);
+        celdaActual = celdaActual.afectar(this);
     }
 }
