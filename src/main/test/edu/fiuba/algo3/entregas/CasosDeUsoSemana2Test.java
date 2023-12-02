@@ -15,7 +15,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
-/*
+
 public class CasosDeUsoSemana2Test {
 
     public void inhabilitarGladiador(Gladiador gladiador, int i){
@@ -26,7 +26,7 @@ public class CasosDeUsoSemana2Test {
             fiera.afectar(gladiador);
         }
     }
-/*
+
     @Test
     public void test13ElFormatoDelMapaJsonEsValido(){
         String rutaJsonValida = "/archivos/mapa.json";
@@ -51,7 +51,7 @@ public class CasosDeUsoSemana2Test {
     *                   ParseException
     * Nos parece muy diu hacer un try-catch en los tests.
     **/
-/*
+
     @Test
     public void test15ElTableroSeCreaCorrectamenteAPartirDeUnArchivoJSON() throws IOException, ParseException {
         String rutaJsonValida = "/archivos/mapa.json";
@@ -60,13 +60,17 @@ public class CasosDeUsoSemana2Test {
         Celda celda = tablero.getCeldaInicial();
 
         Logger logger = LogManager.getLogger();
+        Dado dado = new Dado(1);
+        int turno = 10;
         Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
-        Jugador jugador = new Jugador(gladiador, tablero, logger);
 
         celda.afectar(gladiador); //no recibe nada, continua con energia = 20
         inhabilitarGladiador(gladiador,1); //al afectar 1 vez con fiera -> energia = 0
 
-        Assertions.assertThrows(TurnoPerdidoError.class,() -> jugador.jugarTurno(new Dado(6)));
+        Celda celdaProxima = tablero.avanzar(dado.tirar(), celda);
+        Celda celdaActual = gladiador.mover(celdaProxima, turno);
+
+        Assertions.assertFalse(celdaActual == celdaProxima);
     }
 
     @Test
@@ -80,13 +84,17 @@ public class CasosDeUsoSemana2Test {
         Celda celdaConComida = celdaConEquipamiento.celdaSiguiente();
 
         Logger logger = LogManager.getLogger();
+        Dado dado = new Dado(6);
+        int turno = 10;
         Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
-        Jugador jugador = new Jugador(gladiador, tablero,logger);
         celdaConComida.afectar(gladiador); // energia pasa a 35
 
         inhabilitarGladiador(gladiador,2); //al afectar 2 veces con fiera -> energia < 0
 
-        Assertions.assertThrows(TurnoPerdidoError.class,() -> jugador.jugarTurno(new Dado(6)));
+        Celda celdaProxima = tablero.avanzar(dado.tirar(), celda);
+        Celda celdaActual = gladiador.mover(celdaProxima, turno);
+
+        Assertions.assertFalse(celdaActual == celdaProxima);
     }
 
     @Test
@@ -137,5 +145,5 @@ public class CasosDeUsoSemana2Test {
 
         logger.error("tableroParser.leerArchivo(rutaJsonInvalido");
     }
-}*/
+}
 
