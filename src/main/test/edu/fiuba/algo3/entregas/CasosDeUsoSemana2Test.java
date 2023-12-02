@@ -18,17 +18,17 @@ import java.io.IOException;
 
 public class CasosDeUsoSemana2Test {
 
-    public void inhabilitarGladiador(Gladiador gladiador, int i){
+    public void inhabilitarGladiador(Gladiador gladiador, int i) {
         Logger logger = LogManager.getLogger();
         Fiera fiera = new Fiera();
 
-        for(int j = 0; j < i; j++){
+        for (int j = 0; j < i; j++) {
             fiera.afectar(gladiador);
         }
     }
 
     @Test
-    public void test13ElFormatoDelMapaJsonEsValido(){
+    public void test13ElFormatoDelMapaJsonEsValido() {
         String rutaJsonValida = "/archivos/mapa.json";
         TableroParser tableroParser = new TableroParser();
 
@@ -36,21 +36,12 @@ public class CasosDeUsoSemana2Test {
     }
 
     @Test
-    public void test14AlNoEncontrarElArchivoTableroParserLevantaUnaExcepcion(){
+    public void test14AlNoEncontrarElArchivoTableroParserLevantaUnaExcepcion() {
         String rutaJsonValida = "/NoMapa.json";
         TableroParser tableroParser = new TableroParser();
 
         Assertions.assertThrows(ArchivoNoEncontradoError.class,() -> tableroParser.leerArchivo(rutaJsonValida));
     }
-
-    /*
-    * Nos aparece un error en leerArchivo ya que no siempre va a retornar un Tablero valido, sino que
-    * hay casos en los que lanza alguno de estos errores:
-    *                   ArchivoNoEncontradoError
-    *                   IOException
-    *                   ParseException
-    * Nos parece muy diu hacer un try-catch en los tests.
-    **/
 
     @Test
     public void test15ElTableroSeCreaCorrectamenteAPartirDeUnArchivoJSON() throws IOException, ParseException {
@@ -70,12 +61,11 @@ public class CasosDeUsoSemana2Test {
         Celda celdaProxima = tablero.avanzar(dado.tirar(), celda);
         Celda celdaActual = gladiador.mover(celdaProxima, turno);
 
-        Assertions.assertFalse(celdaActual == celdaProxima);
+        Assertions.assertNotSame(celdaProxima, celdaActual);
     }
 
     @Test
-    public void test16ElFormatoJsonEsValidoYConversionDelMapaHecha()throws IOException, ParseException{
-
+    public void test16ElFormatoJsonEsValidoYConversionDelMapaHecha() throws IOException, ParseException {
         String rutaJsonValida = "/archivos/mapa.json";
         TableroParser tableroParser = new TableroParser();
         Tablero tablero = tableroParser.leerArchivo(rutaJsonValida);
@@ -94,11 +84,11 @@ public class CasosDeUsoSemana2Test {
         Celda celdaProxima = tablero.avanzar(dado.tirar(), celda);
         Celda celdaActual = gladiador.mover(celdaProxima, turno);
 
-        Assertions.assertFalse(celdaActual == celdaProxima);
+        Assertions.assertNotSame(celdaProxima, celdaActual);
     }
 
     @Test
-    public void test17ElJsonAlTenerCoordenadasIncorrectasLanzaError(){
+    public void test17ElJsonAlTenerCoordenadasIncorrectasLanzaError() {
         String rutaJsonInvalido = "/archivos/mapaConCoordenadaInvalida.json";
         TableroParser tableroParser = new TableroParser();
 
@@ -106,7 +96,7 @@ public class CasosDeUsoSemana2Test {
     }
 
     @Test
-    public void test18ElJsonAlTenerUnaSolaCeldaLanzaError(){
+    public void test18ElJsonAlTenerUnaSolaCeldaLanzaError() {
         String rutaJsonInvalido = "/archivos/mapaConUnaCelda.json";
         TableroParser tableroParser = new TableroParser();
 
@@ -114,7 +104,7 @@ public class CasosDeUsoSemana2Test {
     }
 
     @Test
-    public void test19TipoDeCeldaEnArchivoNoValidaError(){
+    public void test19TipoDeCeldaEnArchivoNoValidaError() {
         String rutaJsonInvalido = "/archivos/mapaConTipoInvalido.json";
         TableroParser tableroParser = new TableroParser();
 
@@ -122,17 +112,15 @@ public class CasosDeUsoSemana2Test {
     }
 
     @Test
-    public void test20AfectanteInvalidoError(){
+    public void test20AfectanteInvalidoError() {
         String rutaJsonInvalido = "/archivos/mapaConAfectanteInvalido.json";
         TableroParser tableroParser = new TableroParser();
 
         Assertions.assertThrows(AfectanteInvalidoError.class, () -> tableroParser.leerArchivo(rutaJsonInvalido));
     }
 
-
     @Test
     public void test21LogSistemaAlSerAtacadoPorUnAnimal() {
-
         Logger logger = LogManager.getLogger();
 
         logger.info("Gladiador + nombreGladiador + avanza + pasos +  , se ha encontrado una comida se incrementa 15 puntos, energia (x)");

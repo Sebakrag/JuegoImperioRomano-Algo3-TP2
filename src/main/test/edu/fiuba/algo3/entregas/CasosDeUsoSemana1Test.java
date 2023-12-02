@@ -18,10 +18,10 @@ import java.util.ArrayList;
 
 public class CasosDeUsoSemana1Test {
 
-    public void inhabilitarGladiador(Gladiador gladiador, int i){
+    public void inhabilitarGladiador(Gladiador gladiador, int i) {
         Fiera fiera = new Fiera();
 
-        for(int j = 0; j < i; j++){
+        for (int j = 0; j < i; j++) {
             fiera.afectar(gladiador);
         }
     }
@@ -34,15 +34,14 @@ public class CasosDeUsoSemana1Test {
         }
     }
 
-    public void ascenderASemiSenior(Jugador jugador, Dado dado, Tablero tablero){
-        for(int i = 0; i < 8; i++){
+    public void ascenderASemiSenior(Jugador jugador, Dado dado, Tablero tablero) {
+        for (int i = 0; i < 8; i++) {
             jugador.jugarTurno(dado, tablero);
         }
     }
 
     @Test
     public void test01SeInicializaUnJugadorConLaEnergiaYElEquipamientoCorrecto() {
-
         Logger logger = LogManager.getLogger();
         int primerTurno = 1;
 
@@ -50,7 +49,6 @@ public class CasosDeUsoSemana1Test {
         CeldaFinal celdaFinal = new CeldaFinal(0,1,logger);
         ArrayList<Celda> celdas = new ArrayList<>();
         Dado dado = new Dado(6);
-
 
         celdas.add(celdaInicial);
         celdas.add(celdaFinal);
@@ -63,16 +61,14 @@ public class CasosDeUsoSemana1Test {
         Celda celdaProxima = tablero.avanzar(dado.tirar(), celdaInicial);
         Celda celdaActual = gladiador.mover(celdaProxima, primerTurno);
 
-        Assertions.assertFalse(celdaActual == celdaProxima);
-
+        Assertions.assertNotSame(celdaProxima, celdaActual);
     }
 
     @Test
     public void test02JugadorSaleCorrectamenteDeLaCasillaInicial() {
-
-        Dado dado = new Dado(1);
-        int primerTurno = 1;
         Logger logger = LogManager.getLogger();
+        int primerTurno = 1;
+        Dado dado = new Dado(1);
 
         CeldaInicial celdaInicial = new CeldaInicial(0, 0, logger);
         CeldaComun celdaComun = new CeldaComun(0, 1, new Vacio(), new Fiera(), logger);
@@ -88,11 +84,11 @@ public class CasosDeUsoSemana1Test {
         Celda celdaProxima = tablero.avanzar(dado.tirar(), celdaInicial);
         Celda celdaActual = gladiador.mover(celdaProxima, primerTurno);
 
-        Assertions.assertTrue(celdaActual == celdaProxima);
+        Assertions.assertSame(celdaProxima, celdaActual);
     }
 
     @Test
-    public void test03UnJugadorSinEnergiaPierdeElTurno(){
+    public void test03UnJugadorSinEnergiaPierdeElTurno() {
         Logger logger = LogManager.getLogger();
         int primerTurno = 1;
 
@@ -101,7 +97,6 @@ public class CasosDeUsoSemana1Test {
         ArrayList<Celda> celdas = new ArrayList<>();
         Dado dado = new Dado(6);
 
-
         celdas.add(celdaInicial);
         celdas.add(celdaFinal);
 
@@ -109,17 +104,15 @@ public class CasosDeUsoSemana1Test {
         tablero.armarMapa(celdas);
         Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
 
-
         inhabilitarGladiador(gladiador, 1); //pierde su energia
         Celda celdaProxima = tablero.avanzar(dado.tirar(), celdaInicial);
         Celda celdaActual = gladiador.mover(celdaProxima, primerTurno);
 
-        Assertions.assertFalse(celdaActual == celdaProxima);
+        Assertions.assertNotSame(celdaProxima, celdaActual);
     }
 
     @Test
     public void test04AlRecibirComidaSuEnergiaIncrementaEnQuince() {
-
         Logger logger = LogManager.getLogger();
         int turno = 5;
 
@@ -140,12 +133,11 @@ public class CasosDeUsoSemana1Test {
         Celda celdaProxima = tablero.avanzar(dado.tirar(), celdaInicial);
         Celda celdaActual = gladiador.mover(celdaProxima, turno);
 
-        Assertions.assertFalse(celdaActual == celdaProxima);
+        Assertions.assertNotSame(celdaProxima, celdaActual);
     }
 
     @Test
     public void test05AlRecibirUnPremioPorPrimeraVezRecibeUnCasco() {
-
         Logger logger = LogManager.getLogger();
         int turno = 4; //no va al caso del test, es lo mismo
 
@@ -166,12 +158,11 @@ public class CasosDeUsoSemana1Test {
         Celda celdaProxima = tablero.avanzar(dado.tirar(), celdaInicial);
         Celda celdaActual = gladiador.mover(celdaProxima, turno);
 
-        Assertions.assertFalse(celdaActual == celdaProxima);
+        Assertions.assertNotSame(celdaProxima, celdaActual);
     }
 
     @Test
     public void test06AlRecibirUnPremioPorTerceraVezObtieneEscudoYEspada() {
-
         Logger logger = LogManager.getLogger();
         int turno = 20;
 
@@ -193,12 +184,11 @@ public class CasosDeUsoSemana1Test {
         Celda celdaProxima = tablero.avanzar(dado.tirar(), celdaInicial);
         Celda celdaActual = gladiador.mover(celdaProxima, turno);
 
-        Assertions.assertFalse(celdaActual == celdaProxima);
+        Assertions.assertNotSame(celdaProxima, celdaActual);
     }
 
     @Test
     public void test07AlHaberUnCombateConFieraSiTieneCascoPierdeQuincePuntosDeEnergia() {
-
         Logger logger = LogManager.getLogger();
         int turno = 10;
 
@@ -224,19 +214,17 @@ public class CasosDeUsoSemana1Test {
         Celda celdaProxima = tablero.avanzar(dado.tirar(), celdaInicial);
         Celda celdaActual = gladiador.mover(celdaProxima, turno);
 
-        Assertions.assertTrue(celdaActual == celdaProxima);
+        Assertions.assertSame(celdaProxima, celdaActual);
 
         fiera.afectar(gladiador);
         celdaProxima = tablero.avanzar(dado.tirar(), celdaActual);
         celdaActual = gladiador.mover(celdaProxima, turno);
 
-        Assertions.assertFalse(celdaActual == celdaProxima);
-
+        Assertions.assertNotSame(celdaProxima, celdaActual);
     }
 
     @Test
     public void test08AlPasarOchoTurnosElGladiadorPasaDeNovatoASemiSenior() {
-
         Logger logger = LogManager.getLogger();
         Dado dado = new Dado(1);
         int turno = 8;
@@ -253,19 +241,17 @@ public class CasosDeUsoSemana1Test {
         Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
         Jugador jugador = new Jugador(gladiador, tablero.getCeldaInicial(),logger);
 
-
         ascenderASemiSenior(jugador, dado, tablero); //pasa a tener 25 de energia.
         inhabilitarGladiador(gladiador, 2); //atacado 2 veces por fiera
 
         Celda celdaProxima = tablero.avanzar(dado.tirar(), celdaInicial);
         Celda celdaActual = gladiador.mover(celdaProxima, turno);
 
-        Assertions.assertFalse(celdaActual == celdaProxima);
+        Assertions.assertNotSame(celdaProxima, celdaActual);
     }
 
    @Test
     public void test09AlLlegarAlaMetaSinLaLlaveRetrocedeAlaMitadDeLasCasillas() {
-
        Logger logger = LogManager.getLogger();
        int turno= 19;
 
@@ -283,8 +269,7 @@ public class CasosDeUsoSemana1Test {
        Celda celdaProxima = tablero.avanzar(dado.tirar(), celdaInicial); //Celda Final
        Celda celdaActual = gladiador.mover(celdaProxima, turno); //es la celda inicial-> como no tiene la LLAVE vuelve al principio
 
-       Assertions.assertFalse(celdaActual == celdaProxima);
-
+       Assertions.assertNotSame(celdaProxima, celdaActual);
     }
 
     @Test
@@ -311,12 +296,11 @@ public class CasosDeUsoSemana1Test {
         Celda celdaProxima = tablero.avanzar(dado.tirar(), celdaInicial);
         Celda celdaActual = gladiador.mover(celdaProxima, turno);
 
-        Assertions.assertTrue(celdaActual == celdaProxima);
+        Assertions.assertSame(celdaProxima, celdaActual);
     }
 
     @Test
     public void test11AlTenerLaLlaveYrecibirOtroPremioNoCambiaNada() {
-
         Logger logger = LogManager.getLogger();
         int turno = 10;
 
@@ -338,12 +322,11 @@ public class CasosDeUsoSemana1Test {
         Celda celdaProxima = tablero.avanzar(dado.tirar(), celdaInicial);
         Celda celdaActual = gladiador.mover(celdaProxima, turno);
 
-        Assertions.assertTrue(celdaActual == celdaProxima);
+        Assertions.assertSame(celdaProxima, celdaActual);
     }
 
     @Test
     public void test12AlPasarTreintaTurnosYnadieLlegaAlaMetaSeTerminoElJuego() {
-
         Logger logger =LogManager.getLogger();
         Juego juego = new Juego(logger);
         CeldaInicial celdaInicial = new CeldaInicial(0,0,logger);
