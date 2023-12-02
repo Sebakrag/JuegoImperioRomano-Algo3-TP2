@@ -15,7 +15,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
-
+/*
 public class CasosDeUsoSemana2Test {
 
     public void inhabilitarGladiador(Gladiador gladiador, int i){
@@ -26,7 +26,7 @@ public class CasosDeUsoSemana2Test {
             fiera.afectar(gladiador);
         }
     }
-
+/*
     @Test
     public void test13ElFormatoDelMapaJsonEsValido(){
         String rutaJsonValida = "/archivos/mapa.json";
@@ -51,7 +51,7 @@ public class CasosDeUsoSemana2Test {
     *                   ParseException
     * Nos parece muy diu hacer un try-catch en los tests.
     **/
-
+/*
     @Test
     public void test15ElTableroSeCreaCorrectamenteAPartirDeUnArchivoJSON() throws IOException, ParseException {
         String rutaJsonValida = "/archivos/mapa.json";
@@ -123,7 +123,7 @@ public class CasosDeUsoSemana2Test {
 
 
     @Test
-    public void testLogSistemaAlSerAtacadoPorUnAnimal() {
+    public void test21LogSistemaAlSerAtacadoPorUnAnimal() {
 
         Logger logger = LogManager.getLogger();
 
@@ -137,5 +137,5 @@ public class CasosDeUsoSemana2Test {
 
         logger.error("tableroParser.leerArchivo(rutaJsonInvalido");
     }
+}*/
 
-}

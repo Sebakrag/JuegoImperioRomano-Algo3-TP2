@@ -67,17 +67,16 @@ public class Gladiador {
         logger.info("El destino jugara con ti otro turno , descansa");
     }
 
-    public void mover(int avances, Tablero tablero, int turnos) throws TurnoPerdidoError {
-        boolean puedeMoverse = this.estado.puedoMoverme();
+    public Celda mover(Celda futuraCelda, int turnos) throws TurnoPerdidoError {
 
-        this.estado = this.estado.avanzar(avances, tablero, this, logger);
+        this.estado = this.estado.avanzar(futuraCelda, this, logger);
         this.mejorarSeniority(turnos);
-
-        if (!puedeMoverse) { throw new TurnoPerdidoError(); }
+        return this.celdaActual;
     }
 
-    public void mover(int avances, Tablero tablero){
-        celdaActual = tablero.avanzar(avances, celdaActual);
-        celdaActual = celdaActual.afectar(this);
+    public void mover(Celda nuevaCelda){
+
+        this.celdaActual = nuevaCelda;
+        this.celdaActual = celdaActual.afectar(this);
     }
 }

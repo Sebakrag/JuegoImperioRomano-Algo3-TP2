@@ -34,37 +34,49 @@ public class CasosDeUsoSemana1Test {
         }
     }
 
-    public void ascenderASemiSenior(Jugador jugador, Dado dado){
+    public void ascenderASemiSenior(Jugador jugador, Dado dado, Tablero tablero){
         for(int i = 0; i < 8; i++){
-            jugador.jugarTurno(dado);
+            jugador.jugarTurno(dado, tablero);
         }
     }
 
     @Test
     public void test01SeInicializaUnJugadorConLaEnergiaYElEquipamientoCorrecto() {
+
         Logger logger = LogManager.getLogger();
+        int primerTurno = 1;
+
         CeldaInicial celdaInicial = new CeldaInicial(0, 0, logger);
         CeldaFinal celdaFinal = new CeldaFinal(0,1,logger);
         ArrayList<Celda> celdas = new ArrayList<>();
+        Dado dado = new Dado(6);
+
+
         celdas.add(celdaInicial);
         celdas.add(celdaFinal);
 
         Tablero tablero = new Tablero();
         tablero.armarMapa(celdas);
         Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
-        Jugador jugador = new Jugador(gladiador, tablero, logger);
 
         inhabilitarGladiador(gladiador, 1);
-        Assertions.assertThrows(TurnoPerdidoError.class,() -> jugador.jugarTurno(new Dado(6)));
+        Celda celdaProxima = tablero.avanzar(dado.tirar(), celdaInicial);
+        Celda celdaActual = gladiador.mover(celdaProxima, primerTurno);
+
+        Assertions.assertFalse(celdaActual == celdaProxima);
+
     }
 
     @Test
-    public void test02JugadorSaleCorrectamenteDeLaCasillaInicial(){
-        Logger logger = LogManager.getLogger();
+    public void test02JugadorSaleCorrectamenteDeLaCasillaInicial() {
+
         Dado dado = new Dado(1);
+        int primerTurno = 1;
+        Logger logger = LogManager.getLogger();
+
         CeldaInicial celdaInicial = new CeldaInicial(0, 0, logger);
-        CeldaComun celdaComun = new CeldaComun(0,1, new Vacio(), new Fiera(), logger);
-        //celdaInicial.setSiguiente(celdaComun);
+        CeldaComun celdaComun = new CeldaComun(0, 1, new Vacio(), new Fiera(), logger);
+
         ArrayList<Celda> celdas = new ArrayList<>();
         celdas.add(celdaInicial);
         celdas.add(celdaComun);
@@ -72,35 +84,46 @@ public class CasosDeUsoSemana1Test {
         Tablero tablero = new Tablero();
         tablero.armarMapa(celdas);
         Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
-        Jugador jugador = new Jugador(gladiador, tablero, logger);
 
-        jugador.jugarTurno(dado); //pasa a la siguiente celda que tiene una fiera
+        Celda celdaProxima = tablero.avanzar(dado.tirar(), celdaInicial);
+        Celda celdaActual = gladiador.mover(celdaProxima, primerTurno);
 
-        Assertions.assertDoesNotThrow(() -> jugador.jugarTurno(dado));
+        Assertions.assertTrue(celdaActual == celdaProxima);
     }
 
     @Test
     public void test03UnJugadorSinEnergiaPierdeElTurno(){
         Logger logger = LogManager.getLogger();
+        int primerTurno = 1;
+
         CeldaInicial celdaInicial = new CeldaInicial(0, 0, logger);
         CeldaFinal celdaFinal = new CeldaFinal(0,1,logger);
         ArrayList<Celda> celdas = new ArrayList<>();
+        Dado dado = new Dado(6);
+
+
         celdas.add(celdaInicial);
         celdas.add(celdaFinal);
 
         Tablero tablero = new Tablero();
         tablero.armarMapa(celdas);
         Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
-        Jugador jugador = new Jugador(gladiador, tablero, logger);
 
-        inhabilitarGladiador(gladiador,1);
 
-        Assertions.assertThrows(TurnoPerdidoError.class,() -> jugador.jugarTurno(new Dado(6)));
+        inhabilitarGladiador(gladiador, 1); //pierde su energia
+        Celda celdaProxima = tablero.avanzar(dado.tirar(), celdaInicial);
+        Celda celdaActual = gladiador.mover(celdaProxima, primerTurno);
+
+        Assertions.assertFalse(celdaActual == celdaProxima);
     }
 
     @Test
     public void test04AlRecibirComidaSuEnergiaIncrementaEnQuince() {
+
         Logger logger = LogManager.getLogger();
+        int turno = 5;
+
+        Dado dado = new Dado(6);
         CeldaInicial celdaInicial = new CeldaInicial(0, 0, logger);
         CeldaFinal celdaFinal = new CeldaFinal(0,1,logger);
         ArrayList<Celda> celdas = new ArrayList<>();
@@ -110,18 +133,23 @@ public class CasosDeUsoSemana1Test {
         Tablero tablero = new Tablero();
         tablero.armarMapa(celdas);
         Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
-        Jugador jugador = new Jugador(gladiador, tablero, logger);
         Afectante comida = new Comida();
 
         comida.afectar(gladiador); //energia = 35
         inhabilitarGladiador(gladiador, 2);
+        Celda celdaProxima = tablero.avanzar(dado.tirar(), celdaInicial);
+        Celda celdaActual = gladiador.mover(celdaProxima, turno);
 
-        Assertions.assertThrows(TurnoPerdidoError.class,() -> jugador.jugarTurno(new Dado(6)));
+        Assertions.assertFalse(celdaActual == celdaProxima);
     }
 
     @Test
     public void test05AlRecibirUnPremioPorPrimeraVezRecibeUnCasco() {
+
         Logger logger = LogManager.getLogger();
+        int turno = 4; //no va al caso del test, es lo mismo
+
+        Dado dado = new Dado(6);
         CeldaInicial celdaInicial = new CeldaInicial(0, 0, logger);
         CeldaFinal celdaFinal = new CeldaFinal(0,1,logger);
         ArrayList<Celda> celdas = new ArrayList<>();
@@ -131,19 +159,23 @@ public class CasosDeUsoSemana1Test {
         Tablero tablero = new Tablero();
         tablero.armarMapa(celdas);
         Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
-        Jugador jugador = new Jugador(gladiador, tablero, logger);
 
         potenciarHasta(gladiador, 1);  // El jugador obtiene un casco
-
         inhabilitarGladiador(gladiador, 2); // al ser atacado 2 veces por una fiera se queda sin energia.
 
-        Assertions.assertThrows(TurnoPerdidoError.class,() -> jugador.jugarTurno(new Dado(6)));
+        Celda celdaProxima = tablero.avanzar(dado.tirar(), celdaInicial);
+        Celda celdaActual = gladiador.mover(celdaProxima, turno);
+
+        Assertions.assertFalse(celdaActual == celdaProxima);
     }
 
     @Test
     public void test06AlRecibirUnPremioPorTerceraVezObtieneEscudoYEspada() {
 
         Logger logger = LogManager.getLogger();
+        int turno = 20;
+
+        Dado dado = new Dado(6);
         CeldaInicial celdaInicial = new CeldaInicial(0, 0, logger);
         CeldaFinal celdaFinal = new CeldaFinal(0,1,logger);
         ArrayList<Celda> celdas = new ArrayList<>();
@@ -153,45 +185,62 @@ public class CasosDeUsoSemana1Test {
         Tablero tablero = new Tablero();
         tablero.armarMapa(celdas);
         Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
-        Jugador jugador = new Jugador(gladiador, tablero, logger);
 
         potenciarHasta(gladiador, 3);  // El jugador obtiene un Escudo Y Espada.
 
         inhabilitarGladiador(gladiador, 10); //para sacarle toda la energia debe ser atacado 10 veces
 
-        Assertions.assertThrows(TurnoPerdidoError.class,() -> jugador.jugarTurno(new Dado(6)));
+        Celda celdaProxima = tablero.avanzar(dado.tirar(), celdaInicial);
+        Celda celdaActual = gladiador.mover(celdaProxima, turno);
+
+        Assertions.assertFalse(celdaActual == celdaProxima);
     }
 
     @Test
     public void test07AlHaberUnCombateConFieraSiTieneCascoPierdeQuincePuntosDeEnergia() {
 
         Logger logger = LogManager.getLogger();
+        int turno = 10;
+
+        Dado dado = new Dado(1);
         CeldaInicial celdaInicial = new CeldaInicial(0, 0, logger);
         CeldaComun celdaComun = new CeldaComun(0,1, new Vacio(), new Vacio(), logger);
-        //celdaInicial.setSiguiente(celdaComun);
+        CeldaFinal celdaFinal = new CeldaFinal(0, 2, logger);
+
         ArrayList<Celda> celdas = new ArrayList<>();
         celdas.add(celdaInicial);
         celdas.add(celdaComun);
+        celdas.add(celdaFinal);
 
         Tablero tablero = new Tablero();
         tablero.armarMapa(celdas);
         Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
-        Jugador jugador = new Jugador(gladiador, tablero,logger);
         Afectante mejora = new Potenciador();
         Fiera fiera = new Fiera();
 
         mejora.afectar(gladiador);  // El jugador obtiene un casco.
         fiera.afectar(gladiador); //lo ataca la fiera y queda con energia = 5
-        Assertions.assertDoesNotThrow(() -> jugador.jugarTurno(new Dado(1))); //puede jugar su turno
+
+        Celda celdaProxima = tablero.avanzar(dado.tirar(), celdaInicial);
+        Celda celdaActual = gladiador.mover(celdaProxima, turno);
+
+        Assertions.assertTrue(celdaActual == celdaProxima);
 
         fiera.afectar(gladiador);
-        Assertions.assertThrows(TurnoPerdidoError.class,() -> jugador.jugarTurno(new Dado(6)));
+        celdaProxima = tablero.avanzar(dado.tirar(), celdaActual);
+        celdaActual = gladiador.mover(celdaProxima, turno);
+
+        Assertions.assertFalse(celdaActual == celdaProxima);
+
     }
 
     @Test
     public void test08AlPasarOchoTurnosElGladiadorPasaDeNovatoASemiSenior() {
 
         Logger logger = LogManager.getLogger();
+        Dado dado = new Dado(1);
+        int turno = 8;
+
         CeldaInicial celdaInicial = new CeldaInicial(0, 0, logger);
         CeldaFinal celdaFinal = new CeldaFinal(0,1,logger);
         ArrayList<Celda> celdas = new ArrayList<>();
@@ -200,20 +249,27 @@ public class CasosDeUsoSemana1Test {
         
         Tablero tablero = new Tablero();
         tablero.armarMapa(celdas);
-        Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
-        Jugador jugador = new Jugador(gladiador, tablero,logger);
-        Dado dado = new Dado(6);
 
-        ascenderASemiSenior(jugador, dado); //pasa a tener 25 de energia.
+        Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
+        Jugador jugador = new Jugador(gladiador, tablero.getCeldaInicial(),logger);
+
+
+        ascenderASemiSenior(jugador, dado, tablero); //pasa a tener 25 de energia.
         inhabilitarGladiador(gladiador, 2); //atacado 2 veces por fiera
 
-        Assertions.assertThrows(TurnoPerdidoError.class,() -> jugador.jugarTurno(dado));
+        Celda celdaProxima = tablero.avanzar(dado.tirar(), celdaInicial);
+        Celda celdaActual = gladiador.mover(celdaProxima, turno);
+
+        Assertions.assertFalse(celdaActual == celdaProxima);
     }
 
    @Test
     public void test09AlLlegarAlaMetaSinLaLlaveRetrocedeAlaMitadDeLasCasillas() {
 
        Logger logger = LogManager.getLogger();
+       int turno= 19;
+
+       Dado dado = new Dado(1);
        CeldaInicial celdaInicial = new CeldaInicial(0,0, logger);
        CeldaFinal celdaFinal = new CeldaFinal(0,1,logger);
        ArrayList<Celda> celdas = new ArrayList<>();
@@ -222,43 +278,51 @@ public class CasosDeUsoSemana1Test {
 
        Tablero tablero = new Tablero();
        tablero.armarMapa(celdas);
+
        Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
-       Jugador jugador = new Jugador(gladiador, tablero,logger);
-       Dado dado = new Dado(1);
+       Celda celdaProxima = tablero.avanzar(dado.tirar(), celdaInicial); //Celda Final
+       Celda celdaActual = gladiador.mover(celdaProxima, turno); //es la celda inicial-> como no tiene la LLAVE vuelve al principio
 
-       jugador.jugarTurno(dado); //el jugador llega al final y vuelve al medio, deberia poder jugar de nuevo otro turno.
+       Assertions.assertFalse(celdaActual == celdaProxima);
 
-       Assertions.assertDoesNotThrow(() -> jugador.jugarTurno(dado));
     }
 
     @Test
-    public void test10AlSerAtacadoPorUnaFieraYConTodoElEquipamientoNoPierdeEnergia(){
+    public void test10AlSerAtacadoPorUnaFieraYConTodoElEquipamientoNoPierdeEnergia() {
         Logger logger = LogManager.getLogger();
-        CeldaInicial celdaInicial = new CeldaInicial(0,0, logger);
-        CeldaComun celdaComun = new CeldaComun(0,1, new Vacio(), new Vacio(), logger);
-        //celdaInicial.setSiguiente(celdaComun);
+        int turno = 10;
+
+        Dado dado = new Dado(1);
+        CeldaInicial celdaInicial = new CeldaInicial(0, 0, logger);
+        CeldaComun celdaComun = new CeldaComun(0, 1, new Vacio(), new Vacio(), logger);
         ArrayList<Celda> celdas = new ArrayList<>();
         celdas.add(celdaInicial);
         celdas.add(celdaComun);
 
         Tablero tablero = new Tablero();
         tablero.armarMapa(celdas);
-        Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
-        Jugador jugador = new Jugador(gladiador, tablero,logger);
 
-        potenciarHasta(gladiador,4);  /// El jugador obtiene una Llave.
+        Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
+
+        potenciarHasta(gladiador, 4);  /// El jugador obtiene una Llave.
 
         inhabilitarGladiador(gladiador, 1000); //no va a perder nunca energia al ser atacado infinitas veces
 
-        Assertions.assertDoesNotThrow(() -> jugador.jugarTurno(new Dado(1))); //puede jugar turno.
+        Celda celdaProxima = tablero.avanzar(dado.tirar(), celdaInicial);
+        Celda celdaActual = gladiador.mover(celdaProxima, turno);
+
+        Assertions.assertTrue(celdaActual == celdaProxima);
     }
 
     @Test
     public void test11AlTenerLaLlaveYrecibirOtroPremioNoCambiaNada() {
+
         Logger logger = LogManager.getLogger();
+        int turno = 10;
+
+        Dado dado = new Dado(1);
         CeldaInicial celdaInicial = new CeldaInicial(0,0, logger);
         CeldaComun celdaComun = new CeldaComun(0,1, new Vacio(), new Vacio(), logger);
-        //celdaInicial.setSiguiente(celdaComun);
         ArrayList<Celda> celdas = new ArrayList<>();
         celdas.add(celdaInicial);
         celdas.add(celdaComun);
@@ -266,13 +330,15 @@ public class CasosDeUsoSemana1Test {
         Tablero tablero = new Tablero();
         tablero.armarMapa(celdas);
         Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
-        Jugador jugador = new Jugador(gladiador, tablero, logger);
 
         potenciarHasta(gladiador, 5);  // El jugador obtiene una Llave y se le aplica una mejora mas (sin obtener nada)
 
         inhabilitarGladiador(gladiador, 1000); //no va a perder nunca energia al ser atacado infinitas veces
 
-        Assertions.assertDoesNotThrow(() -> jugador.jugarTurno(new Dado(1))); //puede jugar turno.
+        Celda celdaProxima = tablero.avanzar(dado.tirar(), celdaInicial);
+        Celda celdaActual = gladiador.mover(celdaProxima, turno);
+
+        Assertions.assertTrue(celdaActual == celdaProxima);
     }
 
     @Test

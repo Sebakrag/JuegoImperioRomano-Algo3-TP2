@@ -1,11 +1,11 @@
 package edu.fiuba.algo3.modelo.estados;
 
 import edu.fiuba.algo3.modelo.Gladiador;
-import edu.fiuba.algo3.modelo.Tablero;
+import edu.fiuba.algo3.modelo.celdas.Celda;
 import org.apache.logging.log4j.Logger;
 
 public class Sano implements Estado {
-    
+
     private static final int ENERGIA_INICIAL = 20;
     private static final int SIN_ENERGIA = 0;
 
@@ -19,9 +19,9 @@ public class Sano implements Estado {
         this.energiaActual = energia;
     }
 
-    public Estado avanzar (int avances, Tablero tablero, Gladiador gladiador, Logger logger) {
+    public Estado avanzar(Celda futuraCelda, Gladiador gladiador, Logger logger) {
         logger.info("Movimiento exitoso.");
-        gladiador.mover(avances,tablero);
+        gladiador.mover(futuraCelda);
         return this;
     }
 
@@ -32,7 +32,7 @@ public class Sano implements Estado {
         }
         return this;
     }
-    
+
     public Estado aumentarEnergia(int energia) {
         this.energiaActual += energia;
         return this;
@@ -41,9 +41,5 @@ public class Sano implements Estado {
     @Override
     public int obtenerEnergia() {
         return this.energiaActual;
-    }
-
-    public boolean puedoMoverme(){
-        return true;
     }
 }

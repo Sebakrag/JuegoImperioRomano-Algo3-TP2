@@ -7,6 +7,7 @@ import edu.fiuba.algo3.modelo.estados.Estado;
 
 public class Novato implements Seniority {
     private  static final int AUMENTO_ENERGIA = 0;
+    private static final int TURNOS_ASCENSO = 8;
     /*private static final Logger logger = LogManager.getLogger();*/
 
     private final Logger logger;
@@ -15,10 +16,9 @@ public class Novato implements Seniority {
         this.logger = logger;
     }
     public Seniority ascender(int turno) {
-        int turnosAscenso = 8;
 
-        if (turno == turnosAscenso) {
-            logger.info("Ascendiendo a SemiSenior después de " + turnosAscenso + " turnos.");
+        if (turno == TURNOS_ASCENSO) {
+            logger.info("Ascendiendo a SemiSenior después de " + TURNOS_ASCENSO + " turnos.");
             return new SemiSenior(logger);
         }
         return this;

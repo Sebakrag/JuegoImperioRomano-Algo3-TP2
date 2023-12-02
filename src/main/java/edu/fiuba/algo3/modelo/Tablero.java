@@ -24,7 +24,7 @@ public class Tablero {
             actual = celdaComun;
         }
 
-        Celda celdaMedio = celdas.get(celdas.size() / 2);
+        Celda celdaMedio = celdas.get((celdas.size() - 1) / 2);
         actual.setSiguiente(celdaMedio);
     }
 

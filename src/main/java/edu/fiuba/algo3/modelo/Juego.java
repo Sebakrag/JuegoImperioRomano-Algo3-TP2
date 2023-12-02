@@ -34,7 +34,7 @@ public class Juego {
         int jugadoresQueJugaron = 0;
         while(chequearRonda()) {
             for (; i < cantidadJugadores; i++ ) {
-                jugadores.get(i).jugarTurno(dado);
+                jugadores.get(i).jugarTurno(dado, this.tablero);
                 jugadoresQueJugaron++;
 
                 if (jugadoresQueJugaron == cantidadJugadores){
@@ -52,7 +52,7 @@ public class Juego {
     private void crearJugadores(int cantidadJugadores) {
         for (int i = 0; i < cantidadJugadores; i++) {
             Gladiador gladiador = new Gladiador(this.logger, this.tablero.getCeldaInicial());
-            Jugador jugador = new Jugador(gladiador, this.tablero, this.logger);
+            Jugador jugador = new Jugador(gladiador, this.tablero.getCeldaInicial(), this.logger);
             this.jugadores.add(jugador);
         }
     }

@@ -1,14 +1,13 @@
 package edu.fiuba.algo3.modelo.estados;
 
 import edu.fiuba.algo3.modelo.Gladiador;
-import edu.fiuba.algo3.modelo.Tablero;
+import edu.fiuba.algo3.modelo.celdas.Celda;
 import org.apache.logging.log4j.Logger;
 
 public interface Estado {
 
-    Estado avanzar(int avances, Tablero tablero, Gladiador gladiador, Logger logger);
+    Estado avanzar(Celda futuraCelda, Gladiador gladiador, Logger logger);
     Estado reducirEnergia(int energia);
     Estado aumentarEnergia(int energia);
-    public boolean puedoMoverme();
     int obtenerEnergia();
 }
