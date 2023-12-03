@@ -5,6 +5,7 @@ import edu.fiuba.algo3.modelo.Gladiador;
 import org.apache.logging.log4j.Logger;
 
 public class CeldaComun extends Celda {
+    private final String nombreImagen = "imagenCamino.png";
     private Afectante premio;
     private Afectante obstaculo;
     //private final Logger logger;
@@ -28,4 +29,22 @@ public class CeldaComun extends Celda {
     public Celda celdaSiguiente(){
         return this.siguiente;
     }
+
+    public String nombreImagenFondo() { return this.nombreImagen; }
+
+    /*
+    @Override
+    public String nombreImagenPremio() {
+        //return this.premio.nombreImagen();   --> Si llegasemos a hacer esto, deberiamos agregar el metodo
+        //                                          nombreImagen() en la interfaz Afectante. De esta manera
+        //                                          hariamos que cada Afectante (ya sea un premio o un ostaculo
+        //                                          redefina dicho metodo y devuelva un string que corresponda
+        //                                          al nombre de su imagen)
+    }
+
+    @Override
+    public String nombreImagenObstaculo() {
+        //return this.obstaculo.nombreImagen();    // TODO: Check
+    }
+    */
 }

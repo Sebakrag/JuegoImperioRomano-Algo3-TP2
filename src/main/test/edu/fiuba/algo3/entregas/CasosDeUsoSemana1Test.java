@@ -53,7 +53,7 @@ public class CasosDeUsoSemana1Test {
         celdas.add(celdaInicial);
         celdas.add(celdaFinal);
 
-        Tablero tablero = new Tablero();
+        Tablero tablero = new Tablero(1,1);
         tablero.armarMapa(celdas);
         Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
 
@@ -77,7 +77,7 @@ public class CasosDeUsoSemana1Test {
         celdas.add(celdaInicial);
         celdas.add(celdaComun);
 
-        Tablero tablero = new Tablero();
+        Tablero tablero = new Tablero(1,1);
         tablero.armarMapa(celdas);
         Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
 
@@ -100,7 +100,7 @@ public class CasosDeUsoSemana1Test {
         celdas.add(celdaInicial);
         celdas.add(celdaFinal);
 
-        Tablero tablero = new Tablero();
+        Tablero tablero = new Tablero(1,1);
         tablero.armarMapa(celdas);
         Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
 
@@ -123,7 +123,7 @@ public class CasosDeUsoSemana1Test {
         celdas.add(celdaInicial);
         celdas.add(celdaFinal);
 
-        Tablero tablero = new Tablero();
+        Tablero tablero = new Tablero(1,1);
         tablero.armarMapa(celdas);
         Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
         Afectante comida = new Comida();
@@ -148,7 +148,7 @@ public class CasosDeUsoSemana1Test {
         celdas.add(celdaInicial);
         celdas.add(celdaFinal);
 
-        Tablero tablero = new Tablero();
+        Tablero tablero = new Tablero(1,1);
         tablero.armarMapa(celdas);
         Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
 
@@ -173,7 +173,7 @@ public class CasosDeUsoSemana1Test {
         celdas.add(celdaInicial);
         celdas.add(celdaFinal);
 
-        Tablero tablero = new Tablero();
+        Tablero tablero = new Tablero(1,1);
         tablero.armarMapa(celdas);
         Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
 
@@ -202,7 +202,7 @@ public class CasosDeUsoSemana1Test {
         celdas.add(celdaComun);
         celdas.add(celdaFinal);
 
-        Tablero tablero = new Tablero();
+        Tablero tablero = new Tablero(1,2);
         tablero.armarMapa(celdas);
         Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
         Afectante mejora = new Potenciador();
@@ -235,11 +235,11 @@ public class CasosDeUsoSemana1Test {
         celdas.add(celdaInicial);
         celdas.add(celdaFinal);
         
-        Tablero tablero = new Tablero();
+        Tablero tablero = new Tablero(1,1);
         tablero.armarMapa(celdas);
 
         Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
-        Jugador jugador = new Jugador(gladiador, tablero.getCeldaInicial(),logger);
+        Jugador jugador = new Jugador("Juan", gladiador, tablero.getCeldaInicial(),logger);
 
         ascenderASemiSenior(jugador, dado, tablero); //pasa a tener 25 de energia.
         inhabilitarGladiador(gladiador, 2); //atacado 2 veces por fiera
@@ -262,7 +262,7 @@ public class CasosDeUsoSemana1Test {
        celdas.add(celdaInicial);
        celdas.add(celdaFinal);
 
-       Tablero tablero = new Tablero();
+       Tablero tablero = new Tablero(1,1);
        tablero.armarMapa(celdas);
 
        Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
@@ -284,7 +284,7 @@ public class CasosDeUsoSemana1Test {
         celdas.add(celdaInicial);
         celdas.add(celdaComun);
 
-        Tablero tablero = new Tablero();
+        Tablero tablero = new Tablero(1,1);
         tablero.armarMapa(celdas);
 
         Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
@@ -311,7 +311,7 @@ public class CasosDeUsoSemana1Test {
         celdas.add(celdaInicial);
         celdas.add(celdaComun);
 
-        Tablero tablero = new Tablero();
+        Tablero tablero = new Tablero(1,1);
         tablero.armarMapa(celdas);
         Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
 
@@ -335,6 +335,12 @@ public class CasosDeUsoSemana1Test {
         celdas.add(celdaInicial);
         celdas.add(celdaFinal);
 
-        Assertions.assertThrows(PasaronTreintaRondasYnoHuboGanadorError.class, () -> juego.iniciarPartida(celdas,2));
+        Tablero tablero = new Tablero(1,1);
+        tablero.armarMapa(celdas);
+        ArrayList<String> nombresJugadores = new ArrayList<>();
+        nombresJugadores.add("Pepe");
+        nombresJugadores.add("juan");
+
+        Assertions.assertFalse(juego.iniciarPartida(tablero, nombresJugadores));
     }
 }

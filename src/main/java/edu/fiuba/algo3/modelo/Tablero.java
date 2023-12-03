@@ -6,8 +6,17 @@ import java.util.ArrayList;
 
 public class Tablero {
     private Celda celdaInicial;
+    private Celda celdaFinal;
+    private final int ancho;
+    private final int largo;
 
-    // TODO: Siento que es al pedo esta clase, que ese metodo puede estar privado en el parser
+    private int cantidadTotalDeCeldas;
+
+    public Tablero(int ancho, int largo) {
+        this.ancho = ancho;
+        this.largo = largo;
+        this.cantidadTotalDeCeldas = 0;
+    }
 
     public void armarMapa(ArrayList<Celda> celdas) throws CantidadInvalidaDeCeldasError {
 
@@ -16,14 +25,16 @@ public class Tablero {
         }
 
         this.celdaInicial = celdas.get(0);
+        this.cantidadTotalDeCeldas++;
         Celda actual = celdas.get(0);
         int i = 1;
         for (; i < celdas.size(); i++) {
             Celda celdaComun = celdas.get(i);
             actual.setSiguiente(celdaComun);
             actual = celdaComun;
+            this.cantidadTotalDeCeldas++;
         }
-
+        this.celdaFinal = actual;
         Celda celdaMedio = celdas.get((celdas.size() - 1) / 2);
         actual.setSiguiente(celdaMedio);
     }
@@ -32,10 +43,27 @@ public class Tablero {
         return this.celdaInicial;
     }
 
+    public Celda getCeldaFinal(){
+        return this.celdaFinal;
+    }
+
     public Celda avanzar(int avances, Celda celdaActual) {
         for (int i = 0; i < avances; i++) {
             celdaActual = celdaActual.celdaSiguiente();
         }
         return celdaActual;
     }
+
+    public int getAncho() {
+        return this.ancho;
+    }
+
+    public int getLargo() {
+        return this.largo;
+    }
+
+    public int getcantidadTotalDeCeldas(){
+        return this.cantidadTotalDeCeldas;
+    }
+
 }

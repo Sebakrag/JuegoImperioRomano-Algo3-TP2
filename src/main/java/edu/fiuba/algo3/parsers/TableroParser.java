@@ -23,17 +23,27 @@ public class TableroParser {
             return generarTablero(json);
         } catch (FileNotFoundException e) {
             throw new ArchivoNoEncontradoError(System.getProperty("user.dir") + ruta);
-        } catch (IOException | ParseException e) {
-            e.printStackTrace();
-            throw e;
         }
     }
 
     private Tablero generarTablero(JSONObject jsonTablero) {
         ArrayList<Celda> celdas = this.parsearCeldas(jsonTablero);
-        Tablero tablero = new Tablero();
+        ArrayList<Integer> dimensiones = this.parsearDimensiones(jsonTablero);
+        int ancho = dimensiones.get(0);
+        int largo = dimensiones.get(1);
+        Tablero tablero = new Tablero(ancho, largo);
         tablero.armarMapa(celdas);
         return tablero;
+    }
+
+    private ArrayList<Integer> parsearDimensiones(JSONObject tablero) {
+        JSONObject mapaJson = (JSONObject) tablero.get("mapa");
+
+        ArrayList<Integer> dimensiones = new ArrayList<>();
+        dimensiones.add((int) ((long) mapaJson.get("ancho")));
+        dimensiones.add((int) ((long) mapaJson.get("largo")));
+
+        return dimensiones;
     }
 
     private ArrayList<Celda> parsearCeldas(JSONObject tablero) throws ArchivoNoEncontradoError {

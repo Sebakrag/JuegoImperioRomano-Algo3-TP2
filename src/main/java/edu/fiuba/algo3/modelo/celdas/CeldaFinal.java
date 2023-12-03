@@ -4,7 +4,7 @@ import edu.fiuba.algo3.modelo.Gladiador;
 import org.apache.logging.log4j.Logger;
 
 public class CeldaFinal extends Celda {
-
+    private final String nombreImagen = "imagenCeldaFinal.png";
     public CeldaFinal(int x, int y, Logger logger) {
         coordenadasValidas(x, y);
         this.x = x;
@@ -16,7 +16,6 @@ public class CeldaFinal extends Celda {
         return this;
     }
 
-    // TODO: me hace ruido que el siguiente sea el del medio pero por ahora queda asi
     public Celda afectar(Gladiador gladiador) {
         if (gladiador.totalmenteEquipado()){
             this.logger.info("Ganaste!!!");
@@ -24,4 +23,6 @@ public class CeldaFinal extends Celda {
         }
         return siguiente;
     }
+
+    public String nombreImagenFondo() { return this.nombreImagen; }
 }
