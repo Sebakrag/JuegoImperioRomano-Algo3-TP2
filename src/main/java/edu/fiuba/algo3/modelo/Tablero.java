@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class Tablero {
     private Celda celdaInicial;
+    private Celda celdaFinal;
 
     // TODO: Siento que es al pedo esta clase, que ese metodo puede estar privado en el parser
 
@@ -23,13 +24,17 @@ public class Tablero {
             actual.setSiguiente(celdaComun);
             actual = celdaComun;
         }
-
+        this.celdaFinal = actual;
         Celda celdaMedio = celdas.get((celdas.size() - 1) / 2);
         actual.setSiguiente(celdaMedio);
     }
 
     public Celda getCeldaInicial(){
         return this.celdaInicial;
+    }
+
+    public Celda getCeldaFinal(){
+        return this.celdaFinal;
     }
 
     public Celda avanzar(int avances, Celda celdaActual) {

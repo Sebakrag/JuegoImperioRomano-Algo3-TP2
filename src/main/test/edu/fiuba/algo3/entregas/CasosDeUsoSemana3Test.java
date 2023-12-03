@@ -56,7 +56,7 @@ public class CasosDeUsoSemana3Test {
         Celda celdaFinalGladiador = gladiador.mover(celdaProxima, turno);
         //celdaFinalGladiador = gladiador.mover(celdaFinalGladiador, turno);
 
-        Assertions.assertSame(celdaProxima, celdaFinalGladiador);
+        Assertions.assertSame(tablero.getCeldaFinal(), celdaFinalGladiador);
     }
 
     @Test
@@ -83,6 +83,6 @@ public class CasosDeUsoSemana3Test {
         celdaProxima = tablero.avanzar(dado.tirar(), celdaProxima);
         Celda celdaFinalGladiador = gladiador.mover(celdaProxima, turno);
 
-        Assertions.assertNotSame(celdaProxima, celdaFinalGladiador);
+        Assertions.assertNotSame(tablero.getCeldaFinal(), celdaFinalGladiador);
     }
 }

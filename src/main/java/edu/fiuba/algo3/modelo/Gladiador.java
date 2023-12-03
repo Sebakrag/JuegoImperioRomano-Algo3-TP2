@@ -75,7 +75,6 @@ public class Gladiador {
     }
 
     public void mover(Celda nuevaCelda){
-
         this.celdaActual = nuevaCelda;
         this.celdaActual = celdaActual.afectar(this);
     }

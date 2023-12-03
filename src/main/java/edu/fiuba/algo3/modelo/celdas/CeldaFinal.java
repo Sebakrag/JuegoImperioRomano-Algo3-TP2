@@ -16,7 +16,6 @@ public class CeldaFinal extends Celda {
         return this;
     }
 
-    // TODO: me hace ruido que el siguiente sea el del medio pero por ahora queda asi
     public Celda afectar(Gladiador gladiador) {
         if (gladiador.totalmenteEquipado()){
             this.logger.info("Ganaste!!!");

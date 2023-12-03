@@ -32,9 +32,10 @@ public class Juego {
 
         int i = this.dado.tirar();
         int jugadoresQueJugaron = 0;
-        while(chequearRonda()) {
+        boolean ganador = false;
+        while(chequearRonda() && !ganador) {
             for (; i < cantidadJugadores; i++ ) {
-                jugadores.get(i).jugarTurno(dado, this.tablero);
+                ganador = jugadores.get(i).jugarTurno(dado, this.tablero);
                 jugadoresQueJugaron++;
 
                 if (jugadoresQueJugaron == cantidadJugadores){
