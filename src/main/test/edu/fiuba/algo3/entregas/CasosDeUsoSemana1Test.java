@@ -335,6 +335,6 @@ public class CasosDeUsoSemana1Test {
         celdas.add(celdaInicial);
         celdas.add(celdaFinal);
 
-        Assertions.assertThrows(PasaronTreintaRondasYnoHuboGanadorError.class, () -> juego.iniciarPartida(celdas,2));
+        Assertions.assertFalse(juego.iniciarPartida(celdas,2));
     }
 }
