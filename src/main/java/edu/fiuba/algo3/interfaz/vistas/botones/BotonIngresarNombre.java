@@ -9,9 +9,11 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
+import java.util.ArrayList;
+
 public class BotonIngresarNombre extends Button {
 
-    public BotonIngresarNombre(String texto, CuadroTextoIngreso cuadroTexto, Label etiquetaAviso, int cantidadLimite, BotonIniciarPartida botonIniciarPartida) {
+    public BotonIngresarNombre(String texto, CuadroTextoIngreso cuadroTexto, Label etiquetaAviso, int cantidadLimite, BotonIniciarPartida botonIniciarPartida, ArrayList<String> nombresJugadores) {
         super.setText(texto);
 
         BackgroundFill normalFill = new BackgroundFill(Color.CYAN, CornerRadii.EMPTY, Insets.EMPTY);
@@ -31,6 +33,6 @@ public class BotonIngresarNombre extends Button {
             this.setBackground(normalBackground);
         });
 
-        super.setOnAction(new ControladorIngresoNombre(cuadroTexto, etiquetaAviso, cantidadLimite, this, botonIniciarPartida));
+        super.setOnAction(new ControladorIngresoNombre(cuadroTexto, etiquetaAviso, cantidadLimite, this, botonIniciarPartida, nombresJugadores));
     }
 }

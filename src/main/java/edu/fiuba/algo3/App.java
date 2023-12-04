@@ -16,9 +16,6 @@ import javafx.stage.Stage;
 import javafx.scene.control.Button;
 
 
-/**
- * JavaFX App
- */
 public class App extends Application {
 
     @Override
@@ -29,9 +26,8 @@ public class App extends Application {
         Label vamoAJugaEtiqueta = new Label("Vamo' a juga'?");
         Label cantidadDeJugadoresEtiqueta = new Label("Elija el número de jugadores:");
 
-        //Font estiloLetra = Font.loadFont("file:" + System.getProperty("user.dir") + "/FuentesDeLetras/Cinzel-VariableFont_wght.ttf", 35);
-
-        //imperioRomanoEtiqueta.setFont(estiloLetra);
+        Font estiloLetra = Font.loadFont("file:" + System.getProperty("user.dir") + "/fuentes/Cinzel-VariableFont_wght.ttf", 40);
+        imperioRomanoEtiqueta.setFont(estiloLetra);
         imperioRomanoEtiqueta.setStyle("-fx-text-fill: white");
         vamoAJugaEtiqueta.setFont(new Font("Arial", 20));
         vamoAJugaEtiqueta.setStyle("-fx-text-fill: white");
@@ -49,16 +45,18 @@ public class App extends Application {
         contenedorBotones.setSpacing(10);
 
         Button botonCreditos = new Button("Créditos");
+        botonCreditos.setFont(new Font("Arial", 12));
 
         VBox contenedorPrincipal = new VBox(imperioRomanoEtiqueta, vamoAJugaEtiqueta, cantidadDeJugadoresEtiqueta, contenedorBotones, botonCreditos);
         contenedorPrincipal.setAlignment(Pos.CENTER);
         contenedorPrincipal.setSpacing(10);
 
         //Imagen de Fondo
-        Image imagenDeFondo = new Image("file:" + System.getProperty("user.dir") + "/imagenes/FondoDeInicio.jpg");
+        Image imagenDeFondo = new Image("file:" + System.getProperty("user.dir") + "/imagenes/ArmaduraGladiador.jpg");
         ImageView viewImagenFondo = new ImageView(imagenDeFondo);
-        viewImagenFondo.setFitHeight(480);
-        viewImagenFondo.setFitWidth(640);
+        viewImagenFondo.setPreserveRatio(true);
+        viewImagenFondo.fitWidthProperty().bind(stage.widthProperty());
+        //viewImagenFondo.fitHeightProperty().bind(stage.heightProperty());
 
         panelPrincipal.getChildren().add(viewImagenFondo);
         panelPrincipal.getChildren().add(contenedorPrincipal);

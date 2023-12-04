@@ -239,7 +239,7 @@ public class CasosDeUsoSemana1Test {
         tablero.armarMapa(celdas);
 
         Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
-        Jugador jugador = new Jugador(gladiador, tablero.getCeldaInicial(),logger);
+        Jugador jugador = new Jugador("Juan", gladiador, tablero.getCeldaInicial(),logger);
 
         ascenderASemiSenior(jugador, dado, tablero); //pasa a tener 25 de energia.
         inhabilitarGladiador(gladiador, 2); //atacado 2 veces por fiera
@@ -335,6 +335,12 @@ public class CasosDeUsoSemana1Test {
         celdas.add(celdaInicial);
         celdas.add(celdaFinal);
 
-        Assertions.assertFalse(juego.iniciarPartida(celdas,2));
+        Tablero tablero = new Tablero();
+        tablero.armarMapa(celdas);
+        ArrayList<String> nombresJugadores = new ArrayList<>();
+        nombresJugadores.add("Pepe");
+        nombresJugadores.add("juan");
+
+        Assertions.assertFalse(juego.iniciarPartida(tablero, nombresJugadores));
     }
 }

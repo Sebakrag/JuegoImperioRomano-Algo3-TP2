@@ -9,10 +9,12 @@ import javafx.scene.paint.Color;
 import edu.fiuba.algo3.interfaz.controladores.ControladorInicioPartida;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+
 
 public class BotonIniciarPartida extends Button {
 
-    public BotonIniciarPartida(Stage ventana, String texto) {
+    public BotonIniciarPartida(Stage ventana, String texto, ArrayList<String> nombresJugadores) {
         super.setText(texto);
 
         // PARTE ASTERIIIIIIKK <3
@@ -35,6 +37,6 @@ public class BotonIniciarPartida extends Button {
         //
 
         this.setDisable(true);
-        setOnAction(new ControladorInicioPartida(ventana));
+        setOnAction(new ControladorInicioPartida(ventana, nombresJugadores));
     }
 }

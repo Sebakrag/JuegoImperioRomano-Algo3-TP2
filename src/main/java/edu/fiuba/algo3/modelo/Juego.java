@@ -4,9 +4,8 @@ import edu.fiuba.algo3.modelo.celdas.Celda;
 import edu.fiuba.algo3.modelo.excepcion.PasaronTreintaRondasYnoHuboGanadorError;
 import org.apache.logging.log4j.Logger;
 
-
 import java.util.*;
-
+import java.util.ArrayList;
 
 public class Juego {
     private static final int CANTIDAD_MAXIMA_DE_RONDAS = 30;
@@ -24,10 +23,11 @@ public class Juego {
         this.logger = logger;
     }
 
-    public boolean iniciarPartida(ArrayList<Celda> celdas, int cantidadJugadores) {
-        this.tablero.armarMapa(celdas);
-        this.crearJugadores(cantidadJugadores);
-        this.ronda = 1;
+    // TODO: public boolean iniciarPartida(Tablero tablero, ArrayList<String> nombresJugadores)
+    public boolean iniciarPartida(Tablero tablero, ArrayList<String> nombresJugadores) {
+        this.tablero = tablero;
+        int cantidadJugadores = nombresJugadores.size();
+        this.crearJugadores(nombresJugadores);
         this.dado = new Dado(cantidadJugadores);
 
         int i = this.dado.tirar();
@@ -53,10 +53,11 @@ public class Juego {
         return ganador;
     }
 
-    private void crearJugadores(int cantidadJugadores) {
+    private void crearJugadores(ArrayList<String> nombresJugadores) {
+        int cantidadJugadores = nombresJugadores.size();
         for (int i = 0; i < cantidadJugadores; i++) {
             Gladiador gladiador = new Gladiador(this.logger, this.tablero.getCeldaInicial());
-            Jugador jugador = new Jugador(gladiador, this.tablero.getCeldaInicial(), this.logger);
+            Jugador jugador = new Jugador(nombresJugadores.get(i), gladiador, this.tablero.getCeldaInicial(), this.logger);
             this.jugadores.add(jugador);
         }
     }

@@ -21,6 +21,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 
+import java.util.ArrayList;
 
 
 public class ControladorIngresoJugadores implements EventHandler<ActionEvent> {
@@ -38,10 +39,11 @@ public class ControladorIngresoJugadores implements EventHandler<ActionEvent> {
         int cantidadLimite = this.boton.getCantidadLimite();
         Label etiquetaIngreso = new Label("Ingrese un nombre:");
         CuadroTextoIngreso cuadroTexto = new CuadroTextoIngreso();
-        BotonIniciarPartida botonInciarPartida = new BotonIniciarPartida(this.ventana, "Iniciar Partida");
+        ArrayList<String> nombresJugadores = new ArrayList<>();
+        BotonIniciarPartida botonInciarPartida = new BotonIniciarPartida(this.ventana, "Iniciar Partida", nombresJugadores);
 
         Label etiquetaAviso = new Label("");
-        Button botonIngresarNombre = new BotonIngresarNombre("Ingresar", cuadroTexto, etiquetaAviso, cantidadLimite, botonInciarPartida);
+        BotonIngresarNombre botonIngresarNombre = new BotonIngresarNombre("Ingresar", cuadroTexto, etiquetaAviso, cantidadLimite, botonInciarPartida, nombresJugadores);
         HBox contenedorIngreso = new HBox(etiquetaIngreso, cuadroTexto, botonIngresarNombre);
         contenedorIngreso.setAlignment(Pos.CENTER);
         contenedorIngreso.setSpacing(3);

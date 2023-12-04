@@ -4,13 +4,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import edu.fiuba.algo3.modelo.Tablero;
 
 public class VistaTablero extends GridPane {
 
     private static final int TAMANO_CELDA = 50;
 
-    //  public VistaTablero(Tablero tablero)? TODO: Pasarle tablero?
-    public VistaTablero() {
+    public VistaTablero(Tablero tablero) {
         for (int fila = 0; fila < 4; fila++) {
             for (int col = 0; col < 7; col++) {
 
@@ -34,7 +34,7 @@ public class VistaTablero extends GridPane {
         viewImagenCamino.setFitWidth(TAMANO_CELDA);
 
         panelCelda.getChildren().add(viewImagenCamino);
-        
+
         return panelCelda;
     }
 

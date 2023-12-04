@@ -10,12 +10,14 @@ public class Jugador {
     private int turno;
     private Celda celdaActual;
     private final Logger logger;
+    private final String nombre;
 
-    public Jugador(Gladiador gladiador, Celda celdaInicial, Logger logger) {
+    public Jugador(String nombre, Gladiador gladiador, Celda celdaInicial, Logger logger) {
         this.gladiador = gladiador;
         this.turno = 0;
         this.celdaActual = celdaInicial;
         this.logger = logger;
+        this.nombre = nombre;
     }
 
     /*
@@ -24,7 +26,7 @@ public class Jugador {
      * */
 
     public boolean jugarTurno(Dado dado, Tablero tablero){
-        logger.info("string de jugador 1 /2 jugando");
+        logger.info("Turno de: " + this.nombre);
         this.turno++;
 
         int avances = dado.tirar();

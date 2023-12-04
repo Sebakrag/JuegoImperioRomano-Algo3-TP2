@@ -19,9 +19,9 @@ public class ControladorIngresoNombre implements EventHandler<ActionEvent> {
     private BotonIngresarNombre botonIngreso;
     private BotonIniciarPartida botonIniciarPartida;
     
-    public ControladorIngresoNombre(CuadroTextoIngreso cuadroTexto, Label etiquetaAviso, int cantidadLimite, BotonIngresarNombre botonIngreso, BotonIniciarPartida botonIniciarPartida) {
+    public ControladorIngresoNombre(CuadroTextoIngreso cuadroTexto, Label etiquetaAviso, int cantidadLimite, BotonIngresarNombre botonIngreso, BotonIniciarPartida botonIniciarPartida,  ArrayList<String> nombresJugadores) {
         this.cuadroTexto = cuadroTexto;
-        this.nombresJugadores = new ArrayList<>();
+        this.nombresJugadores = nombresJugadores;
         this.etiquetaAviso = etiquetaAviso;
         this.cantidadLimite = cantidadLimite;
         this.botonIngreso = botonIngreso;
@@ -45,9 +45,4 @@ public class ControladorIngresoNombre implements EventHandler<ActionEvent> {
         this.cuadroTexto.clear();
         this.cuadroTexto.requestFocus();
     }
-
-    public ArrayList<String> getNombresJugadores() {
-        return this.nombresJugadores;
-    }
-
 }
