@@ -16,10 +16,10 @@ public class BotonIngresarNombre extends Button {
     public BotonIngresarNombre(String texto, CuadroTextoIngreso cuadroTexto, Label etiquetaAviso, int cantidadLimite, BotonIniciarPartida botonIniciarPartida, ArrayList<String> nombresJugadores) {
         super.setText(texto);
 
-        BackgroundFill normalFill = new BackgroundFill(Color.CYAN, CornerRadii.EMPTY, Insets.EMPTY);
+        BackgroundFill normalFill = new BackgroundFill(Color.rgb(245, 180, 0, 1), CornerRadii.EMPTY, Insets.EMPTY);
         Background normalBackground = new Background(normalFill);
 
-        BackgroundFill hoveredFill = new BackgroundFill(Color.DARKCYAN, CornerRadii.EMPTY, Insets.EMPTY);
+        BackgroundFill hoveredFill = new BackgroundFill(Color.rgb(143, 105, 0, 1), CornerRadii.EMPTY, Insets.EMPTY);
         Background hoveredBackground = new Background(hoveredFill);
 
         //  Estilo del Boton

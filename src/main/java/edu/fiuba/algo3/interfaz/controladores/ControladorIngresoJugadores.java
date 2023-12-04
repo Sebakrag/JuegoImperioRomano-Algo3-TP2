@@ -6,7 +6,10 @@ import edu.fiuba.algo3.interfaz.vistas.botones.BotonIniciarPartida;
 import edu.fiuba.algo3.interfaz.vistas.cuadroTexto.CuadroTextoIngreso;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -37,14 +40,21 @@ public class ControladorIngresoJugadores implements EventHandler<ActionEvent> {
     //TODO: ver de modularizar esta funcion:
     private Scene crearEscenaIngreso() {
         int cantidadLimite = this.boton.getCantidadLimite();
-        Label etiquetaIngreso = new Label("Ingrese un nombre:");
+        Label etiquetaIngreso = new Label("Ingrese un nombre");
+        Font estiloLetraTitulo = Font.loadFont("file:" + System.getProperty("user.dir") + "/fuentes/serif/static/SourceSerif4-SemiBold.ttf", 20);
+        etiquetaIngreso.setFont(estiloLetraTitulo);
+        etiquetaIngreso.setStyle("-fx-text-fill: black");
+
         CuadroTextoIngreso cuadroTexto = new CuadroTextoIngreso();
         ArrayList<String> nombresJugadores = new ArrayList<>();
         BotonIniciarPartida botonInciarPartida = new BotonIniciarPartida(this.ventana, "Iniciar Partida", nombresJugadores);
 
         Label etiquetaAviso = new Label("");
+        Font estiloLetraAviso = Font.loadFont("file:" + System.getProperty("user.dir") + "/fuentes/serif/static/SourceSerif4-MediumItalic.ttf", 12);
+        etiquetaAviso.setFont(estiloLetraAviso);
+        etiquetaAviso.setStyle("-fx-text-fill: black");
         BotonIngresarNombre botonIngresarNombre = new BotonIngresarNombre("Ingresar", cuadroTexto, etiquetaAviso, cantidadLimite, botonInciarPartida, nombresJugadores);
-        HBox contenedorIngreso = new HBox(etiquetaIngreso, cuadroTexto, botonIngresarNombre);
+        HBox contenedorIngreso = new HBox(cuadroTexto, botonIngresarNombre);
         contenedorIngreso.setAlignment(Pos.CENTER);
         contenedorIngreso.setSpacing(3);
 
@@ -70,9 +80,21 @@ public class ControladorIngresoJugadores implements EventHandler<ActionEvent> {
         });
         //
 */
-        VBox disposicionIngreso = new VBox(contenedorIngreso, etiquetaAviso, botonInciarPartida);
+        Image imagenDeGladiador = new Image("file:" + System.getProperty("user.dir") + "/imagenes/gladiador.png");
+        ImageView viewImagenDeGladiador = new ImageView(imagenDeGladiador);
+
+        viewImagenDeGladiador.setPreserveRatio(false);
+        viewImagenDeGladiador.setFitWidth(150);
+        viewImagenDeGladiador.setFitHeight(150);
+
+        VBox disposicionIngreso = new VBox(viewImagenDeGladiador, etiquetaIngreso, contenedorIngreso, etiquetaAviso, botonInciarPartida);
         disposicionIngreso.setAlignment(Pos.CENTER);
         disposicionIngreso.setSpacing(8);
+
+        BackgroundFill fondo = new BackgroundFill(Color.rgb(117, 90, 0, 1), CornerRadii.EMPTY, Insets.EMPTY);
+        Background fondoDeEscena = new Background(fondo);
+        disposicionIngreso.setBackground(fondoDeEscena);
+
         return new Scene(disposicionIngreso, 500, 500);
     }
 

@@ -7,6 +7,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.geometry.Insets;
 import javafx.scene.paint.Color;
 import edu.fiuba.algo3.interfaz.controladores.ControladorInicioPartida;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -18,10 +19,10 @@ public class BotonIniciarPartida extends Button {
         super.setText(texto);
 
         // PARTE ASTERIIIIIIKK <3
-        BackgroundFill normalFill = new BackgroundFill(Color.LIME, CornerRadii.EMPTY, Insets.EMPTY);
+        BackgroundFill normalFill = new BackgroundFill(Color.rgb(171, 63, 63, 1), CornerRadii.EMPTY, Insets.EMPTY);
         Background normalBackground = new Background(normalFill);
 
-        BackgroundFill hoveredFill = new BackgroundFill(Color.DARKGREEN, CornerRadii.EMPTY, Insets.EMPTY);
+        BackgroundFill hoveredFill = new BackgroundFill(Color.rgb(119, 44, 44, 1), CornerRadii.EMPTY, Insets.EMPTY);
         Background hoveredBackground = new Background(hoveredFill);
 
         //  Estilo del Boton
@@ -35,6 +36,9 @@ public class BotonIniciarPartida extends Button {
             this.setBackground(normalBackground);
         });
         //
+
+        Font estiloLetra = Font.loadFont("file:" + System.getProperty("user.dir") + "/fuentes/serif/static/SourceSerif4-Bold.ttf", 12);
+        super.setFont(estiloLetra);
 
         this.setDisable(true);
         setOnAction(new ControladorInicioPartida(ventana, nombresJugadores));

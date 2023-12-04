@@ -22,7 +22,7 @@ public class BotonCantidadJugador extends Button {
         this.cantidadJugadores = Integer.parseInt(texto);
 
         //BackgroundFill normalFill = new BackgroundFill(Color.CYAN, CornerRadii.EMPTY, Insets.EMPTY);
-        BackgroundFill normalFill = new BackgroundFill(Color.rgb(97, 74, 0, 0.78), CornerRadii.EMPTY, Insets.EMPTY);
+        BackgroundFill normalFill = new BackgroundFill(Color.rgb(250, 192, 0, 0.78), CornerRadii.EMPTY, Insets.EMPTY);
         Background normalBackground = new Background(normalFill);
 
         BackgroundFill hoveredFill = new BackgroundFill(Color.rgb(51, 39, 0, 0.78), CornerRadii.EMPTY, Insets.EMPTY);
@@ -40,7 +40,7 @@ public class BotonCantidadJugador extends Button {
         });
 
         super.setText(texto);
-        Font estiloLetra = Font.loadFont("file:" + System.getProperty("user.dir") + "/fuentes/Cinzel-VariableFont_wght.ttf", 12);
+        Font estiloLetra = Font.loadFont("file:" + System.getProperty("user.dir") + "/fuentes/serif/static/SourceSerif4_18pt-Medium.ttf", 12);
         super.setFont(estiloLetra);
 
         super.setAlignment(Pos.CENTER);
