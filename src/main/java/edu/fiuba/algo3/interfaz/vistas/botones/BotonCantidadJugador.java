@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.interfaz.vistas.botones;
 
 import javafx.scene.control.TextArea;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.geometry.Pos;
@@ -20,10 +21,11 @@ public class BotonCantidadJugador extends Button {
 
         this.cantidadJugadores = Integer.parseInt(texto);
 
-        BackgroundFill normalFill = new BackgroundFill(Color.CYAN, CornerRadii.EMPTY, Insets.EMPTY);
+        //BackgroundFill normalFill = new BackgroundFill(Color.CYAN, CornerRadii.EMPTY, Insets.EMPTY);
+        BackgroundFill normalFill = new BackgroundFill(Color.rgb(97, 74, 0, 0.78), CornerRadii.EMPTY, Insets.EMPTY);
         Background normalBackground = new Background(normalFill);
 
-        BackgroundFill hoveredFill = new BackgroundFill(Color.DARKCYAN, CornerRadii.EMPTY, Insets.EMPTY);
+        BackgroundFill hoveredFill = new BackgroundFill(Color.rgb(51, 39, 0, 0.78), CornerRadii.EMPTY, Insets.EMPTY);
         Background hoveredBackground = new Background(hoveredFill);
 
         //  Estilo del Boton
@@ -38,6 +40,8 @@ public class BotonCantidadJugador extends Button {
         });
 
         super.setText(texto);
+        Font estiloLetra = Font.loadFont("file:" + System.getProperty("user.dir") + "/fuentes/Cinzel-VariableFont_wght.ttf", 12);
+        super.setFont(estiloLetra);
 
         super.setAlignment(Pos.CENTER);
 
