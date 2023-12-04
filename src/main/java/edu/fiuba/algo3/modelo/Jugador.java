@@ -22,6 +22,7 @@ public class Jugador {
      * Suponemos que: el seniority se mejora independientemente de si el jugador tiro o no los dados. Dado que esta
      * ligado a la cantidad de turnos.
      * */
+
     public boolean jugarTurno(Dado dado, Tablero tablero){
         logger.info("string de jugador 1 /2 jugando");
         this.turno++;
@@ -31,8 +32,6 @@ public class Jugador {
         this.celdaActual = this.gladiador.mover(celdaProxima, this.turno);
 
         return (celdaActual == tablero.getCeldaFinal());
-
         /*logger.info("Turno jugado con éxito. Nueva celda del gladiador: " + this.celdaActual);*/
-
     }
 }

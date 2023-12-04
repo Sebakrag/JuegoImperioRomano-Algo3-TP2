@@ -3,16 +3,14 @@ package edu.fiuba.algo3.entregas;
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
-import edu.fiuba.algo3.modelo.Jugador;
-import edu.fiuba.algo3.modelo.Gladiador;
-import edu.fiuba.algo3.modelo.Dado;
-import edu.fiuba.algo3.modelo.Tablero;
+import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.modelo.celdas.*;
 import edu.fiuba.algo3.modelo.afectantes.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class CasosDeUsoSemana3Test {
+
     public void moverAJugador(Jugador jugador, Dado dado, Tablero tablero, int avances) {
         for (int i = 0; i < avances; i++) {
             jugador.jugarTurno(dado, tablero);
@@ -28,6 +26,26 @@ public class CasosDeUsoSemana3Test {
         }
         return celdaProxima;
     }
+
+    @Test
+    public void test22SimularYVerificarQueJugadorGaneUnaPartida() {
+        Logger logger = LogManager.getLogger();
+
+        ArrayList<Celda> celdas = new ArrayList<>();
+        celdas.add(new CeldaInicial(0,0, logger));
+        celdas.add(new CeldaComun(0,1, new Potenciador(), new Vacio(), logger));
+        celdas.add(new CeldaComun(0,2, new Potenciador(), new Vacio(), logger));
+        celdas.add(new CeldaComun(0,3, new Potenciador(), new Vacio(), logger));
+        celdas.add(new CeldaComun(0,4, new Potenciador(), new Vacio(), logger));
+        celdas.add(new CeldaFinal(0,5,logger));
+
+        Juego juego = new Juego(logger);
+        boolean hayGanador = juego.iniciarPartida(celdas, 2);
+
+        Assertions.assertTrue(hayGanador);
+    }
+
+/*
     @Test
     public void test22SimularYVerificarQueJugadorGaneUnaPartida() {
         Logger logger = LogManager.getLogger();
@@ -58,31 +76,20 @@ public class CasosDeUsoSemana3Test {
 
         Assertions.assertSame(tablero.getCeldaFinal(), celdaFinalGladiador);
     }
+*/
 
     @Test
     public void test23SimularyVerificarQueElJugadorPierdeUnaPartida() {
         Logger logger = LogManager.getLogger();
 
-        Dado dado = new Dado(1);
         ArrayList<Celda> celdas = new ArrayList<>();
         celdas.add(new CeldaInicial(0,0, logger));
         celdas.add(new CeldaComun(0,1, new Vacio(), new Vacio(), logger));
         celdas.add(new CeldaFinal(0,2,logger));
 
-        Tablero tablero = new Tablero();
-        tablero.armarMapa(celdas);
-        Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
-        Jugador jugador = new Jugador(gladiador, tablero.getCeldaInicial(), logger);
-        int turno = 30;
-        int avances = 29;
+        Juego juego = new Juego(logger);
+        boolean hayGanador = juego.iniciarPartida(celdas, 6);
 
-        moverAJugador(jugador, dado, tablero, avances);
-        Celda celdaProxima = obtenerCeldaProxima(tablero, avances);
-
-        //Pierde el juego
-        celdaProxima = tablero.avanzar(dado.tirar(), celdaProxima);
-        Celda celdaFinalGladiador = gladiador.mover(celdaProxima, turno);
-
-        Assertions.assertNotSame(tablero.getCeldaFinal(), celdaFinalGladiador);
+        Assertions.assertFalse(hayGanador);
     }
 }

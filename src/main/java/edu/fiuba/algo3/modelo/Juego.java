@@ -24,7 +24,7 @@ public class Juego {
         this.logger = logger;
     }
 
-    public void iniciarPartida(ArrayList<Celda> celdas, int cantidadJugadores) {
+    public boolean iniciarPartida(ArrayList<Celda> celdas, int cantidadJugadores) {
         this.tablero.armarMapa(celdas);
         this.crearJugadores(cantidadJugadores);
         this.ronda = 1;
@@ -46,8 +46,11 @@ public class Juego {
             i = 0;
         }
 
-        logger.info("La partida ha terminado sin un ganador después de 30 rondas.");
-        throw new PasaronTreintaRondasYnoHuboGanadorError();
+        if (!ganador) {
+            logger.info("La partida ha terminado sin un ganador después de 30 rondas.");
+        }
+
+        return ganador;
     }
 
     private void crearJugadores(int cantidadJugadores) {
