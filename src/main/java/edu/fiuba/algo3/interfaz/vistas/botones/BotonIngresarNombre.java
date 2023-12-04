@@ -11,7 +11,7 @@ import javafx.scene.paint.Color;
 
 public class BotonIngresarNombre extends Button {
 
-    public BotonIngresarNombre(String texto, CuadroTextoIngreso cuadroTexto, Label etiquetaAviso, int cantidadLimite) {
+    public BotonIngresarNombre(String texto, CuadroTextoIngreso cuadroTexto, Label etiquetaAviso, int cantidadLimite, BotonIniciarPartida botonIniciarPartida) {
         super.setText(texto);
 
         BackgroundFill normalFill = new BackgroundFill(Color.CYAN, CornerRadii.EMPTY, Insets.EMPTY);
@@ -31,6 +31,6 @@ public class BotonIngresarNombre extends Button {
             this.setBackground(normalBackground);
         });
 
-        super.setOnAction(new ControladorIngresoNombre(cuadroTexto, etiquetaAviso, cantidadLimite));
+        super.setOnAction(new ControladorIngresoNombre(cuadroTexto, etiquetaAviso, cantidadLimite, this, botonIniciarPartida));
     }
 }
