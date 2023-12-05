@@ -16,8 +16,8 @@ public class VistaTablero extends GridPane {
         while (!(celdaActual == tablero.getCeldaFinal())) {
             StackPane panelCeldaActual = this.crearPanelCelda(celdaActual);
 
-            celdaActual.ubicarEnGrillaInterfaz(this, panelCeldaActual);
-            //setConstraints(panelCeldaActual, fila, col);
+            //celdaActual.ubicarEnGrillaInterfaz(this, panelCeldaActual);
+            setConstraints(panelCeldaActual, celdaActual.getX(), celdaActual.getY());
 
             super.getChildren().add(panelCeldaActual);
 
@@ -25,7 +25,8 @@ public class VistaTablero extends GridPane {
         }
         // Llegado este punto se crea el panel de la celda final y se lo ubica en la grilla del tablero.
         StackPane panelCeldaActual = this.crearPanelCelda(celdaActual);
-        celdaActual.ubicarEnGrillaInterfaz(this, panelCeldaActual);
+        //celdaActual.ubicarEnGrillaInterfaz(this, panelCeldaActual);
+        setConstraints(panelCeldaActual, celdaActual.getX(), celdaActual.getY());
         super.getChildren().add(panelCeldaActual);
     }
 

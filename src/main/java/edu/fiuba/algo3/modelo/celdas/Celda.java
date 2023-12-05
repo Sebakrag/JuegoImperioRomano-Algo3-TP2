@@ -29,8 +29,17 @@ public abstract class Celda {
     //public abstract String nombreImagenPremio();    // TODO: Check
 
     //public abstract String nombreImagenObstaculo();   // TODO: Check
-
+/*
     public void ubicarEnGrillaInterfaz(VistaTablero vistaTablero, StackPane panelDeCelda) {
         vistaTablero.setConstraints(panelDeCelda, this.x, this.y);
+    }
+    */
+
+    public int getX() {
+        return this.x;
+    }
+
+    public int getY() {
+        return this.y;
     }
 }
