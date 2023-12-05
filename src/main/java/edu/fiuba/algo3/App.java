@@ -86,7 +86,7 @@ public class App extends Application {
 
         var scene = new Scene(panelPrincipal, 640, 480);
 
-        Image icono = new Image("file:" + System.getProperty("user.dir") + "/imagenes/juguito2.png");
+        Image icono = new Image("file:" + System.getProperty("user.dir") + "/imagenes/juguito.png");
         stage.setTitle("IMPERIO ROMANO");
         stage.getIcons().add(icono);
         stage.setScene(scene);

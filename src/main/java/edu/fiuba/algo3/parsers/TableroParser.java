@@ -31,10 +31,25 @@ public class TableroParser {
 
     private Tablero generarTablero(JSONObject jsonTablero) {
         ArrayList<Celda> celdas = this.parsearCeldas(jsonTablero);
+        //ArrayList<Integer> dimensiones = this.parsearDimensiones(jsonTablero);
+        //int ancho = dimensiones.get(0);
+        //int largo = dimensiones.get(1);
+        //Tablero tablero = new Tablero(ancho, largo);
         Tablero tablero = new Tablero();
         tablero.armarMapa(celdas);
         return tablero;
     }
+/*
+    private ArrayList<Integer> parsearDimensiones(JSONObject tablero) {   // TODO: Pensar si hace falta dejar el parser de las dimensiones. Si no usamos las dimensiones hay que sacarlo.
+        JSONObject mapaJson = (JSONObject) tablero.get("mapa");           // FIXME: Este metodo hace que se interrumpa la ejecucion al apretar el boton "iniciar Partida".
+
+        ArrayList<Integer> dimensiones = new ArrayList<>();
+        dimensiones.add((int) mapaJson.get("ancho"));
+        dimensiones.add((int) mapaJson.get("largo"));
+
+        return dimensiones;
+    }
+ */
 
     private ArrayList<Celda> parsearCeldas(JSONObject tablero) throws ArchivoNoEncontradoError {
         JSONArray celdas = (JSONArray)((JSONObject) tablero.get("camino")).get("celdas");

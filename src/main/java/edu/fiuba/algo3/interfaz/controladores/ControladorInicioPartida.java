@@ -24,12 +24,11 @@ public class ControladorInicioPartida implements EventHandler<ActionEvent> {
     }
 
     @Override
-    public void handle(ActionEvent evento){
+    public void handle(ActionEvent evento) {
         // TODO: Si no llegamos a poner un boceto escribimos: "Tablero en construccion ;)" CON BOB EL CONSTRUCTOR
-        // Parsear el JSON.
         String rutaJson = "/archivos/mapa.json";
         TableroParser tableroParser = new TableroParser();
-        /*
+
         try {
             Tablero tablero = tableroParser.leerArchivo(rutaJson);
             VistaTablero vistaTablero = new VistaTablero(tablero);
@@ -37,14 +36,15 @@ public class ControladorInicioPartida implements EventHandler<ActionEvent> {
             vistaTablero.prefWidthProperty().bind(escenaTablero.widthProperty());
             vistaTablero.prefHeightProperty().bind(escenaTablero.heightProperty());
             this.ventana.setScene(escenaTablero);
+            //this.ventana.setScene(escenaTablero, tablero.ancho(), tablero.largo());  --> Esto deberia ser si parseamos las dimensiones del JSON y creamos el tablero con el atributo ancho y alto
 
             Logger logger = LogManager.getLogger();;
             Juego juego = new Juego(logger);
-            //juego.iniciarPartida(tablero, this.nombresJugadores);  TODO: Hay que modificar el metodo iniciarPartida de Juego para que reciba el tablero
-        } catch (IOException | ParseException) {
+            //juego.iniciarPartida(tablero, this.nombresJugadores);
+        } catch (IOException | ParseException e) {
             return;
         }
-        */
+
 
     }
 }

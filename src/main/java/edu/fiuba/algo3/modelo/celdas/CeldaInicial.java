@@ -20,4 +20,5 @@ public class CeldaInicial extends Celda {
     public Celda celdaSiguiente(){
         return this.siguiente;
     }
+
 }

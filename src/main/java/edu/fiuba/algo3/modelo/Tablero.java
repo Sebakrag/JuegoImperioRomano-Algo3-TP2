@@ -7,8 +7,8 @@ import java.util.ArrayList;
 public class Tablero {
     private Celda celdaInicial;
     private Celda celdaFinal;
-
-    // TODO: Siento que es al pedo esta clase, que ese metodo puede estar privado en el parser
+    private int ancho;    // TODO: Pensar si conviene que tablero tenga ancho y largo despues de ser parseado (Para la VistaTablero)
+    private int largo;
 
     public void armarMapa(ArrayList<Celda> celdas) throws CantidadInvalidaDeCeldasError {
 
