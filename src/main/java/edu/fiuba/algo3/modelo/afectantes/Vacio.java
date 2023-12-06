@@ -7,6 +7,6 @@ public class Vacio implements Afectante {
     public Vacio() { }
 
     public void afectar(Gladiador gladiador) {
-        // no hace nada... ;)
+        gladiador.recibirImpacto(this);
     }
 }

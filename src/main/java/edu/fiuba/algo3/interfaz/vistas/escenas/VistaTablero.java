@@ -32,6 +32,7 @@ public class VistaTablero extends GridPane {
         StackPane panelCeldaActual = this.crearPanelCamino(celdaActual);
         setConstraints(panelCeldaActual, celdaActual.getX(), celdaActual.getY());
         super.getChildren().add(panelCeldaActual);
+
     }
 
     private StackPane crearPanelCamino(Celda celdaActual) {
@@ -66,8 +67,8 @@ public class VistaTablero extends GridPane {
         // siguiente celda para verificar lo mismo.
         // (La pregunta es: GridPane tendra algun metodo para que podamos verificar si el casillero en el que estamos
         // tiene una imagen o no?)
-        for (int fila = 0; fila < tablero.getLargo(); fila++) {
-            for (int col = 0; col < tablero.getAncho(); col++) {
+        for (int fila = 0; fila < tablero.getAncho(); fila++) {
+            for (int col = 0; col < tablero.getLargo(); col++) {
                 if (!hayCeldaCaminoEn(fila, col)) {
                     StackPane panelPasto = crearPanelCelda("imagenPasto.png");
 
@@ -80,8 +81,6 @@ public class VistaTablero extends GridPane {
     }
 
     private StackPane crearPanelCelda(String nombreImagen) {
-        // "file:" + System.getProperty("user.dir") + "/imagenes/pasto.jpg"  --> Ruta para imagen de pasto
-        // "file:" + System.getProperty("user.dir") + "/imagenes/imagenCamino.png" --> Ruta para imagen de camino
         StackPane panelCelda = new StackPane();
         Image imagenFondo = new Image("file:" + System.getProperty("user.dir") + "/imagenes/" + nombreImagen);
 

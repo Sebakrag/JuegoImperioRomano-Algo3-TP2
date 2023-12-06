@@ -24,7 +24,7 @@ public class CasosDeUsoSemana3Test {
         celdas.add(new CeldaFinal(0,5,logger));
 
         Juego juego = new Juego(logger);
-        Tablero tablero = new Tablero();
+        Tablero tablero = new Tablero(1,6);
         tablero.armarMapa(celdas);
         ArrayList<String> nombresJugadores = new ArrayList<>();
         nombresJugadores.add("Pepe");
@@ -45,7 +45,7 @@ public class CasosDeUsoSemana3Test {
         celdas.add(new CeldaFinal(0,2,logger));
 
         Juego juego = new Juego(logger);
-        Tablero tablero = new Tablero();
+        Tablero tablero = new Tablero(1,3);
         tablero.armarMapa(celdas);
         ArrayList<String> nombresJugadores = new ArrayList<>();
         nombresJugadores.add("Pepe");

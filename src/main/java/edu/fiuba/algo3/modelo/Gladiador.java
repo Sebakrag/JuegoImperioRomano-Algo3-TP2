@@ -9,9 +9,10 @@ import edu.fiuba.algo3.modelo.estados.*;
 import edu.fiuba.algo3.modelo.seniorities.Seniority;
 import edu.fiuba.algo3.modelo.celdas.Celda;
 import org.apache.logging.log4j.Logger;
+import edu.fiuba.algo3.modelo.Observable;
 
 
-public class Gladiador {
+public class Gladiador extends Observable {
 
     private final Logger logger;
     private Seniority seniority;
@@ -64,7 +65,7 @@ public class Gladiador {
     }
 
     public void recibirImpacto(Vacio vacio) {
-        logger.info("El destino jugara con ti otro turno , descansa");
+        logger.info("El destino jugara con ti otro turno, descansa");
     }
 
     public Celda mover(Celda futuraCelda, int turnos) throws TurnoPerdidoError {
@@ -77,5 +78,6 @@ public class Gladiador {
     public void mover(Celda nuevaCelda){
         this.celdaActual = nuevaCelda;
         this.celdaActual = celdaActual.afectar(this);
+        //this.notificarObservadores();
     }
 }

@@ -31,16 +31,13 @@ public class TableroParser {
         ArrayList<Integer> dimensiones = this.parsearDimensiones(jsonTablero);
         int ancho = dimensiones.get(0);
         int largo = dimensiones.get(1);
-        //Tablero tablero = new Tablero(ancho, largo);
-        Tablero tablero = new Tablero();
-        tablero.setAncho(ancho);    // TODO: estos setters deberian eliminarse y crear un tablero con ancho y algo en el constructor.
-        tablero.setLargo(largo);
+        Tablero tablero = new Tablero(ancho, largo);
         tablero.armarMapa(celdas);
         return tablero;
     }
 
-    private ArrayList<Integer> parsearDimensiones(JSONObject tablero) {   // TODO: Pensar si hace falta dejar el parser de las dimensiones. Si no usamos las dimensiones hay que sacarlo.
-        JSONObject mapaJson = (JSONObject) tablero.get("mapa");           // FIXME: Este metodo hace que se interrumpa la ejecucion al apretar el boton "iniciar Partida".
+    private ArrayList<Integer> parsearDimensiones(JSONObject tablero) {
+        JSONObject mapaJson = (JSONObject) tablero.get("mapa");
 
         ArrayList<Integer> dimensiones = new ArrayList<>();
         dimensiones.add((int) ((long) mapaJson.get("ancho")));

@@ -4,14 +4,16 @@ import java.util.Random;
 
 public class Dado {
 
+    private int ultimoNumeroTirado;
     private int caras = 6;
 
     public Dado(int carasDado){
         this.caras = carasDado;
     }
-    public int tirar(){
+    public int tirar() {
         Random random = new Random();
-        return random.nextInt(caras) + 1;
+        this.ultimoNumeroTirado = (random.nextInt(caras) + 1);
+        return this.ultimoNumeroTirado;
     }
 
 }

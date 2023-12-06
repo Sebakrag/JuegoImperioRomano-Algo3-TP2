@@ -25,7 +25,7 @@ public class Jugador {
      * ligado a la cantidad de turnos.
      * */
 
-    public boolean jugarTurno(Dado dado, Tablero tablero){
+    public boolean jugarTurno(Dado dado, Tablero tablero) {  // TODO: Hay que cambiar el dado por la cantidad de avances directamente. (El usuario toca el boton del dado y se le envia la cantidad que salio)
         logger.info("Turno de: " + this.nombre);
         this.turno++;
 

@@ -18,7 +18,6 @@ public class BotonIniciarPartida extends Button {
     public BotonIniciarPartida(Stage ventana, String texto, ArrayList<String> nombresJugadores) {
         super.setText(texto);
 
-        // PARTE ASTERIIIIIIKK <3
         BackgroundFill normalFill = new BackgroundFill(Color.rgb(171, 63, 63, 1), CornerRadii.EMPTY, Insets.EMPTY);
         Background normalBackground = new Background(normalFill);
 
@@ -37,7 +36,7 @@ public class BotonIniciarPartida extends Button {
         });
         //
 
-        Font estiloLetra = Font.loadFont("file:" + System.getProperty("user.dir") + "/fuentes/serif/static/SourceSerif4-Bold.ttf", 12);
+        Font estiloLetra = Font.loadFont("file:" + System.getProperty("user.dir") + "/fuentes/SourceSerif4-Bold.ttf", 12);
         super.setFont(estiloLetra);
 
         this.setDisable(true);

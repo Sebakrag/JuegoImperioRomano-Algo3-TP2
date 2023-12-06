@@ -40,7 +40,7 @@ public class BotonCantidadJugador extends Button {
         });
 
         super.setText(texto);
-        Font estiloLetra = Font.loadFont("file:" + System.getProperty("user.dir") + "/fuentes/serif/static/SourceSerif4_18pt-Medium.ttf", 12);
+        Font estiloLetra = Font.loadFont("file:" + System.getProperty("user.dir") + "/fuentes/SourceSerif4-Medium.ttf", 12);
         super.setFont(estiloLetra);
 
         super.setAlignment(Pos.CENTER);

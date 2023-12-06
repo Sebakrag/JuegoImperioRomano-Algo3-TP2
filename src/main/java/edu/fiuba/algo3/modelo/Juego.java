@@ -18,12 +18,10 @@ public class Juego {
     public Juego(Logger logger) {
         // Instanciar la interfaz grafica --> se pide la cantidad de jugadores y el ingreso de los nombres.??????
         // VERIFICAR QUE LOS JUGADORES INGRESADOS SEN ENTRE 2 Y 6
-        this.tablero = new Tablero();
         this.jugadores = new ArrayList<>();
         this.logger = logger;
     }
 
-    // TODO: public boolean iniciarPartida(Tablero tablero, ArrayList<String> nombresJugadores)
     public boolean iniciarPartida(Tablero tablero, ArrayList<String> nombresJugadores) {
         this.tablero = tablero;
         int cantidadJugadores = nombresJugadores.size();

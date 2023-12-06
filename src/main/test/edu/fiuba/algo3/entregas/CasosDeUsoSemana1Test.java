@@ -53,7 +53,7 @@ public class CasosDeUsoSemana1Test {
         celdas.add(celdaInicial);
         celdas.add(celdaFinal);
 
-        Tablero tablero = new Tablero();
+        Tablero tablero = new Tablero(1,1);
         tablero.armarMapa(celdas);
         Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
 
@@ -77,7 +77,7 @@ public class CasosDeUsoSemana1Test {
         celdas.add(celdaInicial);
         celdas.add(celdaComun);
 
-        Tablero tablero = new Tablero();
+        Tablero tablero = new Tablero(1,1);
         tablero.armarMapa(celdas);
         Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
 
@@ -100,7 +100,7 @@ public class CasosDeUsoSemana1Test {
         celdas.add(celdaInicial);
         celdas.add(celdaFinal);
 
-        Tablero tablero = new Tablero();
+        Tablero tablero = new Tablero(1,1);
         tablero.armarMapa(celdas);
         Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
 
@@ -123,7 +123,7 @@ public class CasosDeUsoSemana1Test {
         celdas.add(celdaInicial);
         celdas.add(celdaFinal);
 
-        Tablero tablero = new Tablero();
+        Tablero tablero = new Tablero(1,1);
         tablero.armarMapa(celdas);
         Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
         Afectante comida = new Comida();
@@ -148,7 +148,7 @@ public class CasosDeUsoSemana1Test {
         celdas.add(celdaInicial);
         celdas.add(celdaFinal);
 
-        Tablero tablero = new Tablero();
+        Tablero tablero = new Tablero(1,1);
         tablero.armarMapa(celdas);
         Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
 
@@ -173,7 +173,7 @@ public class CasosDeUsoSemana1Test {
         celdas.add(celdaInicial);
         celdas.add(celdaFinal);
 
-        Tablero tablero = new Tablero();
+        Tablero tablero = new Tablero(1,1);
         tablero.armarMapa(celdas);
         Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
 
@@ -202,7 +202,7 @@ public class CasosDeUsoSemana1Test {
         celdas.add(celdaComun);
         celdas.add(celdaFinal);
 
-        Tablero tablero = new Tablero();
+        Tablero tablero = new Tablero(1,2);
         tablero.armarMapa(celdas);
         Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
         Afectante mejora = new Potenciador();
@@ -235,7 +235,7 @@ public class CasosDeUsoSemana1Test {
         celdas.add(celdaInicial);
         celdas.add(celdaFinal);
         
-        Tablero tablero = new Tablero();
+        Tablero tablero = new Tablero(1,1);
         tablero.armarMapa(celdas);
 
         Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
@@ -262,7 +262,7 @@ public class CasosDeUsoSemana1Test {
        celdas.add(celdaInicial);
        celdas.add(celdaFinal);
 
-       Tablero tablero = new Tablero();
+       Tablero tablero = new Tablero(1,1);
        tablero.armarMapa(celdas);
 
        Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
@@ -284,7 +284,7 @@ public class CasosDeUsoSemana1Test {
         celdas.add(celdaInicial);
         celdas.add(celdaComun);
 
-        Tablero tablero = new Tablero();
+        Tablero tablero = new Tablero(1,1);
         tablero.armarMapa(celdas);
 
         Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
@@ -311,7 +311,7 @@ public class CasosDeUsoSemana1Test {
         celdas.add(celdaInicial);
         celdas.add(celdaComun);
 
-        Tablero tablero = new Tablero();
+        Tablero tablero = new Tablero(1,1);
         tablero.armarMapa(celdas);
         Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
 
@@ -335,7 +335,7 @@ public class CasosDeUsoSemana1Test {
         celdas.add(celdaInicial);
         celdas.add(celdaFinal);
 
-        Tablero tablero = new Tablero();
+        Tablero tablero = new Tablero(1,1);
         tablero.armarMapa(celdas);
         ArrayList<String> nombresJugadores = new ArrayList<>();
         nombresJugadores.add("Pepe");

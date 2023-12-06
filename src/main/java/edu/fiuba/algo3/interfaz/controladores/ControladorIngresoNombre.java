@@ -1,13 +1,11 @@
 package edu.fiuba.algo3.interfaz.controladores;
 
 import edu.fiuba.algo3.interfaz.vistas.botones.BotonIngresarNombre;
-//import edu.fiuba.algo3.interfaz.vistas.escenas.EscenaIngreso;
 import edu.fiuba.algo3.interfaz.vistas.botones.BotonIniciarPartida;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import edu.fiuba.algo3.interfaz.vistas.cuadroTexto.CuadroTextoIngreso;
 import javafx.scene.control.Label;
-
 import java.util.ArrayList;
 
 public class ControladorIngresoNombre implements EventHandler<ActionEvent> {

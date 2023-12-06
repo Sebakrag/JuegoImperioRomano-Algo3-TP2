@@ -22,7 +22,7 @@ public abstract class Celda {
 
     public abstract Celda celdaSiguiente();
 
-    public void setSiguiente(Celda siguiente){ this.siguiente = siguiente;};
+    public void setSiguiente(Celda siguiente) { this.siguiente = siguiente;};
 
     public abstract String nombreImagenFondo();
 

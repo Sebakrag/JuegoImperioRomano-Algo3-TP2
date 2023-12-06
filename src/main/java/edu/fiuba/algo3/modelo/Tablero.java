@@ -7,8 +7,13 @@ import java.util.ArrayList;
 public class Tablero {
     private Celda celdaInicial;
     private Celda celdaFinal;
-    private int ancho;    // TODO: Pensar si conviene que tablero tenga ancho y largo despues de ser parseado (Para la VistaTablero)
-    private int largo;
+    private final int ancho;
+    private final int largo;
+
+    public Tablero(int ancho, int largo) {
+        this.ancho = ancho;
+        this.largo = largo;
+    }
 
     public void armarMapa(ArrayList<Celda> celdas) throws CantidadInvalidaDeCeldasError {
 
@@ -42,14 +47,6 @@ public class Tablero {
             celdaActual = celdaActual.celdaSiguiente();
         }
         return celdaActual;
-    }
-
-    public void setAncho(int ancho) {
-        this.ancho = ancho;
-    }
-
-    public void setLargo(int largo) {
-        this.largo = largo;
     }
 
     public int getAncho() {
