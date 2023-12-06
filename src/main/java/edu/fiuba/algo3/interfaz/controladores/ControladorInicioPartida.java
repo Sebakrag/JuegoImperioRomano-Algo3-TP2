@@ -5,6 +5,7 @@ import edu.fiuba.algo3.modelo.excepcion.ArchivoNoEncontradoError;
 import edu.fiuba.algo3.parsers.TableroParser;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import edu.fiuba.algo3.modelo.*;
@@ -33,7 +34,7 @@ public class ControladorInicioPartida implements EventHandler<ActionEvent> {
         try {
             Tablero tablero = tableroParser.leerArchivo(rutaJson);
             VistaTablero vistaTablero = new VistaTablero(tablero);
-            Scene escenaTablero = new Scene(vistaTablero, tablero.getLargo()*TAMANIO_CELDA, tablero.getAncho()*TAMANIO_CELDA);
+            Scene escenaTablero = new Scene(vistaTablero);
             vistaTablero.prefWidthProperty().bind(this.ventana.widthProperty());
             vistaTablero.prefHeightProperty().bind(this.ventana.heightProperty());
             this.ventana.setScene(escenaTablero);

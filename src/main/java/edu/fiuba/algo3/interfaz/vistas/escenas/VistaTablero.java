@@ -1,33 +1,59 @@
 package edu.fiuba.algo3.interfaz.vistas.escenas;
 
+import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import edu.fiuba.algo3.modelo.Tablero;
 import edu.fiuba.algo3.modelo.celdas.Celda;
 import javafx.scene.Node;
+import javafx.scene.paint.ImagePattern;
 
 public class VistaTablero extends GridPane {
 
     private static final int TAMANIO_CELDA = 50;
 
     public VistaTablero(Tablero tablero) {
-        this.crearCamino(tablero);
-        this.rellenarConCeldasPasto(tablero);
+
+        //System.out.println("Ancho : " + tablero.getAncho());
+        //System.out.println("Largo : " + tablero.getLargo());
+        int columnas = tablero.getLargo();
+        int filas = tablero.getAncho();
+
+        super.setAlignment(Pos.CENTER);
+
+        // Configurar restricciones de columna
+        for (int i = 0; i < columnas; i++) {
+            ColumnConstraints columnConstraints = new ColumnConstraints();
+            columnConstraints.setPercentWidth(100.0 / columnas);
+            this.getColumnConstraints().add(columnConstraints);
+        }
+
+        // Configurar restricciones de fila
+        for (int i = 0; i < filas; i++) {
+            RowConstraints rowConstraints = new RowConstraints();
+            rowConstraints.setPercentHeight(100.0 / filas);
+            this.getRowConstraints().add(rowConstraints);
+        }
+
+        //this.crearCamino(tablero);
+        //this.rellenarConCeldasPasto(tablero);
+        this.crearMapa(tablero);
     }
 
     private void crearCamino(Tablero tablero) {
         Celda celdaActual = tablero.getCeldaInicial();
+
         while (!(celdaActual == tablero.getCeldaFinal())) {
             StackPane panelCeldaActual = this.crearPanelCamino(celdaActual);
 
-            setConstraints(panelCeldaActual, celdaActual.getX(), celdaActual.getY());
-
             super.getChildren().add(panelCeldaActual);
+
+            setConstraints(panelCeldaActual, celdaActual.getX(), celdaActual.getY());
 
             celdaActual = celdaActual.celdaSiguiente();
         }
+
         // Llegado este punto se crea el panel de la celda final y se lo ubica en la grilla del tablero.
         StackPane panelCeldaActual = this.crearPanelCamino(celdaActual);
         setConstraints(panelCeldaActual, celdaActual.getX(), celdaActual.getY());
@@ -67,14 +93,14 @@ public class VistaTablero extends GridPane {
         // siguiente celda para verificar lo mismo.
         // (La pregunta es: GridPane tendra algun metodo para que podamos verificar si el casillero en el que estamos
         // tiene una imagen o no?)
-        for (int fila = 0; fila < tablero.getAncho(); fila++) {
-            for (int col = 0; col < tablero.getLargo(); col++) {
+        for (int fila = 0; fila < tablero.getLargo(); fila++) {
+            for (int col = 0; col < tablero.getAncho(); col++) {
                 if (!hayCeldaCaminoEn(fila, col)) {
                     StackPane panelPasto = crearPanelCelda("imagenPasto.png");
 
-                    setConstraints(panelPasto, col, fila);
-
                     super.getChildren().add(panelPasto);
+
+                    setConstraints(panelPasto, col, fila);
                 }
             }
         }
@@ -84,12 +110,14 @@ public class VistaTablero extends GridPane {
         StackPane panelCelda = new StackPane();
         Image imagenFondo = new Image("file:" + System.getProperty("user.dir") + "/imagenes/" + nombreImagen);
 
-        ImageView viewImagenFondo = new ImageView(imagenFondo);
-        viewImagenFondo.setPreserveRatio(false);
-        viewImagenFondo.setFitWidth(TAMANIO_CELDA);
-        viewImagenFondo.setFitHeight(TAMANIO_CELDA);
+        ImagePattern imagePattern = new ImagePattern(imagenFondo, 0, 0, 1, 1, true);
+        BackgroundFill backgroundFill = new BackgroundFill(imagePattern, null, null);
+        Background background = new Background(backgroundFill);
 
-        panelCelda.getChildren().add(viewImagenFondo);
+        panelCelda.setBackground(background);
+
+        panelCelda.prefWidthProperty().bind(super.widthProperty());
+        panelCelda.prefHeightProperty().bind(super.heightProperty());
 
         return panelCelda;
     }
@@ -104,4 +132,30 @@ public class VistaTablero extends GridPane {
         return false;
     }
 
+    private void crearMapa(Tablero tablero){
+        Celda celda = tablero.getCeldaInicial();
+        int x = celda.getX();
+        int y = celda.getY();
+        StackPane panelCelda;
+
+        for (int i = 0; i < tablero.getAncho(); i++) {
+            for (int j = 0; j < tablero.getLargo(); j++) {
+                panelCelda = crearPanelCelda("imagenPasto.png");
+                super.getChildren().add(panelCelda);
+                setConstraints(panelCelda, j, i);
+            }
+        }
+
+        int i = 0;
+
+        while(i < tablero.getcantidadTotalDeCeldas()){
+            panelCelda = crearPanelCelda(celda.nombreImagenFondo());
+            super.getChildren().add(panelCelda);
+            setConstraints(panelCelda, x, y);
+            celda = celda.celdaSiguiente();
+            x = celda.getX();
+            y = celda.getY();
+            i++;
+        }
+    }
 }
