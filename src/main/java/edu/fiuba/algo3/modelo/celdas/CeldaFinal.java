@@ -23,4 +23,6 @@ public class CeldaFinal extends Celda {
         }
         return siguiente;
     }
+
+    public String nombreImagenFondo() { return "imagenPompeya.png"; }
 }

@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.interfaz.controladores;
 
 import edu.fiuba.algo3.interfaz.vistas.escenas.VistaTablero;
+import edu.fiuba.algo3.modelo.excepcion.ArchivoNoEncontradoError;
 import edu.fiuba.algo3.parsers.TableroParser;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 
 public class ControladorInicioPartida implements EventHandler<ActionEvent> {
 
+    private static final int TAMANIO_CELDA = 50;
     private Stage ventana;
     private ArrayList<String> nombresJugadores;
 
@@ -26,25 +28,23 @@ public class ControladorInicioPartida implements EventHandler<ActionEvent> {
     @Override
     public void handle(ActionEvent evento) {
         // TODO: Si no llegamos a poner un boceto escribimos: "Tablero en construccion ;)" CON BOB EL CONSTRUCTOR
-        String rutaJson = "/archivos/mapa.json";
+        String rutaJson = "/archivos/mapaPrueba.json";
         TableroParser tableroParser = new TableroParser();
 
         try {
             Tablero tablero = tableroParser.leerArchivo(rutaJson);
             VistaTablero vistaTablero = new VistaTablero(tablero);
-            Scene escenaTablero = new Scene(vistaTablero);
-            vistaTablero.prefWidthProperty().bind(escenaTablero.widthProperty());
-            vistaTablero.prefHeightProperty().bind(escenaTablero.heightProperty());
+            Scene escenaTablero = new Scene(vistaTablero, tablero.getAncho()*TAMANIO_CELDA, tablero.getLargo()*TAMANIO_CELDA); // --> Esto deberia ser si parseamos las dimensiones del JSON y creamos el tablero con el atributo ancho y alto
+            vistaTablero.prefWidthProperty().bind(this.ventana.widthProperty());
+            vistaTablero.prefHeightProperty().bind(this.ventana.heightProperty());
             this.ventana.setScene(escenaTablero);
-            //this.ventana.setScene(escenaTablero, tablero.ancho(), tablero.largo());  --> Esto deberia ser si parseamos las dimensiones del JSON y creamos el tablero con el atributo ancho y alto
+            this.ventana.setResizable(true);
 
             Logger logger = LogManager.getLogger();;
             Juego juego = new Juego(logger);
             //juego.iniciarPartida(tablero, this.nombresJugadores);
-        } catch (IOException | ParseException e) {
+        } catch (IOException | ParseException | ArchivoNoEncontradoError e) {
             return;
         }
-
-
     }
 }

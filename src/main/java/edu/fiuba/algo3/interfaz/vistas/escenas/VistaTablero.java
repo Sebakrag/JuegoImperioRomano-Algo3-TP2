@@ -10,11 +10,11 @@ import javafx.scene.Node;
 
 public class VistaTablero extends GridPane {
 
-    private static final int TAMANO_CELDA = 50;
+    private static final int TAMANIO_CELDA = 50;
 
     public VistaTablero(Tablero tablero) {
         this.crearCamino(tablero);
-        this.rellenarConCeldasPasto();
+        this.rellenarConCeldasPasto(tablero);
     }
 
     private void crearCamino(Tablero tablero) {
@@ -22,7 +22,6 @@ public class VistaTablero extends GridPane {
         while (!(celdaActual == tablero.getCeldaFinal())) {
             StackPane panelCeldaActual = this.crearPanelCamino(celdaActual);
 
-            //celdaActual.ubicarEnGrillaInterfaz(this, panelCeldaActual);
             setConstraints(panelCeldaActual, celdaActual.getX(), celdaActual.getY());
 
             super.getChildren().add(panelCeldaActual);
@@ -31,7 +30,6 @@ public class VistaTablero extends GridPane {
         }
         // Llegado este punto se crea el panel de la celda final y se lo ubica en la grilla del tablero.
         StackPane panelCeldaActual = this.crearPanelCamino(celdaActual);
-        //celdaActual.ubicarEnGrillaInterfaz(this, panelCeldaActual);
         setConstraints(panelCeldaActual, celdaActual.getX(), celdaActual.getY());
         super.getChildren().add(panelCeldaActual);
     }
@@ -61,15 +59,15 @@ public class VistaTablero extends GridPane {
         */
     }
 
-    private void rellenarConCeldasPasto() {
+    private void rellenarConCeldasPasto(Tablero tablero) {
         // Pensar si para crear todas las celdas que contienen pasto nos conviene tener el ancho y el alto
         // del tablero para recorrer cada celda de la GridPane e ir verificando si ya hay un camino ahi o esta vacio.
         // Si se da el caso de que este vacio, habria que poner una imagen de pasto. En caso contrario se avanza a la
         // siguiente celda para verificar lo mismo.
         // (La pregunta es: GridPane tendra algun metodo para que podamos verificar si el casillero en el que estamos
         // tiene una imagen o no?)
-        for (int fila = 0; fila < 11; fila++) {
-            for (int col = 0; col < 19; col++) {
+        for (int fila = 0; fila < tablero.getLargo(); fila++) {
+            for (int col = 0; col < tablero.getAncho(); col++) {
                 if (!hayCeldaCaminoEn(fila, col)) {
                     StackPane panelPasto = crearPanelCelda("imagenPasto.png");
 
@@ -88,8 +86,9 @@ public class VistaTablero extends GridPane {
         Image imagenFondo = new Image("file:" + System.getProperty("user.dir") + "/imagenes/" + nombreImagen);
 
         ImageView viewImagenFondo = new ImageView(imagenFondo);
-        viewImagenFondo.setFitHeight(TAMANO_CELDA);
-        viewImagenFondo.setFitWidth(TAMANO_CELDA);
+        viewImagenFondo.setPreserveRatio(false);
+        viewImagenFondo.setFitWidth(TAMANIO_CELDA);
+        viewImagenFondo.setFitHeight(TAMANIO_CELDA);
 
         panelCelda.getChildren().add(viewImagenFondo);
 

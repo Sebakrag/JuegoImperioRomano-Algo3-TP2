@@ -24,16 +24,11 @@ public abstract class Celda {
 
     public void setSiguiente(Celda siguiente){ this.siguiente = siguiente;};
 
-    public String nombreImagenFondo() { return "imagenCamino.png"; }
+    public abstract String nombreImagenFondo();
 
     //public abstract String nombreImagenPremio();    // TODO: Check
 
     //public abstract String nombreImagenObstaculo();   // TODO: Check
-/*
-    public void ubicarEnGrillaInterfaz(VistaTablero vistaTablero, StackPane panelDeCelda) {
-        vistaTablero.setConstraints(panelDeCelda, this.x, this.y);
-    }
-    */
 
     public int getX() {
         return this.x;

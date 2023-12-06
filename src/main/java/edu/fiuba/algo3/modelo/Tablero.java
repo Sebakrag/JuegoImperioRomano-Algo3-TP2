@@ -43,4 +43,21 @@ public class Tablero {
         }
         return celdaActual;
     }
+
+    public void setAncho(int ancho) {
+        this.ancho = ancho;
+    }
+
+    public void setLargo(int largo) {
+        this.largo = largo;
+    }
+
+    public int getAncho() {
+        return this.ancho;
+    }
+
+    public int getLargo() {
+        return this.largo;
+    }
+
 }

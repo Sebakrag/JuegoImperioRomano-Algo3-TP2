@@ -21,4 +21,6 @@ public class CeldaInicial extends Celda {
         return this.siguiente;
     }
 
+    public String nombreImagenFondo() { return "imagenColiseo.png"; }
+
 }

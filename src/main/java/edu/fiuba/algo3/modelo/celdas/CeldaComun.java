@@ -29,6 +29,8 @@ public class CeldaComun extends Celda {
         return this.siguiente;
     }
 
+    public String nombreImagenFondo() { return "imagenCamino.png"; }
+
     /*
     @Override
     public String nombreImagenPremio() {
