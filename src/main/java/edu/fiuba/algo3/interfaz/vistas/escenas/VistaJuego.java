@@ -26,12 +26,9 @@ public class VistaJuego extends GridPane {
         VBox consola = this.crearConsola(); //TODO: Pasar a ContenedorConsola
 
         ColumnConstraints columnaTablero = new ColumnConstraints();
-        columnaTablero.setPercentWidth(80); // Primera columna ocupa el 75% de la ventana
+        columnaTablero.setPercentWidth(80); // Primera columna ocupa el 80% de la ventana
         ColumnConstraints columnaConsola = new ColumnConstraints();
         super.getColumnConstraints().addAll(columnaTablero, columnaConsola);
-
-        //RowConstraints fila = new RowConstraints();
-        //super.getRowConstraints().add(fila);
 
         super.add(tableroJuego, 0, 0);
         super.add(consola, 1, 0);
