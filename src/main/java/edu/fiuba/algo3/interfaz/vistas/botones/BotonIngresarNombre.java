@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class BotonIngresarNombre extends Button {
 
-    public BotonIngresarNombre(String texto, CuadroTextoIngreso cuadroTexto, Label etiquetaAviso, int cantidadLimite, BotonIniciarPartida botonIniciarPartida, ArrayList<String> nombresJugadores) {
+    public BotonIngresarNombre(String texto, CuadroTextoIngreso cuadroTexto, Label etiquetaAviso, int cantidadLimite, BotonIniciarPartida botonIniciarPartida, ArrayList<String> nombresJugadores, Label etiquetaIngreso) {
         super.setText(texto);
 
         BackgroundFill normalFill = new BackgroundFill(Color.rgb(245, 180, 0, 1), CornerRadii.EMPTY, Insets.EMPTY);
@@ -33,6 +33,6 @@ public class BotonIngresarNombre extends Button {
             this.setBackground(normalBackground);
         });
 
-        super.setOnAction(new ControladorIngresoNombre(cuadroTexto, etiquetaAviso, cantidadLimite, this, botonIniciarPartida, nombresJugadores));
+        super.setOnAction(new ControladorIngresoNombre(cuadroTexto, etiquetaAviso, cantidadLimite, this, botonIniciarPartida, nombresJugadores, etiquetaIngreso));
     }
 }

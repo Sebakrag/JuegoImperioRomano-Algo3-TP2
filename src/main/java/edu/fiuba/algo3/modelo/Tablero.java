@@ -10,12 +10,9 @@ public class Tablero {
     private final int ancho;
     private final int largo;
 
-    private int cantidadTotalDeCeldas;
-
     public Tablero(int ancho, int largo) {
         this.ancho = ancho;
         this.largo = largo;
-        this.cantidadTotalDeCeldas = 0;
     }
 
     public void armarMapa(ArrayList<Celda> celdas) throws CantidadInvalidaDeCeldasError {
@@ -25,14 +22,12 @@ public class Tablero {
         }
 
         this.celdaInicial = celdas.get(0);
-        this.cantidadTotalDeCeldas++;
         Celda actual = celdas.get(0);
         int i = 1;
         for (; i < celdas.size(); i++) {
             Celda celdaComun = celdas.get(i);
             actual.setSiguiente(celdaComun);
             actual = celdaComun;
-            this.cantidadTotalDeCeldas++;
         }
         this.celdaFinal = actual;
         Celda celdaMedio = celdas.get((celdas.size() - 1) / 2);
@@ -61,9 +56,4 @@ public class Tablero {
     public int getLargo() {
         return this.largo;
     }
-
-    public int getcantidadTotalDeCeldas(){
-        return this.cantidadTotalDeCeldas;
-    }
-
 }

@@ -10,9 +10,9 @@ import java.util.ArrayList;
 
 public class ContenedorIngresoNombre extends HBox {
 
-    public ContenedorIngresoNombre(Label etiquetaAviso, int cantidadLimite, BotonIniciarPartida botonIniciarPartida, ArrayList<String> nombresJugadores) {
+    public ContenedorIngresoNombre(Label etiquetaAviso, int cantidadLimite, BotonIniciarPartida botonIniciarPartida, ArrayList<String> nombresJugadores, Label etiquetaIngreso) {
         CuadroTextoIngreso cuadroTexto = new CuadroTextoIngreso();
-        BotonIngresarNombre botonIngresarNombre = new BotonIngresarNombre("Ingresar", cuadroTexto, etiquetaAviso, cantidadLimite, botonIniciarPartida, nombresJugadores);
+        BotonIngresarNombre botonIngresarNombre = new BotonIngresarNombre("Ingresar", cuadroTexto, etiquetaAviso, cantidadLimite, botonIniciarPartida, nombresJugadores, etiquetaIngreso);
 
         this.getChildren().addAll(cuadroTexto, botonIngresarNombre);
         this.setAlignment(Pos.CENTER);

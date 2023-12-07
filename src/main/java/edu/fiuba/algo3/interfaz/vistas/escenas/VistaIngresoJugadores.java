@@ -20,7 +20,7 @@ public class VistaIngresoJugadores extends VBox {
     public VistaIngresoJugadores(BotonCantidadJugador boton, Stage ventana) {
         int cantidadLimite = boton.getCantidadLimite();
 
-        Label etiquetaIngreso = new Label("Ingrese un nombre");
+        Label etiquetaIngreso = new Label("Ingrese nombre del jugador 1");
         Font estiloLetraTitulo = Font.loadFont("file:" + System.getProperty("user.dir") + "/fuentes/SourceSerif4-SemiBold.ttf", 20);
         etiquetaIngreso.setFont(estiloLetraTitulo);
         etiquetaIngreso.setStyle("-fx-text-fill: black");
@@ -34,7 +34,7 @@ public class VistaIngresoJugadores extends VBox {
 
         BotonIniciarPartida botonIniciarPartida = new BotonIniciarPartida(ventana, "Iniciar Partida", nombresJugadores);
 
-        ContenedorIngresoNombre contenedorIngresoNombre = new ContenedorIngresoNombre(etiquetaAviso, cantidadLimite, botonIniciarPartida, nombresJugadores);
+        ContenedorIngresoNombre contenedorIngresoNombre = new ContenedorIngresoNombre(etiquetaAviso, cantidadLimite, botonIniciarPartida, nombresJugadores, etiquetaIngreso);
 
         Image imagenDeGladiador = new Image("file:" + System.getProperty("user.dir") + "/imagenes/imagenIngreso.png");
         ImageView viewImagenDeGladiador = new ImageView(imagenDeGladiador);
