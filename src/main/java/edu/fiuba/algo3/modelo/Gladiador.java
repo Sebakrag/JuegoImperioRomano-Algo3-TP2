@@ -9,7 +9,6 @@ import edu.fiuba.algo3.modelo.estados.*;
 import edu.fiuba.algo3.modelo.seniorities.Seniority;
 import edu.fiuba.algo3.modelo.celdas.Celda;
 import org.apache.logging.log4j.Logger;
-import edu.fiuba.algo3.modelo.Observable;
 
 
 public class Gladiador extends Observable {
@@ -75,9 +74,10 @@ public class Gladiador extends Observable {
         return this.celdaActual;
     }
 
-    public void mover(Celda nuevaCelda){
+    public void mover(Celda nuevaCelda) {
+        Celda celdaAnterior = this.celdaActual;
         this.celdaActual = nuevaCelda;
         this.celdaActual = celdaActual.afectar(this);
-        //this.notificarObservadores();
+        this.notificarObservadores();
     }
 }

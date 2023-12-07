@@ -1,19 +1,12 @@
 package edu.fiuba.algo3.interfaz.controladores;
 
-import edu.fiuba.algo3.interfaz.vistas.botones.BotonTirarDado;
 import edu.fiuba.algo3.interfaz.vistas.escenas.VistaJuego;
 import edu.fiuba.algo3.interfaz.vistas.escenas.VistaTablero;
 import edu.fiuba.algo3.modelo.excepcion.ArchivoNoEncontradoError;
 import edu.fiuba.algo3.parsers.TableroParser;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import edu.fiuba.algo3.modelo.*;
 import org.apache.logging.log4j.LogManager;
@@ -23,11 +16,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import edu.fiuba.algo3.interfaz.vistas.escenas.VistaJuego;
 
-import static javafx.scene.layout.GridPane.setConstraints;
 
 public class ControladorInicioPartida implements EventHandler<ActionEvent> {
 
-    private static final int TAMANIO_CELDA = 50;
     private Stage ventana;
     private ArrayList<String> nombresJugadores;
 

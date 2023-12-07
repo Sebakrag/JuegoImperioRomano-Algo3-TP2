@@ -1,6 +1,5 @@
 package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.modelo.Observador;
 import java.util.ArrayList;
 
 public abstract class Observable {
@@ -13,8 +12,7 @@ public abstract class Observable {
 
     public void notificarObservadores() {
         for (Observador observador : this.observadores) {
-            observador.actualizar();
+            observador.actualizar(this);
         }
     }
-
 }

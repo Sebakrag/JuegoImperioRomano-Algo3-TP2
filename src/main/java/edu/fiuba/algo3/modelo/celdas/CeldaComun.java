@@ -5,7 +5,7 @@ import edu.fiuba.algo3.modelo.Gladiador;
 import org.apache.logging.log4j.Logger;
 
 public class CeldaComun extends Celda {
-    private final String nombreImagen = "imagenCamino.png";
+    private final String nombreImagen = "tuki_flor_pasto.png";
     private Afectante premio;
     private Afectante obstaculo;
     //private final Logger logger;

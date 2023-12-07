@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.interfaz.vistas.escenas;
 
+import edu.fiuba.algo3.modelo.Observador;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -7,18 +8,19 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import edu.fiuba.algo3.modelo.Tablero;
 import edu.fiuba.algo3.modelo.celdas.Celda;
-import javafx.scene.Node;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.text.Font;
+import edu.fiuba.algo3.modelo.Observable;
+import edu.fiuba.algo3.modelo.Gladiador;
 
 import java.util.ArrayList;
 
-public class VistaTablero extends GridPane {
-
-    private static final int TAMANIO_CELDA = 50;
+public class VistaTablero extends GridPane implements Observador {
 
     private int xInicial;
     private int yInicial;
+
+    //private ArrayList<StackPane> jugadores;
 
     public VistaTablero(Tablero tablero, ArrayList<String> nombresJugadores) {
 
@@ -70,7 +72,7 @@ public class VistaTablero extends GridPane {
     private void rellenarConCeldasPasto(Tablero tablero) {
         for (int i = 0; i < tablero.getAncho(); i++) {
             for (int j = 0; j < tablero.getLargo(); j++) {
-                StackPane panelCelda = crearPanelCelda("imagenPasto.png");
+                StackPane panelCelda = crearPanelCelda("imagenPasto2.png");
                 super.getChildren().add(panelCelda);
                 setConstraints(panelCelda, j, i);
             }
@@ -112,6 +114,8 @@ public class VistaTablero extends GridPane {
             panelGladiador.getChildren().addAll(imagenGladiador, etiquetaNombreJugador);
             panelGladiador.setAlignment(Pos.CENTER);
 
+            //this.jugadores.add(panelGladiador);
+
             super.getChildren().add(panelGladiador);
             setConstraints(panelGladiador, this.xInicial, this.yInicial);
             i++;
@@ -142,6 +146,19 @@ public class VistaTablero extends GridPane {
 
         return panelCelda;
         */
+    }
+
+    public void actualizar(Observable observable) {
+        Gladiador gladiador = (Gladiador) observable;
+        this.moverImagenGladiador(gladiador);
+    }
+
+    public void moverImagenGladiador(Gladiador gladiador) {
+        //Celda celdaActual = gladiador.getCelda();
+        //int xNuevo = celdaActual.getX();
+        //int yNuevo = celdaActual.getY();
+
+
     }
 }
 
