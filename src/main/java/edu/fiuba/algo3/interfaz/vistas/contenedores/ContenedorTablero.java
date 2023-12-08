@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.interfaz.vistas.escenas;
+package edu.fiuba.algo3.interfaz.vistas.contenedores;
 
 import edu.fiuba.algo3.modelo.Observador;
 import javafx.geometry.Pos;
@@ -10,24 +10,23 @@ import edu.fiuba.algo3.modelo.Tablero;
 import edu.fiuba.algo3.modelo.celdas.Celda;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.text.Font;
-import edu.fiuba.algo3.modelo.Observable;
 import edu.fiuba.algo3.modelo.Gladiador;
 
 import java.util.ArrayList;
 
-public class VistaTablero extends GridPane implements Observador {
+public class ContenedorTablero extends GridPane implements Observador {
 
     private int xInicial;
     private int yInicial;
 
-    //private ArrayList<StackPane> jugadores;
+    private StackPane[][] celdas;  // Matriz de StackPanes
 
-    public VistaTablero(Tablero tablero, ArrayList<String> nombresJugadores) {
-
-        this.xInicial = tablero.getCeldaInicial().getX();
-        this.yInicial = tablero.getCeldaInicial().getY();
+    public ContenedorTablero(Tablero tablero, ArrayList<String> nombresJugadores) {
         int columnas = tablero.getLargo();
         int filas = tablero.getAncho();
+        this.celdas = new StackPane[filas][columnas];
+        this.xInicial = tablero.getCeldaInicial().getX();
+        this.yInicial = tablero.getCeldaInicial().getY();
 
         super.setAlignment(Pos.CENTER);
 
@@ -54,18 +53,22 @@ public class VistaTablero extends GridPane implements Observador {
         Celda celdaActual = tablero.getCeldaInicial();
 
         while (!(celdaActual == tablero.getCeldaFinal())) {
+            int x = celdaActual.getX();
+            int y = celdaActual.getY();
+
             StackPane panelCeldaActual = this.crearPanelCamino(celdaActual);
-
+            celdas[y][x] = panelCeldaActual;
+            setConstraints(panelCeldaActual, x, y);
             super.getChildren().add(panelCeldaActual);
-
-            setConstraints(panelCeldaActual, celdaActual.getX(), celdaActual.getY());
 
             celdaActual = celdaActual.celdaSiguiente();
         }
-
+        int x = celdaActual.getX();
+        int y = celdaActual.getY();
         // Llegado este punto se crea el panel de la celda final y se lo ubica en la grilla del tablero.
         StackPane panelCeldaActual = this.crearPanelCamino(celdaActual);
-        setConstraints(panelCeldaActual, celdaActual.getX(), celdaActual.getY());
+        celdas[y][x] = panelCeldaActual;
+        setConstraints(panelCeldaActual, x, y);
         super.getChildren().add(panelCeldaActual);
     }
 
@@ -148,9 +151,9 @@ public class VistaTablero extends GridPane implements Observador {
         */
     }
 
-    public void actualizar(Observable observable) {
-        Gladiador gladiador = (Gladiador) observable;
-        this.moverImagenGladiador(gladiador);
+    public void actualizar() {
+        //mover gladiador del jugador actual. Quizas vista tablero no es un observador, sino que el observador
+        // es vistaJuego y le da la indicacion a tablero para mover.
     }
 
     public void moverImagenGladiador(Gladiador gladiador) {

@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.interfaz.controladores;
 
 import edu.fiuba.algo3.interfaz.vistas.escenas.VistaJuego;
-import edu.fiuba.algo3.interfaz.vistas.escenas.VistaTablero;
 import edu.fiuba.algo3.modelo.excepcion.ArchivoNoEncontradoError;
 import edu.fiuba.algo3.parsers.TableroParser;
 import javafx.event.ActionEvent;
@@ -14,7 +13,6 @@ import org.apache.logging.log4j.Logger;
 import org.json.simple.parser.ParseException;
 import java.io.IOException;
 import java.util.ArrayList;
-import edu.fiuba.algo3.interfaz.vistas.escenas.VistaJuego;
 
 
 public class ControladorInicioPartida implements EventHandler<ActionEvent> {
@@ -35,8 +33,11 @@ public class ControladorInicioPartida implements EventHandler<ActionEvent> {
         try {
             Tablero tablero = tableroParser.leerArchivo(rutaJson);
 
-            VistaTablero vistaTablero = new VistaTablero(tablero, nombresJugadores);
-            VistaJuego vistaJuego = new VistaJuego(vistaTablero, nombresJugadores);
+            Logger logger = LogManager.getLogger();;
+            Juego juego = new Juego(logger, tablero);
+            juego.iniciarPartida(this.nombresJugadores);
+
+            VistaJuego vistaJuego = new VistaJuego(juego, tablero, this.nombresJugadores);
 
             /*
             gridPane.add(node, columnIndex, rowIndex, columnSpan, rowSpan);
@@ -53,9 +54,6 @@ public class ControladorInicioPartida implements EventHandler<ActionEvent> {
             this.ventana.setScene(escenaJuego);
             this.ventana.setResizable(true);
 
-            Logger logger = LogManager.getLogger();;
-            Juego juego = new Juego(logger);
-            juego.iniciarPartida(tablero, this.nombresJugadores);
         } catch (IOException | ParseException | ArchivoNoEncontradoError e) {
             return;
         }

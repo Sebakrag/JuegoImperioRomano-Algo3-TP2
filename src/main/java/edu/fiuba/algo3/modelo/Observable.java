@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public abstract class Observable {
 
-    protected ArrayList<Observador> observadores;
+    protected ArrayList<Observador> observadores = new ArrayList<>();
 
     public void agregarObservador(Observador observador) {
         this.observadores.add(observador);
@@ -12,7 +12,7 @@ public abstract class Observable {
 
     public void notificarObservadores() {
         for (Observador observador : this.observadores) {
-            observador.actualizar(this);
+            observador.actualizar();
         }
     }
 }

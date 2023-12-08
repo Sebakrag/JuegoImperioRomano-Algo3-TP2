@@ -25,15 +25,19 @@ public class Jugador {
      * ligado a la cantidad de turnos.
      * */
 
-    public boolean jugarTurno(Dado dado, Tablero tablero) {  // TODO: Hay que cambiar el dado por la cantidad de avances directamente. (El usuario toca el boton del dado y se le envia la cantidad que salio)
+    public boolean jugarTurno(int avances, Tablero tablero) {
         logger.info("Turno de: " + this.nombre);
         this.turno++;
 
-        int avances = dado.tirar();
         Celda celdaProxima = tablero.avanzar(avances, this.celdaActual);
         this.celdaActual = this.gladiador.mover(celdaProxima, this.turno);
 
-        return (celdaActual == tablero.getCeldaFinal());
-        /*logger.info("Turno jugado con éxito. Nueva celda del gladiador: " + this.celdaActual);*/
+        if (celdaActual == tablero.getCeldaFinal()) {
+            logger.info(this.nombre + " has ganado la partida. ¡Felicitaciones!");
+            return true;
+        }
+
+        return false;
+        //logger.info("Turno jugado con éxito. Nueva celda del gladiador: " + this.celdaActual);
     }
 }

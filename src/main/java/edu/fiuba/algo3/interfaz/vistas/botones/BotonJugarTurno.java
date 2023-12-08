@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.interfaz.vistas.botones;
 
+import edu.fiuba.algo3.interfaz.controladores.ControladorJugarTurno;
+import edu.fiuba.algo3.modelo.Juego;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
@@ -7,9 +9,9 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
-public class BotonTirarDado extends Button {
+public class BotonJugarTurno extends Button {
 
-    public BotonTirarDado(String texto){
+    public BotonJugarTurno(String texto, Juego juego){
         super.setText(texto);
 
         BackgroundFill normalFill = new BackgroundFill(Color.ORANGE, CornerRadii.EMPTY, Insets.EMPTY);
@@ -28,5 +30,7 @@ public class BotonTirarDado extends Button {
         this.setOnMouseExited(event -> {
             this.setBackground(normalBackground);
         });
+
+        this.setOnAction(new ControladorJugarTurno(juego));
     }
 }

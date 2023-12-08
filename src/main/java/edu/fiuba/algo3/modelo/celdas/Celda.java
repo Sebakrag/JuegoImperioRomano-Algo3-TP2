@@ -1,9 +1,7 @@
 package edu.fiuba.algo3.modelo.celdas;
 
-import edu.fiuba.algo3.interfaz.vistas.escenas.VistaTablero;
 import edu.fiuba.algo3.modelo.Gladiador;
 import edu.fiuba.algo3.modelo.excepcion.CoordenadaInvalidaError;
-import javafx.scene.layout.StackPane;
 import org.apache.logging.log4j.Logger;
 
 public abstract class Celda {
