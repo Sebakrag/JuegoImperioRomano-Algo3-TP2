@@ -6,6 +6,8 @@ import edu.fiuba.algo3.modelo.excepcion.TurnoPerdidoError;
 import org.apache.logging.log4j.Logger;
 
 public class Jugador {
+    private static final int CANTIDAD_MAXIMA_DE_RONDAS = 30;
+
     private Gladiador gladiador;
     private int turno;
     private Celda celdaActual;

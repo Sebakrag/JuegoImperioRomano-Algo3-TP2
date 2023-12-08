@@ -6,6 +6,10 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+
+/**
+ * JavaFX App
+ */
 public class App extends Application {
 
     @Override

@@ -4,6 +4,9 @@ import edu.fiuba.algo3.modelo.afectantes.Afectante;
 import edu.fiuba.algo3.modelo.Gladiador;
 import org.apache.logging.log4j.Logger;
 
+import edu.fiuba.algo3.modelo.Gladiador;
+import edu.fiuba.algo3.modelo.excepcion.CoordenadaInvalidaError;
+
 public class CeldaComun extends Celda {
     private final String nombreImagen = "imagenCamino.png";
     private Afectante premio;

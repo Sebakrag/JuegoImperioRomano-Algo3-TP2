@@ -272,6 +272,7 @@ public class CasosDeUsoSemana1Test {
        Assertions.assertNotSame(celdaProxima, celdaActual);
     }
 
+
     @Test
     public void test10AlSerAtacadoPorUnaFieraYConTodoElEquipamientoNoPierdeEnergia() {
         Logger logger = LogManager.getLogger();

@@ -134,4 +134,3 @@ public class CasosDeUsoSemana2Test {
         logger.error("tableroParser.leerArchivo(rutaJsonInvalido");
     }
 }
-
