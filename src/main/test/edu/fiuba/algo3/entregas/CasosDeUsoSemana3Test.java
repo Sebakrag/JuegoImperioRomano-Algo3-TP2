@@ -17,8 +17,8 @@ public class CasosDeUsoSemana3Test {
 
     private void jugarCantidadDeRondas(Juego juego, int cantidadRondas) {
         for (int i = 0; i < cantidadRondas; i++) {
-            juego.jugarTurnoDeJugadorActual(1);
-            juego.jugarTurnoDeJugadorActual(1);
+            juego.jugarTurnoDeJugadorActual();
+            juego.jugarTurnoDeJugadorActual();
         }
     }
 
@@ -46,7 +46,7 @@ public class CasosDeUsoSemana3Test {
 
         jugarCantidadDeRondas(juego, 4);
 
-        Assertions.assertThrows(UnJugadorGanoLaPartidaError.class, () -> juego.jugarTurnoDeJugadorActual(1));
+        Assertions.assertThrows(UnJugadorGanoLaPartidaError.class, () -> juego.jugarTurnoDeJugadorActual());
     }
 
     @Test
@@ -69,8 +69,8 @@ public class CasosDeUsoSemana3Test {
 
         jugarCantidadDeRondas(juego, 29);
 
-        juego.jugarTurnoDeJugadorActual(1);
+        juego.jugarTurnoDeJugadorActual();
 
-        Assertions.assertThrows(PasaronTreintaRondasYnoHuboGanadorError.class,()-> juego.jugarTurnoDeJugadorActual(1));
+        Assertions.assertThrows(PasaronTreintaRondasYnoHuboGanadorError.class,()-> juego.jugarTurnoDeJugadorActual());
     }
 }

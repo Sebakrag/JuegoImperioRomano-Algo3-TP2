@@ -38,8 +38,8 @@ public class CasosDeUsoSemana1Test {
 
     private void jugarVeintiNueveRondas(Juego juego) {
         for (int i = 0; i < 29; i++) {
-            juego.jugarTurnoDeJugadorActual(0);
-            juego.jugarTurnoDeJugadorActual(0);
+            juego.jugarTurnoDeJugadorActual();
+            juego.jugarTurnoDeJugadorActual();
         }
     }
 
@@ -347,8 +347,8 @@ public class CasosDeUsoSemana1Test {
 
         jugarVeintiNueveRondas(juego);
 
-        juego.jugarTurnoDeJugadorActual(0);
+        juego.jugarTurnoDeJugadorActual();
 
-        Assertions.assertThrows(PasaronTreintaRondasYnoHuboGanadorError.class,()-> juego.jugarTurnoDeJugadorActual(0));
+        Assertions.assertThrows(PasaronTreintaRondasYnoHuboGanadorError.class,()-> juego.jugarTurnoDeJugadorActual());
     }
 }
