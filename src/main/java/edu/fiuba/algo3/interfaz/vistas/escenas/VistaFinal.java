@@ -17,13 +17,14 @@ public class VistaFinal extends StackPane {
         labelFinalizarJuego.setFont(estiloLetra);
         labelFinalizarJuego.setStyle("-fx-text-fill: red");
 
-        Image imagenGanador = new Image("file:" + System.getProperty("user.dir") + "/imagenes/" + rutaImagen);
-        ImageView viewImagenGanador = new ImageView(imagenGanador);
+        Image imagenFinal = new Image("file:" + System.getProperty("user.dir") + "/imagenes/" + rutaImagen);
+        ImageView viewImagenFinal = new ImageView(imagenFinal);
 
-        viewImagenGanador.fitWidthProperty().bind(ventana.widthProperty());
-        viewImagenGanador.fitHeightProperty().bind(ventana.heightProperty());
+        viewImagenFinal.setPreserveRatio(false);
+        viewImagenFinal.fitWidthProperty().bind(ventana.widthProperty());
+        viewImagenFinal.fitHeightProperty().bind(ventana.heightProperty());
 
-        this.getChildren().addAll(viewImagenGanador, labelFinalizarJuego);
+        this.getChildren().addAll(viewImagenFinal, labelFinalizarJuego);
         this.setAlignment(Pos.CENTER);
 
         this.prefWidthProperty().bind(ventana.widthProperty());

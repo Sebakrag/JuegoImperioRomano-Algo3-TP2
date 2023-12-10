@@ -39,8 +39,9 @@ public class Juego extends Observable {
         notificarObservadores(this.jugadorInicial.getNombre(), this.ronda);
     }
 
-    public void jugarTurnoDeJugadorActual(int avances) throws UnJugadorGanoLaPartidaError, PasaronTreintaRondasYnoHuboGanadorError {
-        this.hayGanador = this.jugadorTurnoActual.jugarTurno(avances, this.tablero);
+    public void jugarTurnoDeJugadorActual() throws UnJugadorGanoLaPartidaError, PasaronTreintaRondasYnoHuboGanadorError {
+        Dado dado = new Dado(6);
+        this.hayGanador = this.jugadorTurnoActual.jugarTurno(dado.tirar(), this.tablero);
         if (this.hayGanador) {
             throw new UnJugadorGanoLaPartidaError();
         }
@@ -67,6 +68,11 @@ public class Juego extends Observable {
         notificarObservadores(this.jugadorTurnoActual.getNombre(), this.hayGanador);
     }
 
+    public void agregarObservadorAJugadores(Observador observador) {
+        for (Jugador jugador : this.jugadores) {
+            jugador.agregarObservador(observador);
+        }
+    }
 
     // -------------------------------- PRIVADOS -------------------------------- //
 

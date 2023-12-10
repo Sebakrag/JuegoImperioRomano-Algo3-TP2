@@ -38,14 +38,7 @@ public class ControladorInicioPartida implements EventHandler<ActionEvent> {
             VistaJuego vistaJuego = new VistaJuego(juego, tablero, this.nombresJugadores, this.ventana);
             juego.iniciarPartida(this.nombresJugadores);
 
-            /*
-            gridPane.add(node, columnIndex, rowIndex, columnSpan, rowSpan);
-            node: El nodo que se está agregando.
-            columnIndex: La columna en la que se ubicará el nodo.
-            rowIndex: La fila en la que se ubicará el nodo.
-            columnSpan: La cantidad de columnas que el nodo ocupará.
-            rowSpan: La cantidad de filas que el nodo ocupará.
-            */
+            juego.agregarObservadorAJugadores(vistaJuego);
 
             Scene escenaJuego = new Scene(vistaJuego);
             vistaJuego.prefWidthProperty().bind(this.ventana.widthProperty());

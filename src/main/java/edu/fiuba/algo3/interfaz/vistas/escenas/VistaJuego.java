@@ -8,7 +8,6 @@ import edu.fiuba.algo3.modelo.Tablero;
 import edu.fiuba.algo3.modelo.celdas.Celda;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import java.util.ArrayList;
 
@@ -22,7 +21,7 @@ public class VistaJuego extends GridPane implements Observador {
         this.ventana = ventana;
         juego.agregarObservador(this);
 
-        this.contenedorTablero = new ContenedorTablero(tablero, nombreJugadores, ventana);
+        this.contenedorTablero = new ContenedorTablero(tablero, nombreJugadores);
         this.contenedorConsola = new ContenedorConsola(juego);
 
         ColumnConstraints columnaTablero = new ColumnConstraints();
@@ -34,8 +33,8 @@ public class VistaJuego extends GridPane implements Observador {
         super.add(contenedorConsola, 1, 0);
     }
 
-    public void actualizar(String nombreJugador, Celda celda) {
-        this.contenedorTablero.actualizar(nombreJugador, celda);
+    public void actualizar(String nombreJugador, Celda celda, int avances) {
+        this.contenedorTablero.actualizar(nombreJugador, celda, avances);
     }
 
     public void actualizar(String nombreJugadorActual, int ronda) {
@@ -50,6 +49,10 @@ public class VistaJuego extends GridPane implements Observador {
         this.contenedorConsola.actualizar(energia, ID);
     }
 
+    public void actualizar(int ultimoNumeroTirado) {
+        this.contenedorConsola.actualizar(ultimoNumeroTirado);
+    }
+
     public void actualizar(String nombreJugador, boolean hayGanador) {
         String textoFinal;
         String rutaImagen;
@@ -59,7 +62,7 @@ public class VistaJuego extends GridPane implements Observador {
             rutaImagen = "imagenGanador.gif";
         } else {
             textoFinal = "¡¡¡PERDEDORES!!!";
-            rutaImagen = "UpgradeSeniority.gif";
+            rutaImagen = "imagenPerdedor.gif";
         }
 
         StackPane panelFinalizarJuego = new VistaFinal(textoFinal, rutaImagen, this.ventana);

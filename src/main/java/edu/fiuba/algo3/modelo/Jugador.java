@@ -33,17 +33,17 @@ public class Jugador extends Observable {
         logger.info("Turno de: " + this.nombre);
         this.turno++;
 
+        Celda celdaAnterior = this.celdaActual;
         Celda celdaProxima = tablero.avanzar(avances, this.celdaActual);
         this.celdaActual = this.gladiador.mover(celdaProxima, this.turno);
+
+        notificarObservadores(this.nombre, celdaAnterior, avances);
 
         if (celdaActual == tablero.getCeldaFinal()) {
             logger.info(this.nombre + " has ganado la partida. ¡Felicitaciones!");
             return true;
         }
-
-        notificarObservadores(this.nombre, this.celdaActual);
         return false;
-        //logger.info("Turno jugado con éxito. Nueva celda del gladiador: " + this.celdaActual);
     }
 
     public String getNombre() {
@@ -52,9 +52,9 @@ public class Jugador extends Observable {
 
     // -------------------------------- PRIVADOS -------------------------------- //
 
-    private void notificarObservadores(String nombre, Celda celda) {
+    private void notificarObservadores(String nombre, Celda celda, int avances) {
         for (Observador observador : this.observadores) {
-            observador.actualizar(nombre, celda);
+            observador.actualizar(nombre, celda, avances);
         }
     }
 }
