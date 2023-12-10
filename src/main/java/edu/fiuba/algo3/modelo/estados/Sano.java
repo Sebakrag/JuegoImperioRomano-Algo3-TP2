@@ -6,9 +6,9 @@ import org.apache.logging.log4j.Logger;
 
 public class Sano implements Estado {
 
+    private final String id = "Sano";
     private static final int ENERGIA_INICIAL = 20;
     private static final int SIN_ENERGIA = 0;
-
     private int energiaActual;
 
     public Sano() {
@@ -38,8 +38,11 @@ public class Sano implements Estado {
         return this;
     }
 
-    @Override
-    public int obtenerEnergia() {
+    public int getEnergia() {
         return this.energiaActual;
+    }
+
+    public String getID() {
+        return this.id;
     }
 }

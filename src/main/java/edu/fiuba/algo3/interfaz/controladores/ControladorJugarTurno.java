@@ -24,8 +24,6 @@ public class ControladorJugarTurno implements EventHandler<ActionEvent> {
         try {
             this.juego.jugarTurnoDeJugadorActual(avances);
         } catch (UnJugadorGanoLaPartidaError | PasaronTreintaRondasYnoHuboGanadorError e) {
-            // Hay que finalizar el juego. Quizas le podemos mandar un mensaje al juego para que cambie su estado
-            // y le notifique a sus observadores.
             this.juego.finalizarJuego();
         }
     }

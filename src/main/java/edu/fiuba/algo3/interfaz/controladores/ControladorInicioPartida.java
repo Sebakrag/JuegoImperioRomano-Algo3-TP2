@@ -27,7 +27,7 @@ public class ControladorInicioPartida implements EventHandler<ActionEvent> {
 
     @Override
     public void handle(ActionEvent evento) {
-        String rutaJson = "/archivos/mapa.json";
+        String rutaJson = "/archivos/mapaPrueba.json";
         TableroParser tableroParser = new TableroParser();
 
         try {
@@ -35,9 +35,8 @@ public class ControladorInicioPartida implements EventHandler<ActionEvent> {
 
             Logger logger = LogManager.getLogger();;
             Juego juego = new Juego(logger, tablero);
+            VistaJuego vistaJuego = new VistaJuego(juego, tablero, this.nombresJugadores, this.ventana);
             juego.iniciarPartida(this.nombresJugadores);
-
-            VistaJuego vistaJuego = new VistaJuego(juego, tablero, this.nombresJugadores);
 
             /*
             gridPane.add(node, columnIndex, rowIndex, columnSpan, rowSpan);

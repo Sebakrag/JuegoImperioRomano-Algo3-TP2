@@ -17,7 +17,7 @@
         "y": 1,
         "tipo": "Camino",
         "obstaculo": "",
-        "premio": "Equipamiento"
+        "premio": ""
       },
       {
         "x": 2,
@@ -45,7 +45,7 @@
         "y": 5,
         "tipo": "Camino",
         "obstaculo": "Bacanal",
-        "premio": "Equipamiento"
+        "premio": ""
       },
       {
         "x": 6,

@@ -4,15 +4,14 @@ import edu.fiuba.algo3.modelo.afectantes.Potenciador;
 
 public class Casco extends Equipamiento{
 
-    public Casco(){
+    public Casco() {
         this.danio = 15;
+        this.id = "Casco";
     }
-
     @Override
     public Equipamiento mejorarEquipamiento(Potenciador potenciador) {
         return potenciador.equipamientoSiguiente(this);
     }
-
     @Override
     public boolean equipoCompleto(){
         return false;

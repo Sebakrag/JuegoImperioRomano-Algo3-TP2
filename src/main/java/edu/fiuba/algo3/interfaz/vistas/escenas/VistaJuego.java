@@ -5,33 +5,25 @@ import edu.fiuba.algo3.interfaz.vistas.contenedores.ContenedorTablero;
 import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Observador;
 import edu.fiuba.algo3.modelo.Tablero;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
+import edu.fiuba.algo3.modelo.celdas.Celda;
+import javafx.scene.Scene;
+import javafx.scene.layout.*;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
-
 import java.util.ArrayList;
 
 
 public class VistaJuego extends GridPane implements Observador {
-
-    //TODO: VER SI HACEMOS ESTO -> private final ContenedorConsola contenedorConsola;
-
-    private final Juego juego;  // TODO: Vale la pena guardar una referencia a juego?
     private final ContenedorConsola contenedorConsola;
     private final ContenedorTablero contenedorTablero;
+    private Stage ventana;
 
-    public VistaJuego(Juego juego, Tablero tablero, ArrayList<String> nombreJugadores) {
-        this.juego = juego;
+    public VistaJuego(Juego juego, Tablero tablero, ArrayList<String> nombreJugadores, Stage ventana) {
+        this.ventana = ventana;
         juego.agregarObservador(this);
 
-        this.contenedorTablero = new ContenedorTablero(tablero, nombreJugadores);
+        this.contenedorTablero = new ContenedorTablero(tablero, nombreJugadores, ventana);
         this.contenedorConsola = new ContenedorConsola(juego);
-
-        //ArrayList<Jugador> jugadores = juego.getJugadores();
-        //for (Jugador jugador : jugador) {
-        //    jugador.agregarObservador(this.tablero);
-        //}
-        //juego.agregarObservadorAJugadores(this.contenedorTablero);
 
         ColumnConstraints columnaTablero = new ColumnConstraints();
         columnaTablero.setPercentWidth(80); // Primera columna ocupa el 80% de la ventana
@@ -42,11 +34,37 @@ public class VistaJuego extends GridPane implements Observador {
         super.add(contenedorConsola, 1, 0);
     }
 
-    public void actualizar(){}
-    /*
-    public void actualizar(Celda celdaNueva, String nombre) {
-        // consultar el estado de juego y modificar la vista.
-        contenedorTablero.actualizar(celdaNueva, nombre);
+    public void actualizar(String nombreJugador, Celda celda) {
+        this.contenedorTablero.actualizar(nombreJugador, celda);
     }
- */
+
+    public void actualizar(String nombreJugadorActual, int ronda) {
+        this.contenedorConsola.actualizar(nombreJugadorActual, ronda);
+    }
+
+    public void actualizar(String seniorityID) {
+        this.contenedorConsola.actualizar(seniorityID);
+    }
+
+    public void actualizar(int energia, String ID) {
+        this.contenedorConsola.actualizar(energia, ID);
+    }
+
+    public void actualizar(String nombreJugador, boolean hayGanador) {
+        String textoFinal;
+        String rutaImagen;
+
+        if (hayGanador) {
+            textoFinal = "¡GANADOR " + "\"" + nombreJugador + "\"" + "!";
+            rutaImagen = "imagenGanador.gif";
+        } else {
+            textoFinal = "¡¡¡PERDEDORES!!!";
+            rutaImagen = "UpgradeSeniority.gif";
+        }
+
+        StackPane panelFinalizarJuego = new VistaFinal(textoFinal, rutaImagen, this.ventana);
+
+        Scene escenaFinJuego = new Scene(panelFinalizarJuego, 800, 600);
+        this.ventana.setScene(escenaFinJuego);
+    }
 }

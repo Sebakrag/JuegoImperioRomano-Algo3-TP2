@@ -4,8 +4,9 @@ import edu.fiuba.algo3.modelo.afectantes.Potenciador;
 
 public class Armadura extends Equipamiento {
 
-    public Armadura(){
+    public Armadura() {
         this.danio = 10;
+        this.id = "Armadura";
     }
 
     @Override

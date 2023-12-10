@@ -1,32 +1,32 @@
 package edu.fiuba.algo3.interfaz.vistas.contenedores;
 
-import edu.fiuba.algo3.modelo.Observador;
+import edu.fiuba.algo3.modelo.Tablero;
+import edu.fiuba.algo3.modelo.celdas.Celda;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import edu.fiuba.algo3.modelo.Tablero;
-import edu.fiuba.algo3.modelo.celdas.Celda;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.text.Font;
-import edu.fiuba.algo3.modelo.Gladiador;
-
+import javafx.stage.Stage;
 import java.util.ArrayList;
 
-public class ContenedorTablero extends GridPane implements Observador {
+public class ContenedorTablero extends GridPane {
 
     private int xInicial;
     private int yInicial;
+    private Stage ventana;
 
-    private StackPane[][] celdas;  // Matriz de StackPanes
+    private ArrayList<StackPane> jugadores;  // Array de StackPanes de gladiadores
 
-    public ContenedorTablero(Tablero tablero, ArrayList<String> nombresJugadores) {
+    public ContenedorTablero(Tablero tablero, ArrayList<String> nombresJugadores, Stage ventana) {
+        this.ventana = ventana;
         int columnas = tablero.getLargo();
         int filas = tablero.getAncho();
-        this.celdas = new StackPane[filas][columnas];
         this.xInicial = tablero.getCeldaInicial().getX();
         this.yInicial = tablero.getCeldaInicial().getY();
+        this.jugadores = new ArrayList<>();
 
         super.setAlignment(Pos.CENTER);
 
@@ -49,6 +49,18 @@ public class ContenedorTablero extends GridPane implements Observador {
         this.agregarJugadores(nombresJugadores);
     }
 
+
+    // -------------------------------- PUBLICOS -------------------------------- //
+    public void actualizar(String nombre, Celda celda) {
+        // TODO: Pregunta si el contenedorTablero puede ser un observador.
+        // Quizas vista tablero no es un observador, sino que el observador
+        // es vistaJuego y le da la indicacion a tablero para mover.
+        StackPane gladiador = moverImagenGladiador(nombre);
+        setConstraints(gladiador, celda.getX(), celda.getY());
+    }
+
+
+    // -------------------------------- PRIVADOS -------------------------------- //
     private void crearCamino(Tablero tablero) {
         Celda celdaActual = tablero.getCeldaInicial();
 
@@ -57,7 +69,6 @@ public class ContenedorTablero extends GridPane implements Observador {
             int y = celdaActual.getY();
 
             StackPane panelCeldaActual = this.crearPanelCamino(celdaActual);
-            celdas[y][x] = panelCeldaActual;
             setConstraints(panelCeldaActual, x, y);
             super.getChildren().add(panelCeldaActual);
 
@@ -67,7 +78,6 @@ public class ContenedorTablero extends GridPane implements Observador {
         int y = celdaActual.getY();
         // Llegado este punto se crea el panel de la celda final y se lo ubica en la grilla del tablero.
         StackPane panelCeldaActual = this.crearPanelCamino(celdaActual);
-        celdas[y][x] = panelCeldaActual;
         setConstraints(panelCeldaActual, x, y);
         super.getChildren().add(panelCeldaActual);
     }
@@ -75,7 +85,7 @@ public class ContenedorTablero extends GridPane implements Observador {
     private void rellenarConCeldasPasto(Tablero tablero) {
         for (int i = 0; i < tablero.getAncho(); i++) {
             for (int j = 0; j < tablero.getLargo(); j++) {
-                StackPane panelCelda = crearPanelCelda("imagenPasto2.png");
+                StackPane panelCelda = crearPanelCelda("imagenPasto.png");
                 super.getChildren().add(panelCelda);
                 setConstraints(panelCelda, j, i);
             }
@@ -101,33 +111,41 @@ public class ContenedorTablero extends GridPane implements Observador {
     private void agregarJugadores(ArrayList<String> nombresJugadores) {
         int i = 0;
         while (i < nombresJugadores.size()) {
-            StackPane panelGladiador = new StackPane();
-            Label etiquetaNombreJugador = new Label(nombresJugadores.get(i));
-            Font estiloLetra = Font.loadFont("file:" + System.getProperty("user.dir") + "/fuentes/SourceSerif4-SemiBold.ttf", 15);
-            etiquetaNombreJugador.setFont(estiloLetra);
-            etiquetaNombreJugador.setStyle("-fx-text-fill: black");
+            StackPane panelJugador = crearPanelJugador(nombresJugadores, i);
 
-            Image imagenFondo = new Image("file:" + System.getProperty("user.dir") + "/imagenes/jugador.png");
-            ImageView imagenGladiador = new ImageView(imagenFondo);
-            imagenGladiador.setPreserveRatio(false);
+            this.jugadores.add(panelJugador);
 
-            panelGladiador.prefWidthProperty().bind(super.widthProperty());
-            panelGladiador.prefHeightProperty().bind(super.heightProperty());
-
-            panelGladiador.getChildren().addAll(imagenGladiador, etiquetaNombreJugador);
-            panelGladiador.setAlignment(Pos.CENTER);
-
-            //this.jugadores.add(panelGladiador);
-
-            super.getChildren().add(panelGladiador);
-            setConstraints(panelGladiador, this.xInicial, this.yInicial);
+            super.getChildren().add(panelJugador);
+            setConstraints(panelJugador, this.xInicial, this.yInicial);
             i++;
         }
+    }
+
+    private StackPane crearPanelJugador(ArrayList<String> nombresJugadores, int indiceJugador) {
+
+        StackPane panelJugador = new StackPane();
+        Label etiquetaNombreJugador = new Label(nombresJugadores.get(indiceJugador));
+        Font estiloLetra = Font.loadFont("file:" + System.getProperty("user.dir") + "/fuentes/SourceSerif4-Bold.ttf", 15);
+        etiquetaNombreJugador.setFont(estiloLetra);
+        etiquetaNombreJugador.setStyle("-fx-text-fill: RED");
+
+        Image imagenFondo = new Image("file:" + System.getProperty("user.dir") + "/imagenes/jugador.png");
+        ImageView imagenGladiador = new ImageView(imagenFondo);
+        imagenGladiador.setPreserveRatio(false);
+
+        panelJugador.prefWidthProperty().bind(super.widthProperty());
+        panelJugador.prefHeightProperty().bind(super.heightProperty());
+
+        panelJugador.getChildren().addAll(imagenGladiador, etiquetaNombreJugador);
+        panelJugador.setAlignment(Pos.CENTER);
+
+        return panelJugador;
     }
 
     // TODO: Decidir si vamos a poner imagenes de afectantes en las celdas
     private StackPane crearPanelCamino(Celda celdaActual) {
         return crearPanelCelda(celdaActual.nombreImagenFondo());
+
         // Si optamos por no agregar una imagen del premio y del obstaculo en cada celda, el metodo crearPanelCamino
         // pasa a ser innecesario y usariamos "crearPanelCelda" como su reemplazante.
 
@@ -151,17 +169,13 @@ public class ContenedorTablero extends GridPane implements Observador {
         */
     }
 
-    public void actualizar() {
-        //mover gladiador del jugador actual. Quizas vista tablero no es un observador, sino que el observador
-        // es vistaJuego y le da la indicacion a tablero para mover.
-    }
-
-    public void moverImagenGladiador(Gladiador gladiador) {
-        //Celda celdaActual = gladiador.getCelda();
-        //int xNuevo = celdaActual.getX();
-        //int yNuevo = celdaActual.getY();
-
-
+    private StackPane moverImagenGladiador(String nombre) {
+        for (StackPane jugador : this.jugadores) {
+            Label label = (Label) jugador.getChildren().get(1);
+            if (label.getText().equals(nombre)) {
+                return jugador;
+            }
+        }
+        return null;
     }
 }
-

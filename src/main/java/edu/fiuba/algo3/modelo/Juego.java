@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.ArrayList;
 
 public class Juego extends Observable {
+
     private static final int CANTIDAD_MAXIMA_DE_RONDAS = 30;
     private Tablero tablero;
     private ArrayList<Jugador> jugadores;
@@ -15,32 +16,34 @@ public class Juego extends Observable {
     private Jugador jugadorTurnoActual;
     private int indiceJugadorActual;
     private Jugador jugadorInicial;
-    private boolean finalizarJuego;  // TODO: seguramente tengamos que agregar un getter para que la vista acceda a este atributo y actue en consecuencia.
+    private boolean hayGanador;
 
     public Juego(Logger logger, Tablero tablero) {
         this.jugadores = new ArrayList<>();
         this.logger = logger;
         this.tablero = tablero;
-        this.finalizarJuego = false;
+        this.hayGanador = false;
+        this.observadores = new ArrayList<>();
     }
-
 
     // -------------------------------- PUBLICOS -------------------------------- //
 
     public void iniciarPartida(ArrayList<String> nombresJugadores) {
         this.crearJugadores(nombresJugadores);
-
+        this.ronda = 1;
         int cantidadJugadores = nombresJugadores.size();
         Dado dado = new Dado(cantidadJugadores);
         this.indiceJugadorActual = (dado.tirar() - 1);
         this.jugadorInicial = this.jugadores.get(this.indiceJugadorActual);
         this.jugadorTurnoActual = this.jugadores.get(this.indiceJugadorActual);
+        notificarObservadores(this.jugadorInicial.getNombre(), this.ronda);
     }
 
     public void jugarTurnoDeJugadorActual(int avances) throws UnJugadorGanoLaPartidaError, PasaronTreintaRondasYnoHuboGanadorError {
-        boolean hayGanador = this.jugadorTurnoActual.jugarTurno(avances, this.tablero);
-        if (hayGanador)
+        this.hayGanador = this.jugadorTurnoActual.jugarTurno(avances, this.tablero);
+        if (this.hayGanador) {
             throw new UnJugadorGanoLaPartidaError();
+        }
 
         if (this.indiceJugadorActual < (this.jugadores.size() - 1)) {
             this.indiceJugadorActual++;
@@ -49,7 +52,7 @@ public class Juego extends Observable {
         }
 
         this.jugadorTurnoActual = this.jugadores.get(this.indiceJugadorActual);
-        if (this.jugadorTurnoActual == this.jugadorInicial)
+        if ((this.jugadorTurnoActual == this.jugadorInicial) && quedanRondasPorJugar())
             this.ronda++;
 
         if (!quedanRondasPorJugar()) {
@@ -57,15 +60,16 @@ public class Juego extends Observable {
             throw new PasaronTreintaRondasYnoHuboGanadorError();  // TODO: Le sacamos "Error" del nombre?
         }
 
-        notificarObservadores();
+        notificarObservadores(this.jugadorTurnoActual.getNombre(), this.ronda);
     }
 
     public void finalizarJuego() {
-        this.finalizarJuego = true;
-        notificarObservadores();
+        notificarObservadores(this.jugadorTurnoActual.getNombre(), this.hayGanador);
     }
 
+
     // -------------------------------- PRIVADOS -------------------------------- //
+
     private void crearJugadores(ArrayList<String> nombresJugadores) {
         int cantidadJugadores = nombresJugadores.size();
         for (int i = 0; i < cantidadJugadores; i++) {
@@ -76,6 +80,18 @@ public class Juego extends Observable {
     }
 
     private boolean quedanRondasPorJugar() {
-        return (this.ronda < CANTIDAD_MAXIMA_DE_RONDAS);
+        return (this.ronda <= CANTIDAD_MAXIMA_DE_RONDAS);
+    }
+
+    private void notificarObservadores(String nombre, int ronda) {
+        for (Observador observador : this.observadores) {
+            observador.actualizar(nombre, ronda);
+        }
+    }
+
+    private void notificarObservadores(String nombre, boolean hayGanador){
+        for (Observador observador : this.observadores) {
+            observador.actualizar(nombre, hayGanador);
+        }
     }
 }

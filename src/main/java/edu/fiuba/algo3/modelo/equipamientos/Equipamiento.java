@@ -7,6 +7,8 @@ public abstract class Equipamiento {
 
     protected int danio;
 
+    protected String id;
+
     public abstract Equipamiento mejorarEquipamiento(Potenciador potenciador);
 
     public Estado recibirAtaque(Estado estado) {
@@ -14,4 +16,8 @@ public abstract class Equipamiento {
     }
 
     public abstract boolean equipoCompleto();
+
+    public String getID() {
+        return this.id;
+    }
 }
