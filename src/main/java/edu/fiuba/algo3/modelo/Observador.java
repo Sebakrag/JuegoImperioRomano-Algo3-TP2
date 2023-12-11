@@ -6,7 +6,7 @@ import edu.fiuba.algo3.modelo.seniorities.Seniority;
 
 public interface Observador {
 
-    public void actualizar(String nombreJugador, Celda celda, int avances);
+    public void actualizar(String nombreJugador, Celda celdaAnterior, Celda celdaActual, int avances);
 
     public void actualizar(String nombreJugador, int rondas);
 

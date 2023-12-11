@@ -9,13 +9,15 @@ public class CeldaComun extends Celda {
     private Afectante premio;
     private Afectante obstaculo;
     //private final Logger logger;
-    public CeldaComun(int x, int y, Afectante premio, Afectante obstaculo,Logger logger){
+    public CeldaComun(int x, int y, Afectante premio, Afectante obstaculo,Logger logger, String nombrePremio, String nombreObstaculo){
         this.coordenadasValidas(x,y);
         this.x = x;
         this.y = y;
         this.premio = premio;
         this.obstaculo = obstaculo;
         this.logger = logger;
+        this.nombreImagenePremio = nombrePremio;
+        this.nombreImageneObstaculo = nombreObstaculo;
     }
 
     public Celda afectar(Gladiador gladiador){
@@ -31,6 +33,14 @@ public class CeldaComun extends Celda {
     }
 
     public String nombreImagenFondo() { return this.nombreImagen; }
+
+    public String nombreImagenPremio() {
+        return this.nombreImagenePremio;
+    }
+
+    public String nombreImagenObstaculo(){
+        return this.nombreImageneObstaculo;
+    }
 
     /*
     @Override

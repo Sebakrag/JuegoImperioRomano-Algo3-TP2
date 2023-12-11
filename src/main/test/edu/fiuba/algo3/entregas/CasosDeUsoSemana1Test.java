@@ -74,7 +74,7 @@ public class CasosDeUsoSemana1Test {
         Dado dado = new Dado(1);
 
         CeldaInicial celdaInicial = new CeldaInicial(0, 0, logger);
-        CeldaComun celdaComun = new CeldaComun(0, 1, new Vacio(), new Fiera(), logger);
+        CeldaComun celdaComun = new CeldaComun(0, 1, new Vacio(), new Fiera(), logger, "", "");
 
         ArrayList<Celda> celdas = new ArrayList<>();
         celdas.add(celdaInicial);
@@ -197,7 +197,7 @@ public class CasosDeUsoSemana1Test {
 
         Dado dado = new Dado(1);
         CeldaInicial celdaInicial = new CeldaInicial(0, 0, logger);
-        CeldaComun celdaComun = new CeldaComun(0,1, new Vacio(), new Vacio(), logger);
+        CeldaComun celdaComun = new CeldaComun(0,1, new Vacio(), new Vacio(), logger, "", "");
         CeldaFinal celdaFinal = new CeldaFinal(0, 2, logger);
 
         ArrayList<Celda> celdas = new ArrayList<>();
@@ -282,7 +282,7 @@ public class CasosDeUsoSemana1Test {
 
         Dado dado = new Dado(1);
         CeldaInicial celdaInicial = new CeldaInicial(0, 0, logger);
-        CeldaComun celdaComun = new CeldaComun(0, 1, new Vacio(), new Vacio(), logger);
+        CeldaComun celdaComun = new CeldaComun(0, 1, new Vacio(), new Vacio(), logger, "", "");
         ArrayList<Celda> celdas = new ArrayList<>();
         celdas.add(celdaInicial);
         celdas.add(celdaComun);
@@ -309,7 +309,7 @@ public class CasosDeUsoSemana1Test {
 
         Dado dado = new Dado(1);
         CeldaInicial celdaInicial = new CeldaInicial(0,0, logger);
-        CeldaComun celdaComun = new CeldaComun(0,1, new Vacio(), new Vacio(), logger);
+        CeldaComun celdaComun = new CeldaComun(0,1, new Vacio(), new Vacio(), logger, "", "");
         ArrayList<Celda> celdas = new ArrayList<>();
         celdas.add(celdaInicial);
         celdas.add(celdaComun);

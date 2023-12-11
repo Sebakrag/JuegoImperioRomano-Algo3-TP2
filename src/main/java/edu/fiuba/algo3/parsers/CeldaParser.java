@@ -37,7 +37,7 @@ public class CeldaParser {
             case "Camino":
                 Afectante afectantePremio = this.parsearPremio(premio);
                 Afectante afectanteObstaculo = this.parsearObstaculo(obstaculo);
-                CeldaComun celdaComun = new CeldaComun(coorX, coorY, afectanteObstaculo, afectantePremio, logger);
+                CeldaComun celdaComun = new CeldaComun(coorX, coorY, afectanteObstaculo, afectantePremio, logger, premio, obstaculo);
                 return celdaComun;
             case "Llegada":
                 return new CeldaFinal(coorX, coorY, logger);

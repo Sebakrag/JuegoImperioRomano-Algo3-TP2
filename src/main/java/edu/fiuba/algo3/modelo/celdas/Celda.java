@@ -9,6 +9,8 @@ public abstract class Celda {
     protected int x;
     protected int y;
     protected Logger logger;
+    protected String nombreImagenePremio;
+    protected String nombreImageneObstaculo;
 
     protected void coordenadasValidas(int x, int y) {
         if(x < 0 || y < 0) {
@@ -24,9 +26,9 @@ public abstract class Celda {
 
     public abstract String nombreImagenFondo();
 
-    //public abstract String nombreImagenPremio();    // TODO: Check
+    public abstract String nombreImagenPremio();    // TODO: Check
 
-    //public abstract String nombreImagenObstaculo();   // TODO: Check
+    public abstract String nombreImagenObstaculo();   // TODO: Check
 
     public int getX() {
         return this.x;

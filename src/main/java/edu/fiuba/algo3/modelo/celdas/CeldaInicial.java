@@ -12,6 +12,8 @@ public class CeldaInicial extends Celda {
         this.x = x;
         this.y = y;
         this.logger = logger;
+        this.nombreImagenePremio = "";
+        this.nombreImageneObstaculo = "";
     }
 
     public Celda afectar(Gladiador gladiador){
@@ -25,4 +27,11 @@ public class CeldaInicial extends Celda {
 
     public String nombreImagenFondo() { return this.nombreImagen; }
 
+    public String nombreImagenPremio() {
+        return this.nombreImagenePremio;
+    }
+
+    public String nombreImagenObstaculo(){
+        return this.nombreImageneObstaculo;
+    }
 }

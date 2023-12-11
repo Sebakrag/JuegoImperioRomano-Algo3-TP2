@@ -10,6 +10,8 @@ public class CeldaFinal extends Celda {
         this.x = x;
         this.y = y;
         this.logger = logger;
+        this.nombreImagenePremio = "";
+        this.nombreImageneObstaculo = "";
     }
     @Override
     public Celda celdaSiguiente(){
@@ -25,4 +27,12 @@ public class CeldaFinal extends Celda {
     }
 
     public String nombreImagenFondo() { return this.nombreImagen; }
+
+    public String nombreImagenPremio() {
+        return this.nombreImagenePremio;
+    }
+
+    public String nombreImagenObstaculo(){
+        return this.nombreImageneObstaculo;
+    }
 }

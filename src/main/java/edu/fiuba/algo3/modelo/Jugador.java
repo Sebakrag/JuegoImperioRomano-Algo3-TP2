@@ -37,7 +37,7 @@ public class Jugador extends Observable {
         Celda celdaProxima = tablero.avanzar(avances, this.celdaActual);
         this.celdaActual = this.gladiador.mover(celdaProxima, this.turno);
 
-        notificarObservadores(this.nombre, celdaAnterior, avances);
+        notificarObservadores(this.nombre, celdaAnterior, this.celdaActual, avances);
 
         if (celdaActual == tablero.getCeldaFinal()) {
             logger.info(this.nombre + " has ganado la partida. ¡Felicitaciones!");
@@ -52,9 +52,9 @@ public class Jugador extends Observable {
 
     // -------------------------------- PRIVADOS -------------------------------- //
 
-    private void notificarObservadores(String nombre, Celda celda, int avances) {
+    private void notificarObservadores(String nombre, Celda celdaAnterior, Celda celdaActual, int avances) {
         for (Observador observador : this.observadores) {
-            observador.actualizar(nombre, celda, avances);
+            observador.actualizar(nombre, celdaAnterior, celdaActual, avances);
         }
     }
 }

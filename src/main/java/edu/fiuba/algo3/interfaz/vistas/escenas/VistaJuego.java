@@ -6,6 +6,7 @@ import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Observador;
 import edu.fiuba.algo3.modelo.Tablero;
 import edu.fiuba.algo3.modelo.celdas.Celda;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -24,17 +25,32 @@ public class VistaJuego extends GridPane implements Observador {
         this.contenedorTablero = new ContenedorTablero(tablero, nombreJugadores);
         this.contenedorConsola = new ContenedorConsola(juego);
 
+        //Los StackPane los cree para que se adapten bien a la ventana (funcionaba), pero ahora que agregue las imagenes de los afectantes no se adapta bien
+        StackPane panelTablero = new StackPane(this.contenedorTablero);
+        StackPane panelConsola = new StackPane(this.contenedorConsola);
+
         ColumnConstraints columnaTablero = new ColumnConstraints();
-        columnaTablero.setPercentWidth(80); // Primera columna ocupa el 80% de la ventana
         ColumnConstraints columnaConsola = new ColumnConstraints();
+        columnaTablero.setPercentWidth(80); // Primera columna ocupa el 80% de la ventana
+        columnaConsola.setPercentWidth(20); // Primera columna ocupa el 20% de la ventana
         super.getColumnConstraints().addAll(columnaTablero, columnaConsola);
 
-        super.add(contenedorTablero, 0, 0);
-        super.add(contenedorConsola, 1, 0);
+        super.add(panelTablero, 0, 0);
+        super.add(panelConsola, 1, 0);
+
+        panelTablero.prefWidthProperty().bind(this.widthProperty());
+        panelTablero.prefHeightProperty().bind(this.heightProperty());
+
+        panelConsola.prefWidthProperty().bind(this.widthProperty());
+        panelConsola.prefHeightProperty().bind(this.heightProperty());
     }
 
-    public void actualizar(String nombreJugador, Celda celda, int avances) {
-        this.contenedorTablero.actualizar(nombreJugador, celda, avances);
+    public void actualizar(String nombreJugador, Celda celdaAnterior, Celda celdaActual, int avances) {
+        if(celdaAnterior == celdaActual){
+            avances = 0;
+        }
+        this.actualizar(avances);
+        this.contenedorTablero.actualizar(nombreJugador, celdaAnterior, celdaActual, avances);
     }
 
     public void actualizar(String nombreJugadorActual, int ronda) {

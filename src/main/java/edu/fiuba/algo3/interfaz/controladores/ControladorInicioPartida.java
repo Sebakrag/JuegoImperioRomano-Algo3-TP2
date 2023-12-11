@@ -27,7 +27,7 @@ public class ControladorInicioPartida implements EventHandler<ActionEvent> {
 
     @Override
     public void handle(ActionEvent evento) {
-        String rutaJson = "/archivos/mapaPrueba.json";
+        String rutaJson = "/archivos/mapa.json";
         TableroParser tableroParser = new TableroParser();
 
         try {

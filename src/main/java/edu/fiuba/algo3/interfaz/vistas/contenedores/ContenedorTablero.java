@@ -10,6 +10,9 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.text.Font;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
@@ -18,6 +21,7 @@ public class ContenedorTablero extends GridPane {
     private final int xInicial;
     private final int yInicial;
     private final ArrayList<StackPane> jugadores;  // Array de StackPanes de gladiadores
+    private List<String> imagenesGladiadores;
 
     public ContenedorTablero(Tablero tablero, ArrayList<String> nombresJugadores) {
         int columnas = tablero.getLargo();
@@ -25,6 +29,14 @@ public class ContenedorTablero extends GridPane {
         this.xInicial = tablero.getCeldaInicial().getX();
         this.yInicial = tablero.getCeldaInicial().getY();
         this.jugadores = new ArrayList<>();
+        this.imagenesGladiadores = new ArrayList<>(List.of(
+                "Gladiador1.png",
+                "Gladiador2.png",
+                "Gladiador3.png",
+                "Gladiador4.png",
+                "Gladiador5.png",
+                "Gladiador6.png"
+        ));
 
         super.setAlignment(Pos.CENTER);
 
@@ -49,32 +61,38 @@ public class ContenedorTablero extends GridPane {
 
 
     // -------------------------------- PUBLICOS -------------------------------- //
-    public void actualizar(String nombre, Celda _celdaAnterior, int avances) {
+    public void actualizar(String nombre, Celda _celdaAnterior, Celda celdaActual, int avances) {
         // TODO: Pregunta si el contenedorTablero puede ser un observador.
         // Quizas vista tablero no es un observador, sino que el observador
         // es vistaJuego y le da la indicacion a tablero para mover.
         StackPane jugador = obtenerPanelJugador(nombre);
-
         int retrasoEntreIteracionesEnMilisegundos = 500; // 1000 ms = 1 segundo
         Timeline timeline = new Timeline();
 
-        if (jugador != null) {
-            Celda celdaAnterior = _celdaAnterior;
-            for (int i = 0; i < avances; i++) {
+        if (jugador != null && avances != 0) {
+            Celda celdaAnterior = _celdaAnterior.celdaSiguiente();
+            if(avances == 1){
                 int finalX = celdaAnterior.getX();
                 int finalY = celdaAnterior.getY();
-
-                KeyFrame keyFrame = new KeyFrame(
-                    Duration.millis(i * retrasoEntreIteracionesEnMilisegundos),
-                    event -> {
-                        setConstraints(jugador, finalX, finalY);
-                    }
-                );
-                timeline.getKeyFrames().add(keyFrame);
-
-                celdaAnterior = celdaAnterior.celdaSiguiente();
+                setConstraints(jugador, finalX, finalY);
             }
-            timeline.play();
+            else{
+                for (int i = 0; i < avances; i++) {
+                    int finalX = celdaAnterior.getX();
+                    int finalY = celdaAnterior.getY();
+
+                    KeyFrame keyFrame = new KeyFrame(
+                            Duration.millis(i * retrasoEntreIteracionesEnMilisegundos),
+                            event -> {
+                                setConstraints(jugador, finalX, finalY);
+                            }
+                    );
+                    timeline.getKeyFrames().add(keyFrame);
+
+                    celdaAnterior = celdaAnterior.celdaSiguiente();
+                }
+                timeline.play();
+            }
         }
     }
 
@@ -86,9 +104,24 @@ public class ContenedorTablero extends GridPane {
         while (!(celdaActual == tablero.getCeldaFinal())) {
             int x = celdaActual.getX();
             int y = celdaActual.getY();
+            String nombrePremio = celdaActual.nombreImagenPremio();
+            String nombreObstaculo = celdaActual.nombreImagenObstaculo();
 
             StackPane panelCeldaActual = this.crearPanelCamino(celdaActual);
             setConstraints(panelCeldaActual, x, y);
+
+            if(!nombrePremio.isEmpty()){
+                ImageView imagenPremio = this.crearImagenPremioObstaculo(nombrePremio);
+                panelCeldaActual.getChildren().add(imagenPremio);
+                StackPane.setAlignment(imagenPremio, Pos.CENTER_RIGHT);
+            }
+
+            if(!nombreObstaculo.isEmpty()){
+                ImageView imagenObstaculo = this.crearImagenPremioObstaculo(nombreObstaculo);
+                panelCeldaActual.getChildren().add(imagenObstaculo);
+                StackPane.setAlignment(imagenObstaculo, Pos.CENTER_LEFT);
+            }
+
             super.getChildren().add(panelCeldaActual);
 
             celdaActual = celdaActual.celdaSiguiente();
@@ -99,6 +132,16 @@ public class ContenedorTablero extends GridPane {
         StackPane panelCeldaActual = this.crearPanelCamino(celdaActual);
         setConstraints(panelCeldaActual, x, y);
         super.getChildren().add(panelCeldaActual);
+    }
+
+    private ImageView crearImagenPremioObstaculo(String imagenPremioObstaculo){
+        Image imagen = new Image("file:" + System.getProperty("user.dir") + "/imagenes/" + imagenPremioObstaculo + ".png");
+        ImageView imageView = new ImageView(imagen);
+        imageView.setPreserveRatio(true);
+        imageView.setFitWidth(50);
+        imageView.setFitHeight(50);
+
+        return imageView;
     }
 
     private void rellenarConCeldasPasto(Tablero tablero) {
@@ -142,21 +185,13 @@ public class ContenedorTablero extends GridPane {
 
     private StackPane crearPanelJugador(ArrayList<String> nombresJugadores, int indiceJugador) {
 
-        StackPane panelJugador = new StackPane();
+        StackPane panelJugador = crearPanelCelda(this.imagenesGladiadores.get(indiceJugador));
         Label etiquetaNombreJugador = new Label(nombresJugadores.get(indiceJugador));
-        Font estiloLetra = Font.loadFont("file:" + System.getProperty("user.dir") + "/fuentes/SourceSerif4-Bold.ttf", 15);
+        Font estiloLetra = Font.loadFont("file:" + System.getProperty("user.dir") + "/fuentes/Cinzel-Black.ttf", 20);
         etiquetaNombreJugador.setFont(estiloLetra);
         etiquetaNombreJugador.setStyle("-fx-text-fill: RED");
 
-        Image imagenFondo = new Image("file:" + System.getProperty("user.dir") + "/imagenes/jugador.png");
-        ImageView imagenGladiador = new ImageView(imagenFondo);
-        imagenGladiador.setPreserveRatio(false);
-
-        panelJugador.prefWidthProperty().bind(super.widthProperty());
-        panelJugador.prefHeightProperty().bind(super.heightProperty());
-
-        panelJugador.getChildren().addAll(imagenGladiador, etiquetaNombreJugador);
-        panelJugador.setAlignment(Pos.CENTER);
+        panelJugador.getChildren().add(etiquetaNombreJugador);
 
         return panelJugador;
     }
@@ -190,7 +225,7 @@ public class ContenedorTablero extends GridPane {
 
     private StackPane obtenerPanelJugador(String nombre) {
         for (StackPane jugador : this.jugadores) {
-            Label nombreJugador = (Label) jugador.getChildren().get(1);
+            Label nombreJugador = (Label) jugador.getChildren().get(0);
             if (nombreJugador.getText().equals(nombre)) {
                 return jugador;
             }
