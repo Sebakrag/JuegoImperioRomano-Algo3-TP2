@@ -30,16 +30,17 @@ public class CasosDeUsoSemana1Test {
     }
 
     private void ascenderASemiSenior(Jugador jugador, Tablero tablero) {
-        int avances = 1;  // avances arbitrarios
+        int avances = 1;
         for (int i = 0; i < 8; i++) {
             jugador.jugarTurno(avances, tablero);
         }
     }
 
-    private void jugarVeintiNueveRondas(Juego juego) {
+    private void jugarVeintiNueveRondas(Juego juego, Dado dado) {
+
         for (int i = 0; i < 29; i++) {
-            juego.jugarTurnoDeJugadorActual();
-            juego.jugarTurnoDeJugadorActual();
+            juego.jugarTurnoDeJugadorActual(dado);
+            juego.jugarTurnoDeJugadorActual(dado);
         }
     }
 
@@ -344,11 +345,11 @@ public class CasosDeUsoSemana1Test {
 
         Juego juego = new Juego(logger, tablero);
         juego.iniciarPartida(nombresJugadores);
+        Dado dado = new Dado(1);
+        jugarVeintiNueveRondas(juego, dado );
 
-        jugarVeintiNueveRondas(juego);
+        juego.jugarTurnoDeJugadorActual(dado);
 
-        juego.jugarTurnoDeJugadorActual();
-
-        Assertions.assertThrows(PasaronTreintaRondasYnoHuboGanadorError.class,()-> juego.jugarTurnoDeJugadorActual());
+        Assertions.assertThrows(PasaronTreintaRondasYnoHuboGanadorError.class,()-> juego.jugarTurnoDeJugadorActual(dado));
     }
 }

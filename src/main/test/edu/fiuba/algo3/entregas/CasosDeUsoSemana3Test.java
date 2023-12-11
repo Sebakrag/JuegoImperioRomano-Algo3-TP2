@@ -15,10 +15,10 @@ import org.apache.logging.log4j.Logger;
 
 public class CasosDeUsoSemana3Test {
 
-    private void jugarCantidadDeRondas(Juego juego, int cantidadRondas) {
+    private void jugarCantidadDeRondas(Juego juego, int cantidadRondas, Dado dado) {
         for (int i = 0; i < cantidadRondas; i++) {
-            juego.jugarTurnoDeJugadorActual();
-            juego.jugarTurnoDeJugadorActual();
+            juego.jugarTurnoDeJugadorActual(dado);
+            juego.jugarTurnoDeJugadorActual(dado);
         }
     }
 
@@ -44,10 +44,10 @@ public class CasosDeUsoSemana3Test {
         Juego juego = new Juego(logger, tablero);
         juego.iniciarPartida(nombresJugadores);
 
-        // TODO: Depende del dado que es Random, ver como hacer que jugador avanze de 1 en 1
-        jugarCantidadDeRondas(juego, 4);
+        Dado dado = new Dado(1);
+        jugarCantidadDeRondas(juego, 4, dado);
 
-        Assertions.assertThrows(UnJugadorGanoLaPartidaError.class, () -> juego.jugarTurnoDeJugadorActual());
+        Assertions.assertThrows(UnJugadorGanoLaPartidaError.class, () -> juego.jugarTurnoDeJugadorActual(dado));
     }
 
     @Test
@@ -68,10 +68,11 @@ public class CasosDeUsoSemana3Test {
         Juego juego = new Juego(logger, tablero);
         juego.iniciarPartida(nombresJugadores);
 
-        jugarCantidadDeRondas(juego, 29);
+        Dado dado = new Dado(1);
+        jugarCantidadDeRondas(juego, 29, dado);
 
-        juego.jugarTurnoDeJugadorActual();
+        juego.jugarTurnoDeJugadorActual(dado);
 
-        Assertions.assertThrows(PasaronTreintaRondasYnoHuboGanadorError.class,()-> juego.jugarTurnoDeJugadorActual());
+        Assertions.assertThrows(PasaronTreintaRondasYnoHuboGanadorError.class,()-> juego.jugarTurnoDeJugadorActual(dado));
     }
 }

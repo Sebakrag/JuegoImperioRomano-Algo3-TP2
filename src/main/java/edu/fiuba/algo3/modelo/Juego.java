@@ -39,8 +39,7 @@ public class Juego extends Observable {
         notificarObservadores(this.jugadorInicial.getNombre(), this.ronda);
     }
 
-    public void jugarTurnoDeJugadorActual() throws UnJugadorGanoLaPartidaError, PasaronTreintaRondasYnoHuboGanadorError {
-        Dado dado = new Dado(6);
+    public void jugarTurnoDeJugadorActual(Dado dado) throws UnJugadorGanoLaPartidaError, PasaronTreintaRondasYnoHuboGanadorError {
         this.hayGanador = this.jugadorTurnoActual.jugarTurno(dado.tirar(), this.tablero);
         if (this.hayGanador) {
             throw new UnJugadorGanoLaPartidaError();
