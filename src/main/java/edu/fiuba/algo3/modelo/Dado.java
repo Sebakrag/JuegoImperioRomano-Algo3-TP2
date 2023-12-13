@@ -2,7 +2,7 @@ package edu.fiuba.algo3.modelo;
 
 import java.util.Random;
 
-public class Dado extends Observable {
+public class Dado {
 
     private int ultimoNumeroTirado;
     private int caras = 6;
@@ -15,11 +15,5 @@ public class Dado extends Observable {
         Random random = new Random();
         this.ultimoNumeroTirado = (random.nextInt(caras) + 1);
         return this.ultimoNumeroTirado;
-    }
-
-    public void notificarObservadores(int ultimoNumeroTirado) {
-        for (Observador observador : this.observadores) {
-            observador.actualizar(ultimoNumeroTirado);
-        }
     }
 }

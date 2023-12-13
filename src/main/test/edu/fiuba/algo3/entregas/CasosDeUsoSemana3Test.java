@@ -27,12 +27,12 @@ public class CasosDeUsoSemana3Test {
         Logger logger = LogManager.getLogger();
 
         ArrayList<Celda> celdas = new ArrayList<>();
-        celdas.add(new CeldaInicial(0,0, logger));
-        celdas.add(new CeldaComun(0,1, new Potenciador(), new Vacio(), logger, "", ""));
-        celdas.add(new CeldaComun(0,2, new Potenciador(), new Vacio(), logger, "", ""));
-        celdas.add(new CeldaComun(0,3, new Potenciador(), new Vacio(), logger, "", ""));
-        celdas.add(new CeldaComun(0,4, new Potenciador(), new Vacio(), logger, "", ""));
-        celdas.add(new CeldaFinal(0,5,logger));
+        celdas.add(new CeldaInicial(0,0, logger, "", "", ""));
+        celdas.add(new CeldaComun(0,1, new Potenciador(), new Vacio(), logger, "", "", ""));
+        celdas.add(new CeldaComun(0,2, new Potenciador(), new Vacio(), logger, "", "", ""));
+        celdas.add(new CeldaComun(0,3, new Potenciador(), new Vacio(), logger, "", "", ""));
+        celdas.add(new CeldaComun(0,4, new Potenciador(), new Vacio(), logger, "", "", ""));
+        celdas.add(new CeldaFinal(0,5,logger, "", "", ""));
 
         Tablero tablero = new Tablero(1,6);
         tablero.armarMapa(celdas);
@@ -55,9 +55,9 @@ public class CasosDeUsoSemana3Test {
         Logger logger = LogManager.getLogger();
 
         ArrayList<Celda> celdas = new ArrayList<>();
-        celdas.add(new CeldaInicial(0,0,logger));
-        celdas.add(new CeldaComun(0,1, new Vacio(), new Vacio(), logger, "", ""));
-        celdas.add(new CeldaFinal(0,2, logger));
+        celdas.add(new CeldaInicial(0,0,logger, "", "", ""));
+        celdas.add(new CeldaComun(0,1, new Vacio(), new Vacio(), logger, "", "", ""));
+        celdas.add(new CeldaFinal(0,2, logger, "", "", ""));
         Tablero tablero = new Tablero(1,3);
         tablero.armarMapa(celdas);
 

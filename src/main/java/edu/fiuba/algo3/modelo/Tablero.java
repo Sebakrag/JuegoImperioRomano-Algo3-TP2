@@ -17,7 +17,7 @@ public class Tablero {
 
     public void armarMapa(ArrayList<Celda> celdas) throws CantidadInvalidaDeCeldasError {
 
-        if ( celdas.size() < 2 ){
+        if ( celdas.size() < 2 ) {
             throw new CantidadInvalidaDeCeldasError();
         }
 

@@ -32,7 +32,7 @@ public class ContenedorConsola extends VBox {
 
         BotonJugarTurno botonJugarTurno = new BotonJugarTurno("Jugar Turno", juego);
 
-        Image imagenFondo = new Image("file:" + System.getProperty("user.dir") + "/imagenes/Consola.jpg");
+        Image imagenFondo = new Image("file:" + System.getProperty("user.dir") + "/imagenes/tableroYConsola/Consola.jpg");
 
         ImagePattern imagePattern = new ImagePattern(imagenFondo, 0, 0, 1, 1, true);
         BackgroundFill backgroundFill = new BackgroundFill(imagePattern, null, null);

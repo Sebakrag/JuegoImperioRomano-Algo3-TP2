@@ -5,15 +5,16 @@ import edu.fiuba.algo3.modelo.excepcion.CoordenadaInvalidaError;
 import org.apache.logging.log4j.Logger;
 
 public abstract class Celda {
+    protected String nombreImagen;
     protected Celda siguiente;
     protected int x;
     protected int y;
     protected Logger logger;
-    protected String nombreImagenePremio;
-    protected String nombreImageneObstaculo;
+    protected String nombreImagenPremio;
+    protected String nombreImagenObstaculo;
 
     protected void coordenadasValidas(int x, int y) {
-        if(x < 0 || y < 0) {
+        if (x < 0 || y < 0) {
             throw new CoordenadaInvalidaError();
         }
     }
@@ -26,9 +27,9 @@ public abstract class Celda {
 
     public abstract String nombreImagenFondo();
 
-    public abstract String nombreImagenPremio();    // TODO: Check
+    public abstract String nombreImagenPremio();
 
-    public abstract String nombreImagenObstaculo();   // TODO: Check
+    public abstract String nombreImagenObstaculo();
 
     public int getX() {
         return this.x;

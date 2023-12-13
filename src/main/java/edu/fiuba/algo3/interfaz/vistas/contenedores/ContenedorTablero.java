@@ -10,7 +10,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.text.Font;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javafx.animation.KeyFrame;
@@ -23,19 +22,23 @@ public class ContenedorTablero extends GridPane {
     private final ArrayList<StackPane> jugadores;  // Array de StackPanes de gladiadores
     private List<String> imagenesGladiadores;
 
+    private Tablero tablero;
+
     public ContenedorTablero(Tablero tablero, ArrayList<String> nombresJugadores) {
+        this.tablero = tablero;
+
         int columnas = tablero.getLargo();
         int filas = tablero.getAncho();
         this.xInicial = tablero.getCeldaInicial().getX();
         this.yInicial = tablero.getCeldaInicial().getY();
         this.jugadores = new ArrayList<>();
         this.imagenesGladiadores = new ArrayList<>(List.of(
-                "Gladiador1.png",
-                "Gladiador2.png",
-                "Gladiador3.png",
-                "Gladiador4.png",
-                "Gladiador5.png",
-                "Gladiador6.png"
+                "gladiadores/Gladiador1",
+                "gladiadores/Gladiador2",
+                "gladiadores/Gladiador3",
+                "gladiadores/Gladiador4",
+                "gladiadores/Gladiador5",
+                "gladiadores/Gladiador6"
         ));
 
         super.setAlignment(Pos.CENTER);
@@ -61,23 +64,21 @@ public class ContenedorTablero extends GridPane {
 
 
     // -------------------------------- PUBLICOS -------------------------------- //
-    public void actualizar(String nombre, Celda _celdaAnterior, Celda celdaActual, int avances) {
+    public void actualizar(String nombre, Celda celdaAnterior, Celda celdaActual) {
         // TODO: Pregunta si el contenedorTablero puede ser un observador.
-        // Quizas vista tablero no es un observador, sino que el observador
-        // es vistaJuego y le da la indicacion a tablero para mover.
         StackPane jugador = obtenerPanelJugador(nombre);
         int retrasoEntreIteracionesEnMilisegundos = 500; // 1000 ms = 1 segundo
         Timeline timeline = new Timeline();
 
-        if (jugador != null && avances != 0) {
-            Celda celdaAnterior = _celdaAnterior.celdaSiguiente();
-            if(avances == 1){
-                int finalX = celdaAnterior.getX();
-                int finalY = celdaAnterior.getY();
+        if (jugador != null) {
+            Celda celdaSiguiente = celdaAnterior.celdaSiguiente();
+            if (celdaSiguiente == celdaActual) {
+                int finalX = celdaSiguiente.getX();
+                int finalY = celdaSiguiente.getY();
                 setConstraints(jugador, finalX, finalY);
-            }
-            else{
-                for (int i = 0; i < avances; i++) {
+            } else {
+                int i = 0;
+                while (celdaAnterior != celdaActual) {
                     int finalX = celdaAnterior.getX();
                     int finalY = celdaAnterior.getY();
 
@@ -88,9 +89,27 @@ public class ContenedorTablero extends GridPane {
                             }
                     );
                     timeline.getKeyFrames().add(keyFrame);
-
                     celdaAnterior = celdaAnterior.celdaSiguiente();
+                    i++;
                 }
+                /*
+                for (int i = 0; i < avances; i++) {
+                    int finalX = celdaSiguiente.getX();
+                    int finalY = celdaSiguiente.getY();
+
+                    KeyFrame keyFrame = new KeyFrame(
+                            Duration.millis(i * retrasoEntreIteracionesEnMilisegundos),
+                            event -> {
+                                setConstraints(jugador, finalX, finalY);
+                            }
+                    );
+                    timeline.getKeyFrames().add(keyFrame);
+
+                    celdaSiguiente = celdaSiguiente.celdaSiguiente();
+
+                }
+                 */
+
                 timeline.play();
             }
         }
@@ -104,28 +123,15 @@ public class ContenedorTablero extends GridPane {
         while (!(celdaActual == tablero.getCeldaFinal())) {
             int x = celdaActual.getX();
             int y = celdaActual.getY();
-            String nombrePremio = celdaActual.nombreImagenPremio();
-            String nombreObstaculo = celdaActual.nombreImagenObstaculo();
 
             StackPane panelCeldaActual = this.crearPanelCamino(celdaActual);
-            setConstraints(panelCeldaActual, x, y);
-
-            if(!nombrePremio.isEmpty()){
-                ImageView imagenPremio = this.crearImagenPremioObstaculo(nombrePremio);
-                panelCeldaActual.getChildren().add(imagenPremio);
-                StackPane.setAlignment(imagenPremio, Pos.CENTER_RIGHT);
-            }
-
-            if(!nombreObstaculo.isEmpty()){
-                ImageView imagenObstaculo = this.crearImagenPremioObstaculo(nombreObstaculo);
-                panelCeldaActual.getChildren().add(imagenObstaculo);
-                StackPane.setAlignment(imagenObstaculo, Pos.CENTER_LEFT);
-            }
 
             super.getChildren().add(panelCeldaActual);
+            setConstraints(panelCeldaActual, x, y);
 
             celdaActual = celdaActual.celdaSiguiente();
         }
+
         int x = celdaActual.getX();
         int y = celdaActual.getY();
         // Llegado este punto se crea el panel de la celda final y se lo ubica en la grilla del tablero.
@@ -134,12 +140,12 @@ public class ContenedorTablero extends GridPane {
         super.getChildren().add(panelCeldaActual);
     }
 
-    private ImageView crearImagenPremioObstaculo(String imagenPremioObstaculo){
+    private ImageView crearImagenPremioObstaculo(String imagenPremioObstaculo) {
         Image imagen = new Image("file:" + System.getProperty("user.dir") + "/imagenes/" + imagenPremioObstaculo + ".png");
         ImageView imageView = new ImageView(imagen);
         imageView.setPreserveRatio(true);
-        imageView.setFitWidth(50);
-        imageView.setFitHeight(50);
+        imageView.setFitWidth(30);
+        imageView.setFitHeight(30);
 
         return imageView;
     }
@@ -147,7 +153,7 @@ public class ContenedorTablero extends GridPane {
     private void rellenarConCeldasPasto(Tablero tablero) {
         for (int i = 0; i < tablero.getAncho(); i++) {
             for (int j = 0; j < tablero.getLargo(); j++) {
-                StackPane panelCelda = crearPanelCelda("imagenPasto.png");
+                StackPane panelCelda = crearPanelCelda("imagenPasto");
                 super.getChildren().add(panelCelda);
                 setConstraints(panelCelda, j, i);
             }
@@ -156,7 +162,7 @@ public class ContenedorTablero extends GridPane {
 
     private StackPane crearPanelCelda(String nombreImagen) {
         StackPane panelCelda = new StackPane();
-        Image imagenFondo = new Image("file:" + System.getProperty("user.dir") + "/imagenes/" + nombreImagen);
+        Image imagenFondo = new Image("file:" + System.getProperty("user.dir") + "/imagenes/tableroYConsola/" + nombreImagen + ".png");
 
         ImagePattern imagePattern = new ImagePattern(imagenFondo, 0, 0, 1, 1, true);
         BackgroundFill backgroundFill = new BackgroundFill(imagePattern, null, null);
@@ -196,31 +202,26 @@ public class ContenedorTablero extends GridPane {
         return panelJugador;
     }
 
-    // TODO: Decidir si vamos a poner imagenes de afectantes en las celdas
     private StackPane crearPanelCamino(Celda celdaActual) {
-        return crearPanelCelda(celdaActual.nombreImagenFondo());
+        StackPane celdaCamino = this.crearPanelCelda(celdaActual.nombreImagenFondo());
+        String nombrePremio = celdaActual.nombreImagenPremio();
+        String nombreObstaculo = celdaActual.nombreImagenObstaculo();
 
-        // Si optamos por no agregar una imagen del premio y del obstaculo en cada celda, el metodo crearPanelCamino
-        // pasa a ser innecesario y usariamos "crearPanelCelda" como su reemplazante.
+        if (!nombrePremio.isEmpty()) {
+            String ruta = "premios/" + nombrePremio;
+            ImageView imagenPremio = this.crearImagenPremioObstaculo(ruta);
+            celdaCamino.getChildren().add(imagenPremio);
+            StackPane.setAlignment(imagenPremio, Pos.CENTER_RIGHT);
+        }
 
-        /*   Este codigo comentado sirve si queremos poner una imagen del premio y del obstaculo en cada celda que tenga el respectivo premio u obstaculo
-        StackPane panelCelda = crearPanelCelda(celdaActual.nombreImagenFondo());
-        Image imagenPremio = new Image("file:" + System.getProperty("user.dir") + "/imagenes/" + celdaActual.nombreImagenPremio());
-        Image imagenObstaculo = new Image("file:" + System.getProperty("user.dir") + "/imagenes/" + celdaActual.nombreImagenObstaculo());
+        if (!nombreObstaculo.isEmpty()) {
+            String ruta = "obstaculos/" + nombreObstaculo;
+            ImageView imagenObstaculo = this.crearImagenPremioObstaculo(ruta);
+            celdaCamino.getChildren().add(imagenObstaculo);
+            StackPane.setAlignment(imagenObstaculo, Pos.CENTER_LEFT);
+        }
 
-        ImageView viewImagenPremio = new ImageView(imagenPremio);
-        viewImagenPremio.setFitHeight(20);
-        viewImagenPremio.setFitWidth(20);
-
-        ImageView viewImagenObstaculo = new ImageView(imagenObstaculo);
-        viewImagenObstaculo.setFitHeight(20);
-        viewImagenObstaculo.setFitWidth(20);
-
-        panelCelda.getChildren().add(viewImagenPremio);
-        panelCelda.getChildren().add(viewImagenObstaculo);
-
-        return panelCelda;
-        */
+        return celdaCamino;
     }
 
     private StackPane obtenerPanelJugador(String nombre) {

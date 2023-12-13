@@ -15,6 +15,4 @@ public interface Observador {
     public void actualizar(String seniorityID);
 
     public void actualizar(int energia, String ID);
-
-    public void actualizar(int ultimoNumeroTirado);
 }

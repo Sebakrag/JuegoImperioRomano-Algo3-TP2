@@ -49,8 +49,8 @@ public class CasosDeUsoSemana1Test {
         Logger logger = LogManager.getLogger();
         int primerTurno = 1;
 
-        CeldaInicial celdaInicial = new CeldaInicial(0, 0, logger);
-        CeldaFinal celdaFinal = new CeldaFinal(0,1,logger);
+        CeldaInicial celdaInicial = new CeldaInicial(0, 0, logger, "", "", "");
+        CeldaFinal celdaFinal = new CeldaFinal(0,1,logger, "", "", "");
         ArrayList<Celda> celdas = new ArrayList<>();
         Dado dado = new Dado(6);
 
@@ -74,8 +74,8 @@ public class CasosDeUsoSemana1Test {
         int primerTurno = 1;
         Dado dado = new Dado(1);
 
-        CeldaInicial celdaInicial = new CeldaInicial(0, 0, logger);
-        CeldaComun celdaComun = new CeldaComun(0, 1, new Vacio(), new Fiera(), logger, "", "");
+        CeldaInicial celdaInicial = new CeldaInicial(0, 0, logger, "", "", "");
+        CeldaComun celdaComun = new CeldaComun(0, 1, new Vacio(), new Fiera(), logger, "", "", "");
 
         ArrayList<Celda> celdas = new ArrayList<>();
         celdas.add(celdaInicial);
@@ -96,8 +96,8 @@ public class CasosDeUsoSemana1Test {
         Logger logger = LogManager.getLogger();
         int primerTurno = 1;
 
-        CeldaInicial celdaInicial = new CeldaInicial(0, 0, logger);
-        CeldaFinal celdaFinal = new CeldaFinal(0,1,logger);
+        CeldaInicial celdaInicial = new CeldaInicial(0, 0, logger, "", "", "");
+        CeldaFinal celdaFinal = new CeldaFinal(0,1,logger, "", "", "");
         ArrayList<Celda> celdas = new ArrayList<>();
         Dado dado = new Dado(6);
 
@@ -121,8 +121,8 @@ public class CasosDeUsoSemana1Test {
         int turno = 5;
 
         Dado dado = new Dado(6);
-        CeldaInicial celdaInicial = new CeldaInicial(0, 0, logger);
-        CeldaFinal celdaFinal = new CeldaFinal(0,1,logger);
+        CeldaInicial celdaInicial = new CeldaInicial(0, 0, logger, "", "", "");
+        CeldaFinal celdaFinal = new CeldaFinal(0,1,logger, "", "", "");
         ArrayList<Celda> celdas = new ArrayList<>();
         celdas.add(celdaInicial);
         celdas.add(celdaFinal);
@@ -146,8 +146,8 @@ public class CasosDeUsoSemana1Test {
         int turno = 4; //no va al caso del test, es lo mismo
 
         Dado dado = new Dado(6);
-        CeldaInicial celdaInicial = new CeldaInicial(0, 0, logger);
-        CeldaFinal celdaFinal = new CeldaFinal(0,1,logger);
+        CeldaInicial celdaInicial = new CeldaInicial(0, 0, logger, "", "", "");
+        CeldaFinal celdaFinal = new CeldaFinal(0,1,logger, "", "", "");
         ArrayList<Celda> celdas = new ArrayList<>();
         celdas.add(celdaInicial);
         celdas.add(celdaFinal);
@@ -171,8 +171,8 @@ public class CasosDeUsoSemana1Test {
         int turno = 20;
 
         Dado dado = new Dado(6);
-        CeldaInicial celdaInicial = new CeldaInicial(0, 0, logger);
-        CeldaFinal celdaFinal = new CeldaFinal(0,1,logger);
+        CeldaInicial celdaInicial = new CeldaInicial(0, 0, logger, "", "", "");
+        CeldaFinal celdaFinal = new CeldaFinal(0,1,logger, "", "", "");
         ArrayList<Celda> celdas = new ArrayList<>();
         celdas.add(celdaInicial);
         celdas.add(celdaFinal);
@@ -197,9 +197,9 @@ public class CasosDeUsoSemana1Test {
         int turno = 10;
 
         Dado dado = new Dado(1);
-        CeldaInicial celdaInicial = new CeldaInicial(0, 0, logger);
-        CeldaComun celdaComun = new CeldaComun(0,1, new Vacio(), new Vacio(), logger, "", "");
-        CeldaFinal celdaFinal = new CeldaFinal(0, 2, logger);
+        CeldaInicial celdaInicial = new CeldaInicial(0, 0, logger, "", "", "");
+        CeldaComun celdaComun = new CeldaComun(0,1, new Vacio(), new Vacio(), logger, "", "", "");
+        CeldaFinal celdaFinal = new CeldaFinal(0, 2, logger, "", "", "");
 
         ArrayList<Celda> celdas = new ArrayList<>();
         celdas.add(celdaInicial);
@@ -233,8 +233,8 @@ public class CasosDeUsoSemana1Test {
         Dado dado = new Dado(1);
         int turno = 8;
 
-        CeldaInicial celdaInicial = new CeldaInicial(0, 0, logger);
-        CeldaFinal celdaFinal = new CeldaFinal(0,1,logger);
+        CeldaInicial celdaInicial = new CeldaInicial(0, 0, logger, "", "", "");
+        CeldaFinal celdaFinal = new CeldaFinal(0,1,logger, "", "", "");
         ArrayList<Celda> celdas = new ArrayList<>();
         celdas.add(celdaInicial);
         celdas.add(celdaFinal);
@@ -260,8 +260,8 @@ public class CasosDeUsoSemana1Test {
        int turno= 19;
 
        Dado dado = new Dado(1);
-       CeldaInicial celdaInicial = new CeldaInicial(0,0, logger);
-       CeldaFinal celdaFinal = new CeldaFinal(0,1,logger);
+       CeldaInicial celdaInicial = new CeldaInicial(0,0, logger, "", "", "");
+       CeldaFinal celdaFinal = new CeldaFinal(0,1,logger, "", "", "");
        ArrayList<Celda> celdas = new ArrayList<>();
        celdas.add(celdaInicial);
        celdas.add(celdaFinal);
@@ -282,8 +282,8 @@ public class CasosDeUsoSemana1Test {
         int turno = 10;
 
         Dado dado = new Dado(1);
-        CeldaInicial celdaInicial = new CeldaInicial(0, 0, logger);
-        CeldaComun celdaComun = new CeldaComun(0, 1, new Vacio(), new Vacio(), logger, "", "");
+        CeldaInicial celdaInicial = new CeldaInicial(0, 0, logger, "", "", "");
+        CeldaComun celdaComun = new CeldaComun(0, 1, new Vacio(), new Vacio(), logger, "", "", "");
         ArrayList<Celda> celdas = new ArrayList<>();
         celdas.add(celdaInicial);
         celdas.add(celdaComun);
@@ -309,8 +309,8 @@ public class CasosDeUsoSemana1Test {
         int turno = 10;
 
         Dado dado = new Dado(1);
-        CeldaInicial celdaInicial = new CeldaInicial(0,0, logger);
-        CeldaComun celdaComun = new CeldaComun(0,1, new Vacio(), new Vacio(), logger, "", "");
+        CeldaInicial celdaInicial = new CeldaInicial(0,0, logger, "", "", "");
+        CeldaComun celdaComun = new CeldaComun(0,1, new Vacio(), new Vacio(), logger, "", "", "");
         ArrayList<Celda> celdas = new ArrayList<>();
         celdas.add(celdaInicial);
         celdas.add(celdaComun);
@@ -334,8 +334,8 @@ public class CasosDeUsoSemana1Test {
         Logger logger = LogManager.getLogger();
 
         ArrayList<Celda> celdas = new ArrayList<>();
-        celdas.add(new CeldaInicial(0,0,logger));
-        celdas.add(new CeldaFinal(0,1, logger));
+        celdas.add(new CeldaInicial(0,0,logger, "", "", ""));
+        celdas.add(new CeldaFinal(0,1, logger, "", "", ""));
         Tablero tablero = new Tablero(1,1);
         tablero.armarMapa(celdas);
 

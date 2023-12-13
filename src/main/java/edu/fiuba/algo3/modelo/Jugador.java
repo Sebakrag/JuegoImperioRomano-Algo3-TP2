@@ -57,4 +57,5 @@ public class Jugador extends Observable {
             observador.actualizar(nombre, celdaAnterior, celdaActual, avances);
         }
     }
+
 }

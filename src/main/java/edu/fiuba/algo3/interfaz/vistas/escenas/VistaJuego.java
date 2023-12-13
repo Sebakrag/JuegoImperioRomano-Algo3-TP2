@@ -6,7 +6,6 @@ import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Observador;
 import edu.fiuba.algo3.modelo.Tablero;
 import edu.fiuba.algo3.modelo.celdas.Celda;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -46,11 +45,12 @@ public class VistaJuego extends GridPane implements Observador {
     }
 
     public void actualizar(String nombreJugador, Celda celdaAnterior, Celda celdaActual, int avances) {
-        if(celdaAnterior == celdaActual){
-            avances = 0;
+        if (celdaAnterior != celdaActual) {
+            this.contenedorConsola.actualizar(avances);
+            this.contenedorTablero.actualizar(nombreJugador, celdaAnterior, celdaActual);
+        } else {
+            this.contenedorConsola.actualizar(0);
         }
-        this.actualizar(avances);
-        this.contenedorTablero.actualizar(nombreJugador, celdaAnterior, celdaActual, avances);
     }
 
     public void actualizar(String nombreJugadorActual, int ronda) {
@@ -63,10 +63,6 @@ public class VistaJuego extends GridPane implements Observador {
 
     public void actualizar(int energia, String ID) {
         this.contenedorConsola.actualizar(energia, ID);
-    }
-
-    public void actualizar(int ultimoNumeroTirado) {
-        this.contenedorConsola.actualizar(ultimoNumeroTirado);
     }
 
     public void actualizar(String nombreJugador, boolean hayGanador) {

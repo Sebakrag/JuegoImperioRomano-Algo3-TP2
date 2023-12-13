@@ -5,22 +5,22 @@ import edu.fiuba.algo3.modelo.Gladiador;
 import org.apache.logging.log4j.Logger;
 
 public class CeldaComun extends Celda {
-    private final String nombreImagen = "tuki_flor_camino.png";
     private Afectante premio;
     private Afectante obstaculo;
     //private final Logger logger;
-    public CeldaComun(int x, int y, Afectante premio, Afectante obstaculo,Logger logger, String nombrePremio, String nombreObstaculo){
+    public CeldaComun(int x, int y, Afectante premio, Afectante obstaculo,Logger logger, String nombrePremio, String nombreObstaculo, String nombreImagen) {
         this.coordenadasValidas(x,y);
         this.x = x;
         this.y = y;
         this.premio = premio;
         this.obstaculo = obstaculo;
         this.logger = logger;
-        this.nombreImagenePremio = nombrePremio;
-        this.nombreImageneObstaculo = nombreObstaculo;
+        this.nombreImagenPremio = nombrePremio;
+        this.nombreImagenObstaculo = nombreObstaculo;
+        this.nombreImagen = nombreImagen;
     }
 
-    public Celda afectar(Gladiador gladiador){
+    public Celda afectar(Gladiador gladiador) {
         logger.info("Se avanzo hasta la celda ("+ this.x + ", " + this.y + " )");
         this.premio.afectar(gladiador);
         this.obstaculo.afectar(gladiador);
@@ -35,26 +35,10 @@ public class CeldaComun extends Celda {
     public String nombreImagenFondo() { return this.nombreImagen; }
 
     public String nombreImagenPremio() {
-        return this.nombreImagenePremio;
+        return this.nombreImagenPremio;
     }
 
     public String nombreImagenObstaculo(){
-        return this.nombreImageneObstaculo;
+        return this.nombreImagenObstaculo;
     }
-
-    /*
-    @Override
-    public String nombreImagenPremio() {
-        //return this.premio.nombreImagen();   --> Si llegasemos a hacer esto, deberiamos agregar el metodo
-        //                                          nombreImagen() en la interfaz Afectante. De esta manera
-        //                                          hariamos que cada Afectante (ya sea un premio o un ostaculo
-        //                                          redefina dicho metodo y devuelva un string que corresponda
-        //                                          al nombre de su imagen)
-    }
-
-    @Override
-    public String nombreImagenObstaculo() {
-        //return this.obstaculo.nombreImagen();    // TODO: Check
-    }
-    */
 }
