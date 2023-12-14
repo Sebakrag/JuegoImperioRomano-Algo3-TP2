@@ -27,9 +27,13 @@ public abstract class Celda {
 
     public abstract String nombreImagenFondo();
 
-    public abstract String nombreImagenPremio();
+    public String nombreImagenPremio() {
+        return "";
+    }
 
-    public abstract String nombreImagenObstaculo();
+    public String nombreImagenObstaculo(){
+        return "";
+    }
 
     public int getX() {
         return this.x;

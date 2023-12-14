@@ -9,6 +9,12 @@ public class Fiera implements Afectante {
     public void afectar(Gladiador gladiador){
         gladiador.recibirImpacto(this);
     }
+
+    @Override
+    public String identificador() {
+        return "fiera";
+    }
+
 }
 
 

@@ -9,4 +9,10 @@ public class Vacio implements Afectante {
     public void afectar(Gladiador gladiador) {
         gladiador.recibirImpacto(this);
     }
+
+    @Override
+    public String identificador() {
+        return "";
+    }
+
 }

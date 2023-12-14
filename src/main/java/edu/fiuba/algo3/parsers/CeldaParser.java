@@ -36,14 +36,13 @@ public class CeldaParser {
 
         switch(tipo) {
             case "salida":
-                return new CeldaInicial(coorX, coorY, logger, premio, obstaculo, tipo);
+                return new CeldaInicial(coorX, coorY, logger);
             case "camino":
                 Afectante afectantePremio = this.parsearPremio(premio);
                 Afectante afectanteObstaculo = this.parsearObstaculo(obstaculo);
-                CeldaComun celdaComun = new CeldaComun(coorX, coorY, afectanteObstaculo, afectantePremio, logger, premio, obstaculo, tipo);
-                return celdaComun;
+                return new CeldaComun(coorX, coorY, afectanteObstaculo, afectantePremio, logger);
             case "llegada":
-                return new CeldaFinal(coorX, coorY, logger, premio, obstaculo, tipo);
+                return new CeldaFinal(coorX, coorY, logger);
             default:
                 throw new TipoDeCeldaEnArchivoNoValidaError();
         }

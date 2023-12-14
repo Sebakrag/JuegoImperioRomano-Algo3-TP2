@@ -5,19 +5,18 @@ import edu.fiuba.algo3.modelo.Gladiador;
 import org.apache.logging.log4j.Logger;
 
 public class CeldaComun extends Celda {
+    private static final String IDENTIFICADOR = "CC";
     private Afectante premio;
     private Afectante obstaculo;
     //private final Logger logger;
-    public CeldaComun(int x, int y, Afectante premio, Afectante obstaculo,Logger logger, String nombrePremio, String nombreObstaculo, String nombreImagen) {
+
+    public CeldaComun(int x, int y, Afectante premio, Afectante obstaculo,Logger logger) {
         this.coordenadasValidas(x,y);
         this.x = x;
         this.y = y;
         this.premio = premio;
         this.obstaculo = obstaculo;
         this.logger = logger;
-        this.nombreImagenPremio = nombrePremio;
-        this.nombreImagenObstaculo = nombreObstaculo;
-        this.nombreImagen = nombreImagen;
     }
 
     public Celda afectar(Gladiador gladiador) {
@@ -32,13 +31,15 @@ public class CeldaComun extends Celda {
         return this.siguiente;
     }
 
-    public String nombreImagenFondo() { return this.nombreImagen; }
+    public String nombreImagenFondo() { return IDENTIFICADOR; }
 
-    public String nombreImagenPremio() {
-        return this.nombreImagenPremio;
+    @Override
+    public String nombreImagenObstaculo(){
+        return this.obstaculo.identificador();
     }
 
-    public String nombreImagenObstaculo(){
-        return this.nombreImagenObstaculo;
+    @Override
+    public String nombreImagenPremio(){
+        return this.obstaculo.identificador();
     }
 }
