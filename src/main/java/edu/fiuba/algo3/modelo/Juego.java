@@ -70,6 +70,7 @@ public class Juego extends Observable {
     public void agregarObservadorAJugadores(Observador observador) {
         for (Jugador jugador : this.jugadores) {
             jugador.agregarObservador(observador);
+            jugador.agregarObservadorAGladiador(observador);
         }
     }
 

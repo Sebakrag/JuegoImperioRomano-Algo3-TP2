@@ -79,6 +79,7 @@ public class ContenedorTablero extends GridPane {
             } else {
                 int i = 0;
                 while (celdaAnterior != celdaActual) {
+                    celdaAnterior = celdaAnterior.celdaSiguiente();
                     int finalX = celdaAnterior.getX();
                     int finalY = celdaAnterior.getY();
 
@@ -89,26 +90,8 @@ public class ContenedorTablero extends GridPane {
                             }
                     );
                     timeline.getKeyFrames().add(keyFrame);
-                    celdaAnterior = celdaAnterior.celdaSiguiente();
                     i++;
                 }
-                /*
-                for (int i = 0; i < avances; i++) {
-                    int finalX = celdaSiguiente.getX();
-                    int finalY = celdaSiguiente.getY();
-
-                    KeyFrame keyFrame = new KeyFrame(
-                            Duration.millis(i * retrasoEntreIteracionesEnMilisegundos),
-                            event -> {
-                                setConstraints(jugador, finalX, finalY);
-                            }
-                    );
-                    timeline.getKeyFrames().add(keyFrame);
-
-                    celdaSiguiente = celdaSiguiente.celdaSiguiente();
-
-                }
-                 */
 
                 timeline.play();
             }

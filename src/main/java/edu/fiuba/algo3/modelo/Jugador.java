@@ -50,6 +50,10 @@ public class Jugador extends Observable {
         return this.nombre;
     }
 
+    public void agregarObservadorAGladiador(Observador observador){
+        this.gladiador.agregarObservador(observador);
+    }
+
     // -------------------------------- PRIVADOS -------------------------------- //
 
     private void notificarObservadores(String nombre, Celda celdaAnterior, Celda celdaActual, int avances) {

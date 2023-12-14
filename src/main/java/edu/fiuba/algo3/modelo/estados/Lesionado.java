@@ -16,6 +16,7 @@ public class Lesionado implements Estado {
     public Estado reducirEnergia(int energia) {
         return this;
     }
+
     public Estado avanzar(Celda _futuraCelda, Gladiador _gladiador, Logger logger) {
         // No avanza
         logger.error("Lady Gago lesionado.");

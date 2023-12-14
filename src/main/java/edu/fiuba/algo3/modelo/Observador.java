@@ -12,7 +12,7 @@ public interface Observador {
 
     public void actualizar(String nombreJugador, boolean hayGanador);
 
-    public void actualizar(String seniorityID);
+    public void actualizar(String equipamientoID);
 
-    public void actualizar(int energia, String ID);
+    public void actualizar(int energia, String ID, String seniorityID);
 }

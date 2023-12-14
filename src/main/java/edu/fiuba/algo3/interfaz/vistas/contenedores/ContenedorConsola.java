@@ -3,11 +3,9 @@ package edu.fiuba.algo3.interfaz.vistas.contenedores;
 import edu.fiuba.algo3.interfaz.vistas.botones.BotonJugarTurno;
 import edu.fiuba.algo3.modelo.Juego;
 import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
 import javafx.scene.image.Image;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.text.Font;
@@ -22,6 +20,15 @@ public class ContenedorConsola extends VBox {
         Label nombreJugador = new Label("Jugador le toca tirar");
         Label numeroDeDado = new Label("Avances");
 
+        Label datos = new Label("\nDatos del jugador Actual");
+        Label estado = new Label("Estado actual:");
+        Label energiaActual = new Label("Energia :");
+        Label seniority = new Label("Seniority jugador:");
+
+        Separator separador = new Separator();
+        separador.setPrefWidth(200);
+        separador.setStyle("-fx-background-color: black; -fx-border-width: 0 0 1 0; -fx-border-color: GRAY;");
+
         Font estiloLetra = Font.loadFont("file:" + System.getProperty("user.dir") + "/fuentes/Cinzel-Black.ttf", 20);
         nombreJugador.setFont(estiloLetra);
         nombreJugador.setStyle("-fx-text-fill: orange");
@@ -29,6 +36,19 @@ public class ContenedorConsola extends VBox {
         turnoActual.setStyle("-fx-text-fill: orange");
         numeroDeDado.setFont(estiloLetra);
         numeroDeDado.setStyle("-fx-text-fill: orange");
+
+        //------------ Datos del jugador ----------- //
+
+        Font estiloLetra2 = Font.loadFont("file:" + System.getProperty("user.dir") + "/fuentes/Cinzel-Black.ttf", 15);
+        datos.setFont(estiloLetra2);
+        datos.setStyle("-fx-text-fill: orange");
+        estado.setFont(estiloLetra2);
+        estado.setStyle("-fx-text-fill: orange");
+        energiaActual.setFont(estiloLetra2);
+        energiaActual.setStyle("-fx-text-fill: orange");
+        seniority.setFont(estiloLetra2);
+        seniority.setStyle("-fx-text-fill: orange");
+
 
         BotonJugarTurno botonJugarTurno = new BotonJugarTurno("Jugar Turno", juego);
 
@@ -40,7 +60,7 @@ public class ContenedorConsola extends VBox {
 
         this.setBackground(background);
 
-        this.getChildren().addAll(turnoActual, nombreJugador, numeroDeDado, botonJugarTurno);
+        this.getChildren().addAll(turnoActual, nombreJugador, numeroDeDado, botonJugarTurno, separador, datos, seniority, estado, energiaActual);
         this.setAlignment(Pos.CENTER);
     }
 
@@ -52,13 +72,25 @@ public class ContenedorConsola extends VBox {
         nombreJugador.setText("Jugador " + nombreJugadorActual + " le toca tirar");
     }
 
-    public void actualizar(String seniorityID) {
-        //poner logica
+    public void actualizar(int energia, String estadoID, String seniorityID) {
+        Label seniority = (Label) this.getChildren().get(6);
+        Label estado = (Label) this.getChildren().get(7);
+        Label energiaActual = (Label) this.getChildren().get(8);
+
+        seniority.setText("Seniority jugador: " + seniorityID);
+        estado.setText("Estado: " + estadoID);
+        energiaActual.setText("Energia: " + energia);
     }
 
-    public void actualizar(int energia, String estadoID) {
-        //poner logica
-    }
+    /*public void actualizar(int energia, String estadoID) {
+        Label estado = (Label) this.getChildren().get(7);
+        Label energiaActual = (Label) this.getChildren().get(8);
+
+        estado.setText("Estado: " + estadoID);
+        energiaActual.setText("Energia: " + energia);
+        //this.getChildren().add(7, estado);
+        //this.getChildren().add(8, energiaActual);
+    }*/
 
     public void actualizar(int ultimoNumeroTirado){
         Label numeroDeDado = (Label) this.getChildren().get(2);

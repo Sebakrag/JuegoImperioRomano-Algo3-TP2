@@ -352,4 +352,30 @@ public class CasosDeUsoSemana1Test {
 
         Assertions.assertThrows(PasaronTreintaRondasYnoHuboGanadorError.class,()-> juego.jugarTurnoDeJugadorActual(dado));
     }
+
+    @Test
+    public void test13AlCaerEnCeldaConLesionPierdeSiguienteTurno(){
+        Logger logger = LogManager.getLogger();
+
+        ArrayList<Celda> celdas = new ArrayList<>();
+
+        celdas.add(new CeldaInicial(0,0,logger, "", "", ""));
+        celdas.add(new CeldaComun(0,1, new Vacio(), new Lesion(), logger, "", "", ""));
+        celdas.add(new CeldaComun(0,1, new Vacio(), new Vacio(), logger, "", "", ""));
+        celdas.add(new CeldaFinal(0,1, logger, "", "", ""));
+
+        Tablero tablero = new Tablero(1,1);
+        tablero.armarMapa(celdas);
+        Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
+
+        Celda celdaFutura = tablero.getCeldaInicial().celdaSiguiente();
+
+        gladiador.mover(celdaFutura, 1); //cae en lesion
+
+        celdaFutura = celdaFutura.celdaSiguiente();
+
+        Celda celdaActual = gladiador.mover(celdaFutura, 1);
+        Assertions.assertNotSame(celdaFutura, celdaActual);
+    }
 }
+

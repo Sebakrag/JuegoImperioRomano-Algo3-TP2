@@ -21,13 +21,13 @@ public class Sano implements Estado {
 
     public Estado avanzar(Celda futuraCelda, Gladiador gladiador, Logger logger) {
         logger.info("Movimiento exitoso.");
-        gladiador.mover(futuraCelda);
-        return this;
+        return gladiador.mover(futuraCelda);
     }
 
     public Estado reducirEnergia(int energia) {
         this.energiaActual -= energia;
         if (this.energiaActual <= SIN_ENERGIA) {
+
             return new Cansado();
         }
         return this;
