@@ -30,6 +30,7 @@ public class Sano implements Estado {
 
             return new Cansado();
         }
+
         return this;
     }
 

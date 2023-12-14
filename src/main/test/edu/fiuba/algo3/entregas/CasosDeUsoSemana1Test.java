@@ -13,10 +13,10 @@ import java.util.ArrayList;
 
 public class CasosDeUsoSemana1Test {
 
-    private void inhabilitarGladiador(Gladiador gladiador, int i) {
+    private void inhabilitarGladiador(Gladiador gladiador, int cantidad) {
         Fiera fiera = new Fiera();
 
-        for (int j = 0; j < i; j++) {
+        for (int j = 0; j < cantidad; j++) {
             fiera.afectar(gladiador);
         }
     }

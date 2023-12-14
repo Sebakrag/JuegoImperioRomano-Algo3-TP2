@@ -72,17 +72,20 @@ public class Gladiador extends Observable {
     }
 
     public Celda mover(Celda futuraCelda, int turnos) {
-        notificarObservadores(this.estado, this.seniority);
-        notificarObservadores(this.equipamiento);
 
         this.estado = this.estado.avanzar(futuraCelda, this, logger);
         this.mejorarSeniority(turnos);
+
+        notificarObservadores(this.estado, this.seniority);
+        notificarObservadores(this.equipamiento);
+
         return this.celdaActual;
     }
 
     public Estado mover(Celda nuevaCelda) {
         this.celdaActual = nuevaCelda;
         this.celdaActual = celdaActual.afectar(this);
+
         return this.estado;
     }
 

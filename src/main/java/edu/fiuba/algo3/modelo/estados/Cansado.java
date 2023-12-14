@@ -8,15 +8,24 @@ public class Cansado implements Estado {
 
     private static final int ENERGIA_CANSADO = 0;
     private int energiaActual;
+    private int turnosRestantes;
 
     private final String id = "Cansado";
 
     public Cansado(){
         this.energiaActual = ENERGIA_CANSADO;
+        this.turnosRestantes = 1;
     }
 
     public Estado avanzar(Celda futuraCelda, Gladiador gladiador, Logger logger){
         logger.warn("Estoy cansado Jefe :(");
+
+        if (this.turnosRestantes > 0)
+        {
+            this.turnosRestantes --;
+            return this;
+        }
+
         int energia = 5;
         return new Sano(energia);
     }
