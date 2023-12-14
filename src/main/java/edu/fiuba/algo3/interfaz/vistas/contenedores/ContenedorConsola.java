@@ -5,6 +5,7 @@ import edu.fiuba.algo3.modelo.Juego;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
@@ -25,9 +26,7 @@ public class ContenedorConsola extends VBox {
         Label energiaActual = new Label("Energia :");
         Label seniority = new Label("Seniority jugador:");
 
-        Separator separador = new Separator();
-        separador.setPrefWidth(200);
-        separador.setStyle("-fx-background-color: black; -fx-border-width: 0 0 1 0; -fx-border-color: GRAY;");
+        StackPane panelImagen = new StackPane();
 
         Font estiloLetra = Font.loadFont("file:" + System.getProperty("user.dir") + "/fuentes/Cinzel-Black.ttf", 20);
         nombreJugador.setFont(estiloLetra);
@@ -60,7 +59,7 @@ public class ContenedorConsola extends VBox {
 
         this.setBackground(background);
 
-        this.getChildren().addAll(turnoActual, nombreJugador, numeroDeDado, botonJugarTurno, separador, datos, seniority, estado, energiaActual);
+        this.getChildren().addAll(turnoActual, nombreJugador, numeroDeDado, botonJugarTurno, datos, seniority, estado, energiaActual, panelImagen);
         this.setAlignment(Pos.CENTER);
     }
 
@@ -73,13 +72,26 @@ public class ContenedorConsola extends VBox {
     }
 
     public void actualizar(int energia, String estadoID, String seniorityID) {
-        Label seniority = (Label) this.getChildren().get(6);
-        Label estado = (Label) this.getChildren().get(7);
-        Label energiaActual = (Label) this.getChildren().get(8);
+        Label seniority = (Label) this.getChildren().get(5);
+        Label estado = (Label) this.getChildren().get(6);
+        Label energiaActual = (Label) this.getChildren().get(7);
 
         seniority.setText("Seniority jugador: " + seniorityID);
         estado.setText("Estado: " + estadoID);
         energiaActual.setText("Energia: " + energia);
+    }
+
+    public void actualizar(String equipamientoID){
+        StackPane panelImagen = (StackPane) this.getChildren().get(8);
+        panelImagen.getChildren().clear();
+
+        Image imagen = new Image("file:" + System.getProperty("user.dir") + "/imagenes/" + equipamientoID + ".png");
+        ImageView imageView = new ImageView(imagen);
+        imageView.setPreserveRatio(true);
+        imageView.setFitWidth(40);
+        imageView.setFitHeight(40);
+
+        panelImagen.getChildren().add(imageView);
     }
 
     /*public void actualizar(int energia, String estadoID) {

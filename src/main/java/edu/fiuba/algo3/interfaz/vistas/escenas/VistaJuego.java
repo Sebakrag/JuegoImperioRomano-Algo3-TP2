@@ -62,7 +62,7 @@ public class VistaJuego extends GridPane implements Observador {
     }
 
     public void actualizar(String equipamientoID) {
-        //lol
+        this.contenedorConsola.actualizar(equipamientoID);
     }
 
     public void actualizar(String nombreJugador, boolean hayGanador) {

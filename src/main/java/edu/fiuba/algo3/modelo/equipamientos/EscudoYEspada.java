@@ -6,7 +6,7 @@ import edu.fiuba.algo3.modelo.afectantes.Potenciador;
 public class EscudoYEspada extends Equipamiento {
     public EscudoYEspada() {
         this.danio = 2;
-        this.id = "Escudo y Espada";
+        this.id = "EscudoYEspada";
     }
     @Override
     public Equipamiento mejorarEquipamiento(Potenciador potenciador) {
