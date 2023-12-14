@@ -21,6 +21,7 @@ public class Sano implements Estado {
 
     public Estado avanzar(Celda futuraCelda, Gladiador gladiador, Logger logger) {
         logger.info("Movimiento exitoso.");
+
         return gladiador.mover(futuraCelda);
     }
 

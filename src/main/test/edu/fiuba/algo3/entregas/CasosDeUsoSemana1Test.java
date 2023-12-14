@@ -360,11 +360,11 @@ public class CasosDeUsoSemana1Test {
         ArrayList<Celda> celdas = new ArrayList<>();
 
         celdas.add(new CeldaInicial(0,0,logger));
-        celdas.add(new CeldaComun(0,1, new Vacio(), new Lesion(), logger));
-        celdas.add(new CeldaComun(0,1, new Vacio(), new Vacio(), logger));
-        celdas.add(new CeldaFinal(0,1, logger));
+        celdas.add(new CeldaComun(0,2, new Vacio(), new Lesion(), logger));
+        celdas.add(new CeldaComun(0,3, new Vacio(), new Vacio(), logger));
+        celdas.add(new CeldaFinal(0,4, logger));
 
-        Tablero tablero = new Tablero(1,1);
+        Tablero tablero = new Tablero(4,1);
         tablero.armarMapa(celdas);
         Gladiador gladiador = new Gladiador(logger, tablero.getCeldaInicial());
 

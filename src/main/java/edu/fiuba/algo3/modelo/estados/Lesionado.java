@@ -6,13 +6,13 @@ import org.apache.logging.log4j.Logger;
 public class Lesionado implements Estado {
 
     private int energiaActual;
-    private int turnosRestantes;
+
     private final String id = "Lesionado";
 
 
     public Lesionado(int energia){
         this.energiaActual = energia;
-        this.turnosRestantes = 1;
+
     }
 
     public Estado reducirEnergia(int energia) {
@@ -22,11 +22,6 @@ public class Lesionado implements Estado {
     public Estado avanzar(Celda _futuraCelda, Gladiador _gladiador, Logger logger) {
         // No avanza
         logger.error("Lady Gago lesionado.");
-        if (this.turnosRestantes > 0)
-        {
-            this.turnosRestantes --;
-            return this;
-        }
 
         return new Sano(this.energiaActual);
     }

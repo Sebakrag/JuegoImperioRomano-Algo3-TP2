@@ -85,8 +85,7 @@ public class Gladiador extends Observable {
     public Estado mover(Celda nuevaCelda) {
         this.celdaActual = nuevaCelda;
         this.celdaActual = celdaActual.afectar(this);
-
-        return this.estado;
+        return  this.estado;
     }
 
 
