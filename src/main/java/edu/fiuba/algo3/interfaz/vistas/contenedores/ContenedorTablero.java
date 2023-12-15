@@ -65,7 +65,6 @@ public class ContenedorTablero extends GridPane {
 
     // -------------------------------- PUBLICOS -------------------------------- //
     public void actualizar(String nombre, Celda celdaAnterior, Celda celdaActual) {
-        // TODO: Pregunta si el contenedorTablero puede ser un observador.
         StackPane jugador = obtenerPanelJugador(nombre);
         int retrasoEntreIteracionesEnMilisegundos = 500; // 1000 ms = 1 segundo
         Timeline timeline = new Timeline();
