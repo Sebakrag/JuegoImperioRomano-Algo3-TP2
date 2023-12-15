@@ -5,7 +5,7 @@ import edu.fiuba.algo3.modelo.Gladiador;
 import org.apache.logging.log4j.Logger;
 
 public class CeldaComun extends Celda {
-    private static final String IDENTIFICADOR = "CC";
+    private static final String IDENTIFICADOR = "camino";
     private Afectante premio;
     private Afectante obstaculo;
     //private final Logger logger;
@@ -40,6 +40,6 @@ public class CeldaComun extends Celda {
 
     @Override
     public String nombreImagenPremio(){
-        return this.obstaculo.identificador();
+        return this.premio.identificador();
     }
 }

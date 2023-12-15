@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Logger;
 
 public class CeldaFinal extends Celda {
 
-    private final String IDENTIFICADOR = "CF";
+    private final String IDENTIFICADOR = "llegada";
 
     public CeldaFinal(int x, int y, Logger logger) {
         coordenadasValidas(x, y);

@@ -32,7 +32,7 @@ public class Potenciador implements Afectante {
 
     @Override
     public String identificador() {
-        return "potenciador";
+        return "equipamiento";
     }
 
 }
