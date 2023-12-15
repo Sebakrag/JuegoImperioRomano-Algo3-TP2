@@ -8,6 +8,7 @@ public class Llave extends Equipamiento {
 
     public Llave() {
         this.danio = 0;
+        this.id = "LLave";
     }
 
     @Override

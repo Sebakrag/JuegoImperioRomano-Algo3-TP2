@@ -7,11 +7,14 @@ public class CeldaInicial extends Celda {
 
     private final String nombreImagen = "imagenCeldaInicial.png";
     
-    public CeldaInicial(int x, int y, Logger logger) {
+    public CeldaInicial(int x, int y, Logger logger, String nombrePremio, String nombreObstaculo, String nombreImagen) {
         this.coordenadasValidas(x,y);
         this.x = x;
         this.y = y;
         this.logger = logger;
+        this.nombreImagenPremio = nombrePremio;
+        this.nombreImagenObstaculo = nombreObstaculo;
+        this.nombreImagen = nombreImagen;
     }
 
     public Celda afectar(Gladiador gladiador){
@@ -25,4 +28,11 @@ public class CeldaInicial extends Celda {
 
     public String nombreImagenFondo() { return this.nombreImagen; }
 
+    public String nombreImagenPremio() {
+        return this.nombreImagenPremio;
+    }
+
+    public String nombreImagenObstaculo(){
+        return this.nombreImagenObstaculo;
+    }
 }

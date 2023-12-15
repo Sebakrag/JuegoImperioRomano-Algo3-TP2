@@ -9,6 +9,8 @@ public class Cansado implements Estado {
     private static final int ENERGIA_CANSADO = 0;
     private int energiaActual;
 
+    private final String id = "Cansado";
+
     public Cansado(){
         this.energiaActual = ENERGIA_CANSADO;
     }
@@ -27,8 +29,9 @@ public class Cansado implements Estado {
         return this;
     }
 
-    @Override
-    public int obtenerEnergia() {
+    public int getEnergia() {
         return this.energiaActual;
     }
+
+    public String getID(){return  this.id;}
 }

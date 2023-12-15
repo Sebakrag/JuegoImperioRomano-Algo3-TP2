@@ -7,6 +7,5 @@ public class Lesion implements Afectante {
 
     public void afectar(Gladiador gladiador){
         gladiador.recibirImpacto(this);
-
     }
 }

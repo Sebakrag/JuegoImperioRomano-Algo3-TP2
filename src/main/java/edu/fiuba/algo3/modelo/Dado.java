@@ -3,6 +3,8 @@ package edu.fiuba.algo3.modelo;
 import java.util.Random;
 
 public class Dado {
+
+    private int ultimoNumeroTirado;
     private int caras = 6;
 
     private int ultimoNumeroTirado;
@@ -15,5 +17,4 @@ public class Dado {
         this.ultimoNumeroTirado = (random.nextInt(caras) + 1);
         return this.ultimoNumeroTirado;
     }
-
 }

@@ -1,59 +1,59 @@
 {
-  "mapa": {
-    "ancho": 7,
-    "largo": 7
-  },
-  "camino": {
-    "celdas": [
-      {
-        "x": 0,
-        "y": 0,
-        "tipo": "Salida",
-        "obstaculo": "",
-        "premio": ""
-      },
-      {
-        "x": 1,
-        "y": 1,
-        "tipo": "Camino",
-        "obstaculo": "",
-        "premio": "Equipamiento"
-      },
-      {
-        "x": 2,
-        "y": 2,
-        "tipo": "Camino",
-        "obstaculo": "",
-        "premio": "Comida"
-      },
-      {
-        "x": 3,
-        "y": 3,
-        "tipo": "Camino",
-        "obstaculo": "Lesion",
-        "premio": ""
-      },
-      {
-        "x": 4,
-        "y": 4,
-        "tipo": "Camino",
-        "obstaculo": "Fiera",
-        "premio": ""
-      },
-      {
-        "x": 5,
-        "y": 5,
-        "tipo": "Camino",
-        "obstaculo": "Bacanal",
-        "premio": "Equipamiento"
-      },
-      {
-        "x": 6,
-        "y": 6,
-        "tipo": "Llegada",
-        "obstaculo": "",
-        "premio": ""
-      }
-    ]
-  }
+	"mapa": {
+		"ancho": 7,
+		"largo": 7
+	},
+	"camino": {
+		"celdas": [
+			{
+				"x": 0,
+				"y": 0,
+				"tipo": "Salida",
+				"obstaculo": "",
+				"premio": ""
+			},
+			{
+				"x": 1,
+				"y": 1,
+				"tipo": "Camino",
+				"obstaculo": "",
+				"premio": ""
+			},
+			{
+				"x": 2,
+				"y": 2,
+				"tipo": "Camino",
+				"obstaculo": "",
+				"premio": "Comida"
+			},
+			{
+				"x": 3,
+				"y": 3,
+				"tipo": "Camino",
+				"obstaculo": "Lesion",
+				"premio": ""
+			},
+			{
+				"x": 4,
+				"y": 4,
+				"tipo": "Camino",
+				"obstaculo": "Fiera",
+				"premio": ""
+			},
+			{
+				"x": 5,
+				"y": 5,
+				"tipo": "Camino",
+				"obstaculo": "Bacanal",
+				"premio": ""
+			},
+			{
+				"x": 6,
+				"y": 6,
+				"tipo": "Llegada",
+				"obstaculo": "",
+				"premio": ""
+			}
+		]
+	}
 }

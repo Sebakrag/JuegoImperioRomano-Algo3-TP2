@@ -30,17 +30,20 @@ public class CeldaParser {
         String tipo = (String) celda.get("tipo");
         String premio = (String) celda.get("premio");
         String obstaculo = (String) celda.get("obstaculo");
+        premio = premio.toLowerCase();
+        obstaculo = obstaculo.toLowerCase();
+        tipo = tipo.toLowerCase();
 
-        switch(tipo){
-            case "Salida":
-                return new CeldaInicial(coorX, coorY, logger);
-            case "Camino":
+        switch(tipo) {
+            case "salida":
+                return new CeldaInicial(coorX, coorY, logger, premio, obstaculo, tipo);
+            case "camino":
                 Afectante afectantePremio = this.parsearPremio(premio);
                 Afectante afectanteObstaculo = this.parsearObstaculo(obstaculo);
-                CeldaComun celdaComun = new CeldaComun(coorX, coorY, afectanteObstaculo, afectantePremio, logger);
+                CeldaComun celdaComun = new CeldaComun(coorX, coorY, afectanteObstaculo, afectantePremio, logger, premio, obstaculo, tipo);
                 return celdaComun;
-            case "Llegada":
-                return new CeldaFinal(coorX, coorY, logger);
+            case "llegada":
+                return new CeldaFinal(coorX, coorY, logger, premio, obstaculo, tipo);
             default:
                 throw new TipoDeCeldaEnArchivoNoValidaError();
         }
@@ -48,9 +51,9 @@ public class CeldaParser {
 
     private Afectante parsearPremio(String afectante) throws AfectanteInvalidoError{
         switch (afectante){
-            case "Equipamiento":
+            case "equipamiento":
                 return new Potenciador();
-            case "Comida":
+            case "comida":
                 return new Comida();
             case "":
                 return new Vacio();
@@ -62,11 +65,11 @@ public class CeldaParser {
     private Afectante parsearObstaculo(String afectante){
         /*Logger logger = LogManager.getLogger();*/
         switch (afectante){
-            case "Lesion":
+            case "lesion":
                 return new Lesion();
-            case "Bacanal":
+            case "bacanal":
                 return new Bacanal();
-            case "Fiera":
+            case "fiera":
                 return new Fiera();
             case "":
                 return new Vacio();

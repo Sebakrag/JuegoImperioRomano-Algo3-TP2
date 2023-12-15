@@ -1,18 +1,19 @@
 package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.celdas.Celda;
-import edu.fiuba.algo3.modelo.excepcion.TurnoPerdidoError;
-
 import org.apache.logging.log4j.Logger;
 
-public class Jugador {
-    private static final int CANTIDAD_MAXIMA_DE_RONDAS = 30;
+import java.util.ArrayList;
 
+
+public class Jugador extends Observable {
     private Gladiador gladiador;
     private int turno;
     private Celda celdaActual;
     private final Logger logger;
     private final String nombre;
+
+    // -------------------------------- PUBLICOS -------------------------------- //
 
     public Jugador(String nombre, Gladiador gladiador, Celda celdaInicial, Logger logger) {
         this.gladiador = gladiador;
@@ -20,6 +21,7 @@ public class Jugador {
         this.celdaActual = celdaInicial;
         this.logger = logger;
         this.nombre = nombre;
+        this.observadores = new ArrayList<>();
     }
 
     /*
@@ -27,15 +29,37 @@ public class Jugador {
      * ligado a la cantidad de turnos.
      * */
 
-    public boolean jugarTurno(Dado dado, Tablero tablero) {  // TODO: Hay que cambiar el dado por la cantidad de avances directamente. (El usuario toca el boton del dado y se le envia la cantidad que salio)
+    public boolean jugarTurno(int avances, Tablero tablero) {
         logger.info("Turno de: " + this.nombre);
         this.turno++;
 
-        int avances = dado.tirar();
+        Celda celdaAnterior = this.celdaActual;
         Celda celdaProxima = tablero.avanzar(avances, this.celdaActual);
         this.celdaActual = this.gladiador.mover(celdaProxima, this.turno);
 
-        return (celdaActual == tablero.getCeldaFinal());
-        /*logger.info("Turno jugado con éxito. Nueva celda del gladiador: " + this.celdaActual);*/
+        notificarObservadores(this.nombre, celdaAnterior, this.celdaActual, avances);
+
+        if (celdaActual == tablero.getCeldaFinal()) {
+            logger.info(this.nombre + " has ganado la partida. ¡Felicitaciones!");
+            return true;
+        }
+        return false;
     }
+
+    public String getNombre() {
+        return this.nombre;
+    }
+
+    public void agregarObservadorAGladiador(Observador observador){
+        this.gladiador.agregarObservador(observador);
+    }
+
+    // -------------------------------- PRIVADOS -------------------------------- //
+
+    private void notificarObservadores(String nombre, Celda celdaAnterior, Celda celdaActual, int avances) {
+        for (Observador observador : this.observadores) {
+            observador.actualizar(nombre, celdaAnterior, celdaActual, avances);
+        }
+    }
+
 }

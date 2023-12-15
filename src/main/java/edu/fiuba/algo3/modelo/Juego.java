@@ -1,55 +1,80 @@
 package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.modelo.celdas.Celda;
 import edu.fiuba.algo3.modelo.excepcion.PasaronTreintaRondasYnoHuboGanadorError;
+import edu.fiuba.algo3.modelo.excepcion.UnJugadorGanoLaPartidaError;
 import org.apache.logging.log4j.Logger;
 
-import java.util.*;
 import java.util.ArrayList;
 
-public class Juego {
+public class Juego extends Observable {
+
     private static final int CANTIDAD_MAXIMA_DE_RONDAS = 30;
     private Tablero tablero;
-    private Dado dado;
     private ArrayList<Jugador> jugadores;
     private int ronda;
     private final Logger logger;
+    private Jugador jugadorTurnoActual;
+    private int indiceJugadorActual;
+    private Jugador jugadorInicial;
+    private boolean hayGanador;
 
-    public Juego(Logger logger) {
-        // Instanciar la interfaz grafica --> se pide la cantidad de jugadores y el ingreso de los nombres.??????
-        // VERIFICAR QUE LOS JUGADORES INGRESADOS SEN ENTRE 2 Y 6
+    public Juego(Logger logger, Tablero tablero) {
         this.jugadores = new ArrayList<>();
         this.logger = logger;
-    }
-
-    public boolean iniciarPartida(Tablero tablero, ArrayList<String> nombresJugadores) {
         this.tablero = tablero;
-        int cantidadJugadores = nombresJugadores.size();
-        this.crearJugadores(nombresJugadores);
-        this.dado = new Dado(cantidadJugadores);
-
-        int i = this.dado.tirar();
-        int jugadoresQueJugaron = 0;
-        boolean ganador = false;
-        while(chequearRonda() && !ganador) {
-            for (; i < cantidadJugadores; i++ ) {
-                ganador = jugadores.get(i).jugarTurno(dado, this.tablero);
-                jugadoresQueJugaron++;
-
-                if (jugadoresQueJugaron == cantidadJugadores){
-                    this.ronda++;
-                    jugadoresQueJugaron = 0;
-                }
-            }
-            i = 0;
-        }
-
-        if (!ganador) {
-            logger.info("La partida ha terminado sin un ganador después de 30 rondas.");
-        }
-
-        return ganador;
+        this.hayGanador = false;
+        this.observadores = new ArrayList<>();
     }
+
+    // -------------------------------- PUBLICOS -------------------------------- //
+
+    public void iniciarPartida(ArrayList<String> nombresJugadores) {
+        this.crearJugadores(nombresJugadores);
+        this.ronda = 1;
+        int cantidadJugadores = nombresJugadores.size();
+        Dado dado = new Dado(cantidadJugadores);
+        this.indiceJugadorActual = (dado.tirar() - 1);
+        this.jugadorInicial = this.jugadores.get(this.indiceJugadorActual);
+        this.jugadorTurnoActual = this.jugadores.get(this.indiceJugadorActual);
+        notificarObservadores(this.jugadorInicial.getNombre(), this.ronda);
+    }
+
+    public void jugarTurnoDeJugadorActual(Dado dado) throws UnJugadorGanoLaPartidaError, PasaronTreintaRondasYnoHuboGanadorError {
+        this.hayGanador = this.jugadorTurnoActual.jugarTurno(dado.tirar(), this.tablero);
+        if (this.hayGanador) {
+            throw new UnJugadorGanoLaPartidaError();
+        }
+
+        if (this.indiceJugadorActual < (this.jugadores.size() - 1)) {
+            this.indiceJugadorActual++;
+        } else {
+            this.indiceJugadorActual = 0;
+        }
+
+        this.jugadorTurnoActual = this.jugadores.get(this.indiceJugadorActual);
+        if ((this.jugadorTurnoActual == this.jugadorInicial) && quedanRondasPorJugar())
+            this.ronda++;
+
+        if (!quedanRondasPorJugar()) {
+            logger.info("La partida ha terminado sin un ganador después de 30 rondas.");
+            throw new PasaronTreintaRondasYnoHuboGanadorError();  // TODO: Le sacamos "Error" del nombre?
+        }
+
+        notificarObservadores(this.jugadorTurnoActual.getNombre(), this.ronda);
+    }
+
+    public void finalizarJuego() {
+        notificarObservadores(this.jugadorTurnoActual.getNombre(), this.hayGanador);
+    }
+
+    public void agregarObservadorAJugadores(Observador observador) {
+        for (Jugador jugador : this.jugadores) {
+            jugador.agregarObservador(observador);
+            jugador.agregarObservadorAGladiador(observador);
+        }
+    }
+
+    // -------------------------------- PRIVADOS -------------------------------- //
 
     private void crearJugadores(ArrayList<String> nombresJugadores) {
         int cantidadJugadores = nombresJugadores.size();
@@ -60,9 +85,19 @@ public class Juego {
         }
     }
 
-    public boolean chequearRonda(){
+    private boolean quedanRondasPorJugar() {
         return (this.ronda <= CANTIDAD_MAXIMA_DE_RONDAS);
     }
+
+    private void notificarObservadores(String nombre, int ronda) {
+        for (Observador observador : this.observadores) {
+            observador.actualizar(nombre, ronda);
+        }
+    }
+
+    private void notificarObservadores(String nombre, boolean hayGanador){
+        for (Observador observador : this.observadores) {
+            observador.actualizar(nombre, hayGanador);
+        }
+    }
 }
-
-

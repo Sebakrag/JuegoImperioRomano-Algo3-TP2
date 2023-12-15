@@ -6,8 +6,9 @@ import org.apache.logging.log4j.Logger;
 
 public interface Estado {
 
-    Estado avanzar(Celda futuraCelda, Gladiador gladiador, Logger logger);
-    Estado reducirEnergia(int energia);
-    Estado aumentarEnergia(int energia);
-    int obtenerEnergia();
+    public Estado avanzar(Celda futuraCelda, Gladiador gladiador, Logger logger);
+    public Estado reducirEnergia(int energia);
+    public Estado aumentarEnergia(int energia);
+    public String getID();
+    public int getEnergia();
 }

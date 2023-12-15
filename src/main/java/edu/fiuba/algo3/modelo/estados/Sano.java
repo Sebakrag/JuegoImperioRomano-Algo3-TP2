@@ -6,9 +6,9 @@ import org.apache.logging.log4j.Logger;
 
 public class Sano implements Estado {
 
+    private final String id = "Sano";
     private static final int ENERGIA_INICIAL = 20;
     private static final int SIN_ENERGIA = 0;
-
     private int energiaActual;
 
     public Sano() {
@@ -21,13 +21,13 @@ public class Sano implements Estado {
 
     public Estado avanzar(Celda futuraCelda, Gladiador gladiador, Logger logger) {
         logger.info("Movimiento exitoso.");
-        gladiador.mover(futuraCelda);
-        return this;
+        return gladiador.mover(futuraCelda);
     }
 
     public Estado reducirEnergia(int energia) {
         this.energiaActual -= energia;
         if (this.energiaActual <= SIN_ENERGIA) {
+
             return new Cansado();
         }
         return this;
@@ -38,8 +38,11 @@ public class Sano implements Estado {
         return this;
     }
 
-    @Override
-    public int obtenerEnergia() {
+    public int getEnergia() {
         return this.energiaActual;
+    }
+
+    public String getID() {
+        return this.id;
     }
 }

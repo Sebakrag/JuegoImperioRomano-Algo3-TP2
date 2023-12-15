@@ -10,17 +10,14 @@ public class Tablero {
     private final int ancho;
     private final int largo;
 
-    private int cantidadTotalDeCeldas;
-
     public Tablero(int ancho, int largo) {
         this.ancho = ancho;
         this.largo = largo;
-        this.cantidadTotalDeCeldas = 0;
     }
 
     public void armarMapa(ArrayList<Celda> celdas) throws CantidadInvalidaDeCeldasError {
 
-        if ( celdas.size() < 2 ){
+        if ( celdas.size() < 2 ) {
             throw new CantidadInvalidaDeCeldasError();
         }
 
@@ -61,9 +58,4 @@ public class Tablero {
     public int getLargo() {
         return this.largo;
     }
-
-    public int getcantidadTotalDeCeldas(){
-        return this.cantidadTotalDeCeldas;
-    }
-
 }
