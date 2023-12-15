@@ -4,8 +4,6 @@ import edu.fiuba.algo3.modelo.Gladiador;
 import org.apache.logging.log4j.Logger;
 
 public class CeldaInicial extends Celda {
-
-    private final String nombreImagen = "imagenCeldaInicial.png";
     
     public CeldaInicial(int x, int y, Logger logger, String nombrePremio, String nombreObstaculo, String nombreImagen) {
         this.coordenadasValidas(x,y);

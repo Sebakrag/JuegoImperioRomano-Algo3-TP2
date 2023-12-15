@@ -7,8 +7,6 @@ public class Dado {
     private int ultimoNumeroTirado;
     private int caras = 6;
 
-    private int ultimoNumeroTirado;
-
     public Dado(int carasDado){
         this.caras = carasDado;
     }

@@ -22,14 +22,12 @@ public class Tablero {
         }
 
         this.celdaInicial = celdas.get(0);
-        this.cantidadTotalDeCeldas++;
         Celda actual = celdas.get(0);
         int i = 1;
         for (; i < celdas.size(); i++) {
             Celda celdaComun = celdas.get(i);
             actual.setSiguiente(celdaComun);
             actual = celdaComun;
-            this.cantidadTotalDeCeldas++;
         }
         this.celdaFinal = actual;
         Celda celdaMedio = celdas.get((celdas.size() - 1) / 2);
