@@ -40,7 +40,7 @@ public class CeldaParser {
             case "camino":
                 Afectante afectantePremio = this.parsearPremio(premio);
                 Afectante afectanteObstaculo = this.parsearObstaculo(obstaculo);
-                return new CeldaComun(coorX, coorY, afectanteObstaculo, afectantePremio, logger);
+                return new CeldaComun(coorX, coorY, afectantePremio, afectanteObstaculo, logger);
             case "llegada":
                 return new CeldaFinal(coorX, coorY, logger);
             default:
