@@ -2,6 +2,8 @@ package edu.fiuba.algo3.interfaz.vistas.contenedores;
 
 import edu.fiuba.algo3.modelo.Tablero;
 import edu.fiuba.algo3.modelo.celdas.Celda;
+import javafx.animation.PauseTransition;
+import javafx.animation.TranslateTransition;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -77,10 +79,19 @@ public class ContenedorTablero extends GridPane {
                 setConstraints(jugador, finalX, finalY);
             } else {
                 int i = 0;
+                Celda verificarCeldaFinal;
+                boolean celdaFinal = false;
+
                 while (celdaAnterior != celdaActual) {
                     celdaAnterior = celdaAnterior.celdaSiguiente();
                     int finalX = celdaAnterior.getX();
                     int finalY = celdaAnterior.getY();
+
+                    verificarCeldaFinal = celdaAnterior.celdaSiguiente();
+                    if(celdaAnterior == verificarCeldaFinal){
+                        celdaAnterior = celdaActual;
+                        celdaFinal = true;
+                    }
 
                     KeyFrame keyFrame = new KeyFrame(
                             Duration.millis(i * retrasoEntreIteracionesEnMilisegundos),
@@ -91,8 +102,13 @@ public class ContenedorTablero extends GridPane {
                     timeline.getKeyFrames().add(keyFrame);
                     i++;
                 }
-
                 timeline.play();
+
+                if(celdaFinal){
+                    int finalX = celdaActual.getX();
+                    int finalY = celdaActual.getY();
+                    setConstraints(jugador, finalX, finalY);
+                }
             }
         }
     }

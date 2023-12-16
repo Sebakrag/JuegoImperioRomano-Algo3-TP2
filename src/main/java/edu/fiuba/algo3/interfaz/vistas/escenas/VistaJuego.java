@@ -31,7 +31,7 @@ public class VistaJuego extends GridPane implements Observador {
         ColumnConstraints columnaTablero = new ColumnConstraints();
         ColumnConstraints columnaConsola = new ColumnConstraints();
         columnaTablero.setPercentWidth(80); // Primera columna ocupa el 80% de la ventana
-        columnaConsola.setPercentWidth(20); // Primera columna ocupa el 20% de la ventana
+        columnaConsola.setPercentWidth(20); // Segunda columna ocupa el 20% de la ventana
         super.getColumnConstraints().addAll(columnaTablero, columnaConsola);
 
         super.add(panelTablero, 0, 0);

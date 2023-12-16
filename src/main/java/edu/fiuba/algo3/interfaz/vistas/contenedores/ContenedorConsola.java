@@ -15,38 +15,39 @@ import javafx.geometry.Pos;
 
 public class ContenedorConsola extends VBox {
     private String jugadorAnterior;
+    private Label turnoActual;
+    private Label nombreJugador;
+    private Label numeroDeDado;
+    private Label datosDelJugadorAnterior;
+    private Label estado;
+    private Label energiaActual;
+    private Label seniority;
+    private StackPane panelImagen;
     public ContenedorConsola(Juego juego) {
 
-        Label turnoActual = new Label("Ronda Actual: 1");
-        Label nombreJugador = new Label("Jugador le toca tirar");
-        Label numeroDeDado = new Label("Avances");
+        this.turnoActual = new Label("Ronda Actual: 1");
+        this.nombreJugador = new Label("Jugador le toca tirar");
+        this.numeroDeDado = new Label("Avances");
 
-        Label datos = new Label("\nDatos del jugador Actual");
-        Label estado = new Label("Estado actual:");
-        Label energiaActual = new Label("Energia :");
-        Label seniority = new Label("Seniority jugador:");
+        this.datosDelJugadorAnterior = new Label("\n\nDatos del jugador Actual");
+        this.estado = new Label("Estado actual:");
+        this.energiaActual = new Label("Energia :");
+        this.seniority = new Label("Seniority jugador:");
 
-        StackPane panelImagen = new StackPane();
+        this.panelImagen = new StackPane();
 
         Font estiloLetra = Font.loadFont("file:" + System.getProperty("user.dir") + "/fuentes/Cinzel-Black.ttf", 20);
-        nombreJugador.setFont(estiloLetra);
-        nombreJugador.setStyle("-fx-text-fill: orange");
-        turnoActual.setFont(estiloLetra);
-        turnoActual.setStyle("-fx-text-fill: orange");
-        numeroDeDado.setFont(estiloLetra);
-        numeroDeDado.setStyle("-fx-text-fill: orange");
+        this.estiloDelLabel(this.nombreJugador, estiloLetra, "orange");
+        this.estiloDelLabel(this.turnoActual, estiloLetra, "orange");
+        this.estiloDelLabel(this.numeroDeDado, estiloLetra, "orange");
 
         //------------ Datos del jugador ----------- //
 
         Font estiloLetra2 = Font.loadFont("file:" + System.getProperty("user.dir") + "/fuentes/Cinzel-Black.ttf", 15);
-        datos.setFont(estiloLetra2);
-        datos.setStyle("-fx-text-fill: orange");
-        estado.setFont(estiloLetra2);
-        estado.setStyle("-fx-text-fill: orange");
-        energiaActual.setFont(estiloLetra2);
-        energiaActual.setStyle("-fx-text-fill: orange");
-        seniority.setFont(estiloLetra2);
-        seniority.setStyle("-fx-text-fill: orange");
+        this.estiloDelLabel(this.datosDelJugadorAnterior, estiloLetra2, "red");
+        this.estiloDelLabel(this.estado, estiloLetra2, "red");
+        this.estiloDelLabel(this.energiaActual, estiloLetra2, "red");
+        this.estiloDelLabel(this.seniority, estiloLetra2, "red");
 
 
         BotonJugarTurno botonJugarTurno = new BotonJugarTurno("Jugar Turno", juego);
@@ -59,31 +60,36 @@ public class ContenedorConsola extends VBox {
 
         this.setBackground(background);
 
-        this.getChildren().addAll(turnoActual, nombreJugador, numeroDeDado, botonJugarTurno, datos, seniority, estado, energiaActual, panelImagen);
+        this.getChildren().addAll(turnoActual, nombreJugador, numeroDeDado, botonJugarTurno, datosDelJugadorAnterior, seniority, estado, energiaActual, panelImagen);
         this.setAlignment(Pos.CENTER);
     }
 
+    private void estiloDelLabel(Label label, Font font, String colorDeLetra){
+        label.setFont(font);
+        label.setStyle("-fx-text-fill: " + colorDeLetra + ";");
+    }
+
     public void actualizar(String nombreJugadorActual, int ronda) {
-        Label turnoActual = (Label) this.getChildren().get(0);
-        Label nombreJugador = (Label) this.getChildren().get(1);
+        //Label turnoActual = (Label) this.getChildren().get(0);
+        //Label nombreJugador = (Label) this.getChildren().get(1);
         this.jugadorAnterior = nombreJugadorActual;
-        turnoActual.setText("Ronda Actual: " + ronda);
-        nombreJugador.setText("Jugador " + nombreJugadorActual + " le toca tirar");
+        this.turnoActual.setText("Ronda Actual: " + ronda);
+        this.nombreJugador.setText("Jugador " + nombreJugadorActual + " le toca tirar");
     }
 
     public void actualizar(int energia, String estadoID, String seniorityID) {
-        Label seniority = (Label) this.getChildren().get(5);
-        Label estado = (Label) this.getChildren().get(6);
-        Label energiaActual = (Label) this.getChildren().get(7);
-
-        seniority.setText("Seniority jugador: " + seniorityID);
-        estado.setText("Estado: " + estadoID);
-        energiaActual.setText("Energia: " + energia);
+        //Label seniority = (Label) this.getChildren().get(5);
+        //Label estado = (Label) this.getChildren().get(6);
+        //Label energiaActual = (Label) this.getChildren().get(7);
+        this.datosDelJugadorAnterior.setText("\n\nDatos del jugador " + this.jugadorAnterior);
+        this.seniority.setText("Seniority jugador: " + seniorityID);
+        this.estado.setText("Estado: " + estadoID);
+        this.energiaActual.setText("Energia: " + energia);
     }
 
     public void actualizar(String equipamientoID){
-        StackPane panelImagen = (StackPane) this.getChildren().get(8);
-        panelImagen.getChildren().clear();
+        //StackPane panelImagen = (StackPane) this.getChildren().get(8);
+        this.panelImagen.getChildren().clear();
 
         Image imagen = new Image("file:" + System.getProperty("user.dir") + "/imagenes/" + equipamientoID + ".png");
         ImageView imageView = new ImageView(imagen);
@@ -91,7 +97,7 @@ public class ContenedorConsola extends VBox {
         imageView.setFitWidth(40);
         imageView.setFitHeight(40);
 
-        panelImagen.getChildren().add(imageView);
+        this.panelImagen.getChildren().add(imageView);
     }
 
     /*public void actualizar(int energia, String estadoID) {
@@ -105,8 +111,8 @@ public class ContenedorConsola extends VBox {
     }*/
 
     public void actualizar(int ultimoNumeroTirado){
-        Label numeroDeDado = (Label) this.getChildren().get(2);
+        //Label numeroDeDado = (Label) this.getChildren().get(2);
 
-        numeroDeDado.setText(this.jugadorAnterior + " avanzo " + ultimoNumeroTirado + " lugares");
+        this.numeroDeDado.setText(this.jugadorAnterior + " avanzo " + ultimoNumeroTirado + " lugares");
     }
 }
