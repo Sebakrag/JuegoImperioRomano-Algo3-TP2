@@ -22,7 +22,8 @@ public class ContenedorConsola extends VBox {
     private Label estado;
     private Label energiaActual;
     private Label seniority;
-    private StackPane panelImagen;
+    private StackPane panelImagenEquipamiento;
+    private StackPane panelImagenSeniority;
 
     public ContenedorConsola(Juego juego) {
 
@@ -33,9 +34,10 @@ public class ContenedorConsola extends VBox {
         this.datosDelJugadorAnterior = new Label("\n\nDatos del jugador Actual");
         this.estado = new Label("Estado actual:");
         this.energiaActual = new Label("Energia :");
-        this.seniority = new Label("Seniority jugador:");
+        this.seniority = new Label("Seniority: ");
 
-        this.panelImagen = new StackPane();
+        this.panelImagenEquipamiento = new StackPane();
+        this.panelImagenSeniority = new StackPane();
 
         Font estiloLetra = Font.loadFont("file:" + System.getProperty("user.dir") + "/fuentes/Cinzel-Black.ttf", 20);
         this.estiloDelLabel(this.nombreJugador, estiloLetra, "orange");
@@ -50,6 +52,10 @@ public class ContenedorConsola extends VBox {
         this.estiloDelLabel(this.energiaActual, estiloLetra2, "red");
         this.estiloDelLabel(this.seniority, estiloLetra2, "red");
 
+        HBox seniorityYImagen = new HBox();
+        seniorityYImagen.getChildren().addAll(this.seniority, this.panelImagenSeniority);
+        seniorityYImagen.setAlignment(Pos.CENTER);
+
 
         BotonJugarTurno botonJugarTurno = new BotonJugarTurno("Jugar Turno", juego);
 
@@ -61,7 +67,7 @@ public class ContenedorConsola extends VBox {
 
         this.setBackground(background);
 
-        this.getChildren().addAll(turnoActual, nombreJugador, numeroDeDado, botonJugarTurno, datosDelJugadorAnterior, seniority, estado, energiaActual, panelImagen);
+        this.getChildren().addAll(turnoActual, nombreJugador, numeroDeDado, botonJugarTurno, datosDelJugadorAnterior, seniorityYImagen, estado, energiaActual, panelImagenEquipamiento);
         this.setAlignment(Pos.CENTER);
     }
 
@@ -78,15 +84,22 @@ public class ContenedorConsola extends VBox {
     }
 
     public void actualizar(int energia, String estadoID, String seniorityID) {
-
         this.datosDelJugadorAnterior.setText("\n\nDatos del jugador " + this.jugadorAnterior);
-        this.seniority.setText("Seniority jugador: " + seniorityID);
+
+        this.panelImagenSeniority.getChildren().clear();
+        Image imagen = new Image("file:" + System.getProperty("user.dir") + "/imagenes/" + seniorityID + ".png");
+        ImageView imageView = new ImageView(imagen);
+        imageView.setPreserveRatio(true);
+        imageView.setFitWidth(40);
+        imageView.setFitHeight(40);
+        this.panelImagenSeniority.getChildren().add(imageView);
+
         this.estado.setText("Estado: " + estadoID);
         this.energiaActual.setText("Energia: " + energia);
     }
 
     public void actualizar(String equipamientoID){
-        this.panelImagen.getChildren().clear();
+        this.panelImagenEquipamiento.getChildren().clear();
 
         Image imagen = new Image("file:" + System.getProperty("user.dir") + "/imagenes/" + equipamientoID + ".png");
         ImageView imageView = new ImageView(imagen);
@@ -94,7 +107,7 @@ public class ContenedorConsola extends VBox {
         imageView.setFitWidth(40);
         imageView.setFitHeight(40);
 
-        this.panelImagen.getChildren().add(imageView);
+        this.panelImagenEquipamiento.getChildren().add(imageView);
     }
 
 

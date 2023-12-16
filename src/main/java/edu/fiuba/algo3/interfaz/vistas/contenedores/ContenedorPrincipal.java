@@ -22,12 +22,9 @@ public class ContenedorPrincipal extends VBox {
         Font estiloLetraTitulo = Font.loadFont("file:" + System.getProperty("user.dir") + "/fuentes/Cinzel-Black.ttf", 60);
         Font estiloLetraTitulo2 = Font.loadFont("file:" + System.getProperty("user.dir") + "/fuentes/SourceSerif4_18pt-MediumItalic.ttf", 30);
         Font estiloLetraTitulo3 = Font.loadFont("file:" + System.getProperty("user.dir") + "/fuentes/SourceSerif4-Medium.ttf", 25);
-        imperioRomanoEtiqueta.setFont(estiloLetraTitulo);
-        imperioRomanoEtiqueta.setStyle("-fx-text-fill: black");
-        vamoAJugaEtiqueta.setFont(estiloLetraTitulo2);
-        vamoAJugaEtiqueta.setStyle("-fx-text-fill: black");
-        cantidadDeJugadoresEtiqueta.setFont(estiloLetraTitulo3);
-        cantidadDeJugadoresEtiqueta.setStyle("-fx-text-fill: black");
+        this.estiloDelLabel(imperioRomanoEtiqueta, estiloLetraTitulo, "black");
+        this.estiloDelLabel(vamoAJugaEtiqueta, estiloLetraTitulo2, "black");
+        this.estiloDelLabel(cantidadDeJugadoresEtiqueta, estiloLetraTitulo3, "black");
 
         ContenedorBotonesDeMenuInicial contenedorBotones = new ContenedorBotonesDeMenuInicial(stage);
 
@@ -38,5 +35,10 @@ public class ContenedorPrincipal extends VBox {
         this.setAlignment(Pos.CENTER);
         this.setSpacing(10);
         this.setBackground(fondoMenuInicial);
+    }
+
+    private void estiloDelLabel(Label label, Font font, String colorDeLetra){
+        label.setFont(font);
+        label.setStyle("-fx-text-fill: " + colorDeLetra + ";");
     }
 }
