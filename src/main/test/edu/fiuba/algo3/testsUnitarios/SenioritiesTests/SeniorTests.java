@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.testsUnitarios;
+package edu.fiuba.algo3.testsUnitarios.SenioritiesTests;
 import edu.fiuba.algo3.modelo.seniorities.Seniority;
 import edu.fiuba.algo3.modelo.seniorities.Senior;
 import org.junit.jupiter.api.Assertions;

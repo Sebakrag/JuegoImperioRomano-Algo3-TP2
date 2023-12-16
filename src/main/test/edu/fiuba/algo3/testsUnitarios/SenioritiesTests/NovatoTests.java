@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.testsUnitarios;
+package edu.fiuba.algo3.testsUnitarios.SenioritiesTests;
 
 import edu.fiuba.algo3.modelo.seniorities.Seniority;
 import edu.fiuba.algo3.modelo.seniorities.Novato;
@@ -17,7 +17,6 @@ public class NovatoTests {
 
         Seniority seniortyActual = novato.ascender(turno);
 
-        // funciona pero a que costo?
         Assertions.assertEquals(novato, seniortyActual);
     }
 
@@ -27,7 +26,6 @@ public class NovatoTests {
         Novato novato = new Novato(logger);
         int turno = 8;
 
-        // A CHEQUEAR !
         Seniority seniorityNueva = novato.ascender(turno);
 
         Assertions.assertNotEquals(novato, seniorityNueva);

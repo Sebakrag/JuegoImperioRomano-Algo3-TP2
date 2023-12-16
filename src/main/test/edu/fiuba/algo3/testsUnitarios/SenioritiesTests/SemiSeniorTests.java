@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.testsUnitarios;
+package edu.fiuba.algo3.testsUnitarios.SenioritiesTests;
 import edu.fiuba.algo3.modelo.seniorities.Seniority;
 import edu.fiuba.algo3.modelo.seniorities.SemiSenior;
 import org.apache.logging.log4j.LogManager;
@@ -18,14 +18,15 @@ public class SemiSeniorTests {
         Assertions.assertEquals(semiSenior, seniortyActual);
     }
 
-   /* @Test
+   @Test
     public void test02SiTurnoEsDoceAscenderDevuelveSiguienteSeniority(){
-        SemiSenior semiSenior = new SemiSenior();
+       Logger logger = LogManager.getLogger();
+        SemiSenior semiSenior = new SemiSenior(logger);
         int turno = 12;
 
         Seniority seniorityActual = semiSenior.ascender(turno);
 
         Assertions.assertEquals(semiSenior, seniorityActual);
-    }*/
+    }
 
 }

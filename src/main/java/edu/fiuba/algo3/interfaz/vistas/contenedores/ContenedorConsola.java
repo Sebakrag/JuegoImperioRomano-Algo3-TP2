@@ -23,6 +23,7 @@ public class ContenedorConsola extends VBox {
     private Label energiaActual;
     private Label seniority;
     private StackPane panelImagen;
+
     public ContenedorConsola(Juego juego) {
 
         this.turnoActual = new Label("Ronda Actual: 1");
@@ -70,17 +71,14 @@ public class ContenedorConsola extends VBox {
     }
 
     public void actualizar(String nombreJugadorActual, int ronda) {
-        //Label turnoActual = (Label) this.getChildren().get(0);
-        //Label nombreJugador = (Label) this.getChildren().get(1);
+
         this.jugadorAnterior = nombreJugadorActual;
         this.turnoActual.setText("Ronda Actual: " + ronda);
         this.nombreJugador.setText("Jugador " + nombreJugadorActual + " le toca tirar");
     }
 
     public void actualizar(int energia, String estadoID, String seniorityID) {
-        //Label seniority = (Label) this.getChildren().get(5);
-        //Label estado = (Label) this.getChildren().get(6);
-        //Label energiaActual = (Label) this.getChildren().get(7);
+
         this.datosDelJugadorAnterior.setText("\n\nDatos del jugador " + this.jugadorAnterior);
         this.seniority.setText("Seniority jugador: " + seniorityID);
         this.estado.setText("Estado: " + estadoID);
@@ -88,7 +86,6 @@ public class ContenedorConsola extends VBox {
     }
 
     public void actualizar(String equipamientoID){
-        //StackPane panelImagen = (StackPane) this.getChildren().get(8);
         this.panelImagen.getChildren().clear();
 
         Image imagen = new Image("file:" + System.getProperty("user.dir") + "/imagenes/" + equipamientoID + ".png");
@@ -100,18 +97,8 @@ public class ContenedorConsola extends VBox {
         this.panelImagen.getChildren().add(imageView);
     }
 
-    /*public void actualizar(int energia, String estadoID) {
-        Label estado = (Label) this.getChildren().get(7);
-        Label energiaActual = (Label) this.getChildren().get(8);
-
-        estado.setText("Estado: " + estadoID);
-        energiaActual.setText("Energia: " + energia);
-        //this.getChildren().add(7, estado);
-        //this.getChildren().add(8, energiaActual);
-    }*/
 
     public void actualizar(int ultimoNumeroTirado){
-        //Label numeroDeDado = (Label) this.getChildren().get(2);
 
         this.numeroDeDado.setText(this.jugadorAnterior + " avanzo " + ultimoNumeroTirado + " lugares");
     }

@@ -9,15 +9,6 @@ import javafx.stage.Stage;
 public class VistaInicial extends StackPane {
 
     public VistaInicial(Stage stage) {
-        /*    // TODO: Que onda esto? Arranca o no arranca?
-        DoubleProperty fontSize = new SimpleDoubleProperty(12);
-        imperioRomanoEtiqueta.styleProperty().bind(Bindings.concat("-fx-font-size: ", fontSize.asString()));
-        fontSize.bind(Bindings.createDoubleBinding(
-                () -> contenedorPrincipal.getWidth() / imperioRomanoEtiqueta.getText().length() * 1.5, // Puedes ajustar este factor según tus necesidades
-                contenedorPrincipal.widthProperty(), imperioRomanoEtiqueta.textProperty()));
-        */
-
-        //Imagen de Fondo
         Image imagenDeFondo = new Image("file:" + System.getProperty("user.dir") + "/imagenes/fondoMenuInicial.jpg");
         ImageView viewImagenFondo = new ImageView(imagenDeFondo);
         viewImagenFondo.setPreserveRatio(false);
