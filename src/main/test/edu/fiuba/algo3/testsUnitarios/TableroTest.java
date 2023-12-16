@@ -7,6 +7,21 @@ public class TableroTest {
 
     @Test
     public void test01SeArmaCorrectameteUnMapa() {
+/*
+        CeldaInicial celdaInicial = new CeldaInicial(0, 0, logger);
+        CeldaFinal celdaFinal = new CeldaFinal(0,1,logger);
+        ArrayList<Celda> celdas = new ArrayList<>();
+        celdas.add(celdaInicial);
+        celdas.add(celdaFinal);
+
+        Tablero tablero = new Tablero(1,1);
+        tablero.armarMapa(celdas);
+
+ */
+    }
+
+    @Test
+    public void test02AlArmarMapaConCantidadDeCeldasInvalidasLanzaError() {
 
         /*if ( celdas.size() < 2 ) {
             throw new CantidadInvalidaDeCeldasError();
@@ -28,7 +43,7 @@ public class TableroTest {
     }
 
     @Test
-    public void test02JugadorAavanza() {
+    public void test03JugadorAavanza() {
             /*
             * public Celda avanzar(int avances, Celda celdaActual) {
         for (int i = 0; i < avances; i++) {

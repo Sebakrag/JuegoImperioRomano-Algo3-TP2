@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.interfaz.vistas.contenedores;
 
 import edu.fiuba.algo3.interfaz.vistas.botones.BotonJugarTurno;
+import edu.fiuba.algo3.interfaz.vistas.botones.BotonJugarTurnoConImagen;
 import edu.fiuba.algo3.modelo.Juego;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
@@ -9,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.geometry.Pos;
 
@@ -27,11 +29,11 @@ public class ContenedorConsola extends VBox {
 
     public ContenedorConsola(Juego juego) {
 
-        this.turnoActual = new Label("Ronda Actual: 1");
-        this.nombreJugador = new Label("Jugador le toca tirar");
-        this.numeroDeDado = new Label("Avances");
+        this.turnoActual = new Label("\n\n\n\nRonda Actual: 1");
+        this.nombreJugador = new Label("\n\n\n\nJugador le toca tirar");
+        this.numeroDeDado = new Label("\n\n\n\nAvances");
 
-        this.datosDelJugadorAnterior = new Label("\n\nDatos del jugador Actual");
+        this.datosDelJugadorAnterior = new Label("Datos del jugador Actual");
         this.estado = new Label("Estado actual:");
         this.energiaActual = new Label("Energia :");
         this.seniority = new Label("Seniority: ");
@@ -42,22 +44,19 @@ public class ContenedorConsola extends VBox {
         Font estiloLetra = Font.loadFont("file:" + System.getProperty("user.dir") + "/fuentes/Cinzel-Black.ttf", 20);
         this.estiloDelLabel(this.nombreJugador, estiloLetra, "orange");
         this.estiloDelLabel(this.turnoActual, estiloLetra, "orange");
-        this.estiloDelLabel(this.numeroDeDado, estiloLetra, "orange");
 
         //------------ Datos del jugador ----------- //
 
         Font estiloLetra2 = Font.loadFont("file:" + System.getProperty("user.dir") + "/fuentes/Cinzel-Black.ttf", 15);
+        this.estiloDelLabel(this.numeroDeDado, estiloLetra, "red");
         this.estiloDelLabel(this.datosDelJugadorAnterior, estiloLetra2, "red");
         this.estiloDelLabel(this.estado, estiloLetra2, "red");
         this.estiloDelLabel(this.energiaActual, estiloLetra2, "red");
         this.estiloDelLabel(this.seniority, estiloLetra2, "red");
 
-        HBox seniorityYImagen = new HBox();
-        seniorityYImagen.getChildren().addAll(this.seniority, this.panelImagenSeniority);
-        seniorityYImagen.setAlignment(Pos.CENTER);
 
-
-        BotonJugarTurno botonJugarTurno = new BotonJugarTurno("Jugar Turno", juego);
+        //BotonJugarTurno botonJugarTurno = new BotonJugarTurno("Jugar Turno", juego);
+        StackPane panelDado = this.crearPanelDado(juego);
 
         Image imagenFondo = new Image("file:" + System.getProperty("user.dir") + "/imagenes/tableroYConsola/Consola.jpg");
 
@@ -67,8 +66,24 @@ public class ContenedorConsola extends VBox {
 
         this.setBackground(background);
 
-        this.getChildren().addAll(turnoActual, nombreJugador, numeroDeDado, botonJugarTurno, datosDelJugadorAnterior, seniorityYImagen, estado, energiaActual, panelImagenEquipamiento);
-        this.setAlignment(Pos.CENTER);
+        this.getChildren().addAll(turnoActual, nombreJugador, panelDado, numeroDeDado, datosDelJugadorAnterior, panelImagenSeniority,estado, energiaActual, panelImagenEquipamiento);
+        this.setAlignment(Pos.TOP_CENTER);
+    }
+
+    private StackPane crearPanelDado(Juego juego){
+        ImageView imagenDado = new BotonJugarTurnoConImagen(juego);
+        Rectangle fondo = new Rectangle(50, 50, Color.ORANGE);
+        StackPane panel = new StackPane(fondo, imagenDado);
+
+        panel.setOnMouseEntered(event -> {
+            fondo.setFill(Color.DARKORANGE);
+        });
+
+        panel.setOnMouseExited(event -> {
+            fondo.setFill(Color.ORANGE);
+        });
+
+        return panel;
     }
 
     private void estiloDelLabel(Label label, Font font, String colorDeLetra){
@@ -79,22 +94,22 @@ public class ContenedorConsola extends VBox {
     public void actualizar(String nombreJugadorActual, int ronda) {
 
         this.jugadorAnterior = nombreJugadorActual;
-        this.turnoActual.setText("Ronda Actual: " + ronda);
-        this.nombreJugador.setText("Jugador " + nombreJugadorActual + " le toca tirar");
+        this.turnoActual.setText("\n\n\n\nRonda Actual: " + ronda);
+        this.nombreJugador.setText("\n\n\n\nSiguiente jugador: " + nombreJugadorActual);
     }
 
     public void actualizar(int energia, String estadoID, String seniorityID) {
-        this.datosDelJugadorAnterior.setText("\n\nDatos del jugador " + this.jugadorAnterior);
+        this.datosDelJugadorAnterior.setText("Datos del jugador " + this.jugadorAnterior);
 
         this.panelImagenSeniority.getChildren().clear();
         Image imagen = new Image("file:" + System.getProperty("user.dir") + "/imagenes/" + seniorityID + ".png");
         ImageView imageView = new ImageView(imagen);
         imageView.setPreserveRatio(true);
-        imageView.setFitWidth(40);
-        imageView.setFitHeight(40);
+        imageView.setFitWidth(100);
+        imageView.setFitHeight(100);
         this.panelImagenSeniority.getChildren().add(imageView);
 
-        this.estado.setText("Estado: " + estadoID);
+        this.estado.setText(estadoID);
         this.energiaActual.setText("Energia: " + energia);
     }
 
@@ -113,6 +128,6 @@ public class ContenedorConsola extends VBox {
 
     public void actualizar(int ultimoNumeroTirado){
 
-        this.numeroDeDado.setText(this.jugadorAnterior + " avanzo " + ultimoNumeroTirado + " lugares");
+        this.numeroDeDado.setText("\n\n\n\n" + this.jugadorAnterior + " avanzo " + ultimoNumeroTirado + " lugares");
     }
 }

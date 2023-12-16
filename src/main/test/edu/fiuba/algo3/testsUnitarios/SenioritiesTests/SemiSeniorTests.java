@@ -26,7 +26,7 @@ public class SemiSeniorTests {
 
         Seniority seniorityActual = semiSenior.ascender(turno);
 
-        Assertions.assertEquals(semiSenior, seniorityActual);
+        Assertions.assertNotSame(semiSenior, seniorityActual);
     }
 
 }

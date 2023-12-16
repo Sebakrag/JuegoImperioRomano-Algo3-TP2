@@ -68,7 +68,6 @@ public class VistaJuego extends GridPane implements Observador {
     public void actualizar(String nombreJugador, boolean hayGanador) {
         String textoFinal;
         String rutaImagen;
-        //this.contenedorTablero.actualizar(nombreJugador, celdaAnterior, celdaActual);
 
         if (hayGanador) {
             textoFinal = "¡GANADOR " + "\"" + nombreJugador + "\"" + "!";
