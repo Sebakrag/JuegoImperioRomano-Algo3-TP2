@@ -14,6 +14,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.geometry.Pos;
 
+import java.util.ArrayList;
+
 
 public class ContenedorConsola extends VBox {
     private String jugadorAnterior;
@@ -23,23 +25,27 @@ public class ContenedorConsola extends VBox {
     private Label datosDelJugadorAnterior;
     private Label estado;
     private Label energiaActual;
-    private Label seniority;
     private StackPane panelImagenEquipamiento;
     private StackPane panelImagenSeniority;
+    private StackPane panelImagenJugadorActual;
+    private StackPane panelImagenJugadorAnterior;
+    private final ArrayList<StackPane> jugadores;
 
-    public ContenedorConsola(Juego juego) {
-
+    public ContenedorConsola(Juego juego, ArrayList<StackPane> jugadores) {
+        this.jugadores = jugadores;
         this.turnoActual = new Label("\n\n\n\nRonda Actual: 1");
         this.nombreJugador = new Label("\n\n\n\nJugador le toca tirar");
         this.numeroDeDado = new Label("\n\n\n\nAvances");
+        Label separarDado = new Label("\n\n");
 
         this.datosDelJugadorAnterior = new Label("Datos del jugador Actual");
         this.estado = new Label("Estado actual:");
         this.energiaActual = new Label("Energia :");
-        this.seniority = new Label("Seniority: ");
 
         this.panelImagenEquipamiento = new StackPane();
         this.panelImagenSeniority = new StackPane();
+        this.panelImagenJugadorActual = new StackPane();
+        this.panelImagenJugadorAnterior = new StackPane();
 
         Font estiloLetra = Font.loadFont("file:" + System.getProperty("user.dir") + "/fuentes/Cinzel-Black.ttf", 20);
         this.estiloDelLabel(this.nombreJugador, estiloLetra, "orange");
@@ -52,7 +58,6 @@ public class ContenedorConsola extends VBox {
         this.estiloDelLabel(this.datosDelJugadorAnterior, estiloLetra2, "red");
         this.estiloDelLabel(this.estado, estiloLetra2, "red");
         this.estiloDelLabel(this.energiaActual, estiloLetra2, "red");
-        this.estiloDelLabel(this.seniority, estiloLetra2, "red");
 
 
         //BotonJugarTurno botonJugarTurno = new BotonJugarTurno("Jugar Turno", juego);
@@ -66,7 +71,7 @@ public class ContenedorConsola extends VBox {
 
         this.setBackground(background);
 
-        this.getChildren().addAll(turnoActual, nombreJugador, panelDado, numeroDeDado, datosDelJugadorAnterior, panelImagenSeniority,estado, energiaActual, panelImagenEquipamiento);
+        this.getChildren().addAll(turnoActual, nombreJugador, panelImagenJugadorActual, separarDado, panelDado, numeroDeDado, panelImagenJugadorAnterior, datosDelJugadorAnterior, panelImagenSeniority,estado, energiaActual, panelImagenEquipamiento);
         this.setAlignment(Pos.TOP_CENTER);
     }
 
@@ -92,13 +97,53 @@ public class ContenedorConsola extends VBox {
     }
 
     public void actualizar(String nombreJugadorActual, int ronda) {
-
         this.jugadorAnterior = nombreJugadorActual;
         this.turnoActual.setText("\n\n\n\nRonda Actual: " + ronda);
         this.nombreJugador.setText("\n\n\n\nSiguiente jugador: " + nombreJugadorActual);
+        StackPane panelImagen = this.obtenerPanelJugador(nombreJugadorActual);
+
+        if(panelImagen != null){
+            ImageView imagenJugador = (ImageView) panelImagen.getChildren().get(0);
+            Image imagen = this.imagenJugador(imagenJugador.getImage());
+            ImageView imagenJugadorActual = new ImageView(imagen);
+            imagenJugadorActual.setFitWidth(75);
+            imagenJugadorActual.setFitHeight(75);
+            this.panelImagenJugadorActual.getChildren().clear();
+            this.panelImagenJugadorActual.getChildren().setAll(imagenJugadorActual);
+        }
+    }
+
+    private Image imagenJugador(Image imagen){
+        String rutaImagen = imagen.getUrl();
+        Image imagenDevolver = new Image(rutaImagen);
+
+        return imagenDevolver;
+    }
+
+    private StackPane obtenerPanelJugador(String nombre) {
+        for (StackPane jugador : this.jugadores) {
+            Label nombreJugador = (Label) jugador.getChildren().get(1);
+            if (nombreJugador.getText().equals(nombre)) {
+                return jugador;
+            }
+        }
+        return null;
     }
 
     public void actualizar(int energia, String estadoID, String seniorityID) {
+        StackPane panelImagen = this.obtenerPanelJugador(this.jugadorAnterior);
+
+        if(panelImagen != null){
+            ImageView imagenJugador = (ImageView) panelImagen.getChildren().get(0);
+            Image imagen = this.imagenJugador(imagenJugador.getImage());
+            ImageView imagenJugadorActual = new ImageView(imagen);
+            imagenJugadorActual.setFitWidth(75);
+            imagenJugadorActual.setFitHeight(75);
+            this.panelImagenJugadorAnterior.getChildren().clear();
+            this.panelImagenJugadorAnterior.getChildren().setAll(imagenJugadorActual);
+        }
+
+
         this.datosDelJugadorAnterior.setText("Datos del jugador " + this.jugadorAnterior);
 
         this.panelImagenSeniority.getChildren().clear();

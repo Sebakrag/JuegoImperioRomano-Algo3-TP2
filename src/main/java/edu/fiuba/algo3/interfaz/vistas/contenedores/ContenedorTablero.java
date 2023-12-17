@@ -22,6 +22,7 @@ public class ContenedorTablero extends GridPane {
     private final int xInicial;
     private final int yInicial;
     private final ArrayList<StackPane> jugadores;  // Array de StackPanes de gladiadores
+    private final ArrayList<StackPane> jugadoresImagenes;
     private List<String> imagenesGladiadores;
 
     private Tablero tablero;
@@ -34,6 +35,7 @@ public class ContenedorTablero extends GridPane {
         this.xInicial = tablero.getCeldaInicial().getX();
         this.yInicial = tablero.getCeldaInicial().getY();
         this.jugadores = new ArrayList<>();
+        this.jugadoresImagenes = new ArrayList<>();
         this.imagenesGladiadores = new ArrayList<>(List.of(
                 "gladiadores/Gladiador1",
                 "gladiadores/Gladiador2",
@@ -102,13 +104,19 @@ public class ContenedorTablero extends GridPane {
                     timeline.getKeyFrames().add(keyFrame);
                     i++;
                 }
-                timeline.play();
-
                 if(celdaFinal){
                     int finalX = celdaActual.getX();
                     int finalY = celdaActual.getY();
                     setConstraints(jugador, finalX, finalY);
+                    KeyFrame keyFrame = new KeyFrame(
+                            Duration.millis(i * retrasoEntreIteracionesEnMilisegundos),
+                            event -> {
+                                setConstraints(jugador, finalX, finalY);
+                            }
+                    );
+                    timeline.getKeyFrames().add(keyFrame);
                 }
+                timeline.play();
             }
         }
     }
@@ -178,8 +186,10 @@ public class ContenedorTablero extends GridPane {
         int i = 0;
         while (i < nombresJugadores.size()) {
             StackPane panelJugador = crearPanelJugador(nombresJugadores, i);
+            StackPane panelJugador2 = crearPanelJugadorImagenView(nombresJugadores, i);
 
             this.jugadores.add(panelJugador);
+            this.jugadoresImagenes.add(panelJugador2);
 
             super.getChildren().add(panelJugador);
             setConstraints(panelJugador, this.xInicial, this.yInicial);
@@ -198,6 +208,32 @@ public class ContenedorTablero extends GridPane {
         panelJugador.getChildren().add(etiquetaNombreJugador);
 
         return panelJugador;
+    }
+
+    private StackPane crearPanelJugadorImagenView(ArrayList<String> nombresJugadores, int indiceJugador) {
+
+        StackPane panelJugador = crearPanelCeldaConImagenView(this.imagenesGladiadores.get(indiceJugador));
+        Label etiquetaNombreJugador = new Label(nombresJugadores.get(indiceJugador));
+        Font estiloLetra = Font.loadFont("file:" + System.getProperty("user.dir") + "/fuentes/Cinzel-Black.ttf", 20);
+        etiquetaNombreJugador.setFont(estiloLetra);
+        etiquetaNombreJugador.setStyle("-fx-text-fill: RED");
+
+        panelJugador.getChildren().add(etiquetaNombreJugador);
+
+        return panelJugador;
+    }
+
+    private StackPane crearPanelCeldaConImagenView(String nombreImagen) {
+        StackPane panelCelda = new StackPane();
+        Image imagenFondo = new Image("file:" + System.getProperty("user.dir") + "/imagenes/tableroYConsola/" + nombreImagen + ".png");
+
+        ImageView imageView = new ImageView(imagenFondo);
+        imageView.setPreserveRatio(true);
+        imageView.setFitWidth(50);
+        imageView.setFitHeight(50);
+        panelCelda.getChildren().add(imageView);
+
+        return panelCelda;
     }
 
     private StackPane crearPanelCamino(Celda celdaActual) {
@@ -230,5 +266,9 @@ public class ContenedorTablero extends GridPane {
             }
         }
         return null;
+    }
+
+    public ArrayList<StackPane> getJugadoresImagenes(){
+        return this.jugadoresImagenes;
     }
 }

@@ -22,7 +22,7 @@ public class VistaJuego extends GridPane implements Observador {
         juego.agregarObservador(this);
 
         this.contenedorTablero = new ContenedorTablero(tablero, nombreJugadores);
-        this.contenedorConsola = new ContenedorConsola(juego);
+        this.contenedorConsola = new ContenedorConsola(juego, this.contenedorTablero.getJugadoresImagenes());
 
         //Los StackPane los cree para que se adapten bien a la ventana (funcionaba), pero ahora que agregue las imagenes de los afectantes no se adapta bien
         StackPane panelTablero = new StackPane(this.contenedorTablero);

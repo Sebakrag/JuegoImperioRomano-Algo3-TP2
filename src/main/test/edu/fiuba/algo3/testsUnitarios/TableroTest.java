@@ -1,13 +1,50 @@
 package edu.fiuba.algo3.testsUnitarios;
 
+
+import edu.fiuba.algo3.modelo.celdas.*;
 import org.junit.jupiter.api.Assertions;
+import edu.fiuba.algo3.modelo.excepcion.*;
 import org.junit.jupiter.api.Test;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import edu.fiuba.algo3.modelo.*;
+import java.util.ArrayList;
 
 public class TableroTest {
 
     @Test
     public void test01SeArmaCorrectameteUnMapa() {
-/*
+        Logger logger = LogManager.getLogger();
+
+        CeldaInicial celdaInicial = new CeldaInicial(0, 0, logger);
+        CeldaFinal celdaFinal = new CeldaFinal(0,1,logger);
+        ArrayList<Celda> celdas = new ArrayList<>();
+        celdas.add(celdaInicial);
+        celdas.add(celdaFinal);
+
+        Tablero tablero = new Tablero(1,1);
+        Assertions.assertDoesNotThrow(()->tablero.armarMapa(celdas));
+
+    }
+
+    @Test
+    public void test02AlArmarMapaConCantidadDeCeldasInvalidasLanzaError() {
+
+        Logger logger = LogManager.getLogger();
+
+        CeldaInicial celdaInicial = new CeldaInicial(0, 0, logger);
+        ArrayList<Celda> celdas = new ArrayList<>();
+        celdas.add(celdaInicial);
+
+
+        Tablero tablero = new Tablero(0,1);
+        Assertions.assertThrows(CantidadInvalidaDeCeldasError.class,()->tablero.armarMapa(celdas));
+    }
+
+    @Test
+    public void test03SeDevuelveLaCeldaCorrectaAlAvanzar() {
+        Logger logger = LogManager.getLogger();
+
         CeldaInicial celdaInicial = new CeldaInicial(0, 0, logger);
         CeldaFinal celdaFinal = new CeldaFinal(0,1,logger);
         ArrayList<Celda> celdas = new ArrayList<>();
@@ -17,40 +54,10 @@ public class TableroTest {
         Tablero tablero = new Tablero(1,1);
         tablero.armarMapa(celdas);
 
- */
-    }
 
-    @Test
-    public void test02AlArmarMapaConCantidadDeCeldasInvalidasLanzaError() {
+        Celda celdaSiguiente = tablero.avanzar(1, celdaInicial);
 
-        /*if ( celdas.size() < 2 ) {
-            throw new CantidadInvalidaDeCeldasError();
-        }
+        Assertions.assertEquals(celdaSiguiente, celdaFinal);
 
-        this.celdaInicial = celdas.get(0);
-        Celda actual = celdas.get(0);
-        int i = 1;
-        for (; i < celdas.size(); i++) {
-            Celda celdaComun = celdas.get(i);
-            actual.setSiguiente(celdaComun);
-            actual = celdaComun;
-        }
-        this.celdaFinal = actual;
-        Celda celdaMedio = celdas.get((celdas.size() - 1) / 2);
-        actual.setSiguiente(celdaMedio);*/
-
-        Assertions.assertNotSame(2, 3);
-    }
-
-    @Test
-    public void test03JugadorAavanza() {
-            /*
-            * public Celda avanzar(int avances, Celda celdaActual) {
-        for (int i = 0; i < avances; i++) {
-            celdaActual = celdaActual.celdaSiguiente();
-        }
-        return celdaActual;
-    }
-            * */
     }
 }
