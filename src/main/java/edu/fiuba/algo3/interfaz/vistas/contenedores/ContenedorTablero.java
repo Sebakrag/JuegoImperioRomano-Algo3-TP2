@@ -9,8 +9,12 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.text.Font;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,11 +28,13 @@ public class ContenedorTablero extends GridPane {
     private final ArrayList<StackPane> jugadores;  // Array de StackPanes de gladiadores
     private final ArrayList<StackPane> jugadoresImagenes;
     private List<String> imagenesGladiadores;
-
     private Tablero tablero;
+    private MediaPlayer sonidoPlayerCaminata;
 
-    public ContenedorTablero(Tablero tablero, ArrayList<String> nombresJugadores) {
+    public ContenedorTablero(Tablero tablero, ArrayList<String> nombresJugadores, MediaPlayer sonidoCaminata) {
         this.tablero = tablero;
+
+        this.sonidoPlayerCaminata = sonidoCaminata;
 
         int columnas = tablero.getLargo();
         int filas = tablero.getAncho();
@@ -79,7 +85,10 @@ public class ContenedorTablero extends GridPane {
                 int finalX = celdaSiguiente.getX();
                 int finalY = celdaSiguiente.getY();
                 setConstraints(jugador, finalX, finalY);
+                // Pausar el sonido al final de la animación
+                //this.sonidoPlayerCaminata.pause();
             } else {
+                this.sonidoPlayerCaminata.play(); //Reproduccion del sonido
                 int i = 0;
                 Celda verificarCeldaFinal;
                 boolean celdaFinal = false;
@@ -112,6 +121,17 @@ public class ContenedorTablero extends GridPane {
                             Duration.millis(i * retrasoEntreIteracionesEnMilisegundos),
                             event -> {
                                 setConstraints(jugador, finalX, finalY);
+                                // Pausar el sonido al final de la animación
+                                this.sonidoPlayerCaminata.pause();
+                            }
+                    );
+                    timeline.getKeyFrames().add(keyFrame);
+                }else{
+                    KeyFrame keyFrame = new KeyFrame(
+                            Duration.millis(i * retrasoEntreIteracionesEnMilisegundos),
+                            event -> {
+                                // Pausar el sonido al final de la animación
+                                this.sonidoPlayerCaminata.pause();
                             }
                     );
                     timeline.getKeyFrames().add(keyFrame);
@@ -204,6 +224,7 @@ public class ContenedorTablero extends GridPane {
         Font estiloLetra = Font.loadFont("file:" + System.getProperty("user.dir") + "/fuentes/Cinzel-Black.ttf", 20);
         etiquetaNombreJugador.setFont(estiloLetra);
         etiquetaNombreJugador.setStyle("-fx-text-fill: RED");
+        etiquetaNombreJugador.setVisible(false); //Hace la etiqueta invisible
 
         panelJugador.getChildren().add(etiquetaNombreJugador);
 

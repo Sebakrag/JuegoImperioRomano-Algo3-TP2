@@ -8,7 +8,11 @@ import edu.fiuba.algo3.modelo.Tablero;
 import edu.fiuba.algo3.modelo.celdas.Celda;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
+
+import java.io.File;
 import java.util.ArrayList;
 
 
@@ -16,12 +20,29 @@ public class VistaJuego extends GridPane implements Observador {
     private final ContenedorConsola contenedorConsola;
     private final ContenedorTablero contenedorTablero;
     private Stage ventana;
+    private MediaPlayer sonidoPlayerCaminata;
+    private MediaPlayer sonidoPlayerAplusos;
 
     public VistaJuego(Juego juego, Tablero tablero, ArrayList<String> nombreJugadores, Stage ventana) {
         this.ventana = ventana;
         juego.agregarObservador(this);
 
-        this.contenedorTablero = new ContenedorTablero(tablero, nombreJugadores);
+        //Sonido
+        String rutaSonidoCaminata = ("sonidos/Caminata.mp3");
+        String rutaSonidoAplausos = ("sonidos/Aplausos.mp3");
+
+        Media sonidoCaminata = new Media(new File(rutaSonidoCaminata).toURI().toString());
+        Media sonidoAplausos = new Media(new File(rutaSonidoAplausos).toURI().toString());
+
+        this.sonidoPlayerCaminata = new MediaPlayer(sonidoCaminata);
+        this.sonidoPlayerAplusos = new MediaPlayer(sonidoAplausos);
+
+        this.sonidoPlayerCaminata.setCycleCount(MediaPlayer.INDEFINITE); //Sonido en bucle
+        this.sonidoPlayerCaminata.setVolume(0.2);
+        this.sonidoPlayerAplusos.setCycleCount(MediaPlayer.INDEFINITE);
+        this.sonidoPlayerAplusos.setVolume(0.3);
+
+        this.contenedorTablero = new ContenedorTablero(tablero, nombreJugadores, this.sonidoPlayerCaminata);
         this.contenedorConsola = new ContenedorConsola(juego, this.contenedorTablero.getJugadoresImagenes());
 
         //Los StackPane los cree para que se adapten bien a la ventana (funcionaba), pero ahora que agregue las imagenes de los afectantes no se adapta bien
@@ -70,6 +91,7 @@ public class VistaJuego extends GridPane implements Observador {
         String rutaImagen;
 
         if (hayGanador) {
+            this.sonidoPlayerAplusos.play();
             textoFinal = "¡GANADOR " + "\"" + nombreJugador + "\"" + "!";
             rutaImagen = "imagenGanador.gif";
         } else {

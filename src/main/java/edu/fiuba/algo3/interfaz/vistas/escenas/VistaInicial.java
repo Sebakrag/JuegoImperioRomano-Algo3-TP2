@@ -4,7 +4,11 @@ import edu.fiuba.algo3.interfaz.vistas.contenedores.ContenedorPrincipal;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
+
+import java.io.File;
 
 public class VistaInicial extends StackPane {
 

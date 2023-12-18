@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.equipamientos.Equipamiento;
-import edu.fiuba.algo3.modelo.excepcion.TurnoPerdidoError;
 import edu.fiuba.algo3.modelo.seniorities.Novato;
 import edu.fiuba.algo3.modelo.equipamientos.Desequipado;
 import edu.fiuba.algo3.modelo.afectantes.*;
