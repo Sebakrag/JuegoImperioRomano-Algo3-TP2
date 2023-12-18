@@ -1,10 +1,8 @@
 package edu.fiuba.algo3.interfaz.vistas.contenedores;
 
-import edu.fiuba.algo3.interfaz.vistas.botones.BotonJugarTurno;
 import edu.fiuba.algo3.interfaz.vistas.botones.BotonJugarTurnoConImagen;
 import edu.fiuba.algo3.modelo.Juego;
 import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;

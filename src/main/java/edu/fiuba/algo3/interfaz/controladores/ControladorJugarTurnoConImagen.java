@@ -7,7 +7,6 @@ import edu.fiuba.algo3.modelo.excepcion.UnJugadorGanoLaPartidaError;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.EventHandler;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 
