@@ -62,11 +62,9 @@ public class Juego extends Observable {
 
         notificarObservadores(this.jugadorTurnoActual.getNombre(), this.ronda);
     }
-
     public void finalizarJuego() {
         notificarObservadores(this.jugadorTurnoActual.getNombre(), this.hayGanador);
     }
-
     public void agregarObservadorAJugadores(Observador observador) {
         for (Jugador jugador : this.jugadores) {
             jugador.agregarObservador(observador);

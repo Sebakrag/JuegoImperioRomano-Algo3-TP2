@@ -10,15 +10,6 @@ import edu.fiuba.algo3.modelo.afectantes.*;
 import edu.fiuba.algo3.modelo.excepcion.*;
 import org.apache.logging.log4j.Logger;
 
-/*
-*       "x": 17,
-        "y": 4,
-        "tipo": "Camino",
-        "obstaculo": "",
-        "premio": "Comida"
-*
-* */
-
 public class CeldaParser {
 
     public Celda parse(JSONObject celda) {

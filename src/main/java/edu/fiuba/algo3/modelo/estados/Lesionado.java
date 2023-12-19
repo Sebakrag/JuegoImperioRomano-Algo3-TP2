@@ -9,7 +9,6 @@ public class Lesionado implements Estado {
 
     private final String id = "Lesionado";
 
-
     public Lesionado(int energia){
         this.energiaActual = energia;
 
