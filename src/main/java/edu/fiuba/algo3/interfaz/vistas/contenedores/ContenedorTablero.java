@@ -30,11 +30,25 @@ public class ContenedorTablero extends GridPane {
     private List<String> imagenesGladiadores;
     private Tablero tablero;
     private MediaPlayer sonidoPlayerCaminata;
+    private MediaPlayer sonidoPlayerObstaculo;
+    private MediaPlayer sonidoPlayerPremio;
 
-    public ContenedorTablero(Tablero tablero, ArrayList<String> nombresJugadores, MediaPlayer sonidoCaminata) {
+    public ContenedorTablero(Tablero tablero, ArrayList<String> nombresJugadores, MediaPlayer sonidoCaminata, MediaPlayer sonidoObstaculo, MediaPlayer sonidoPremio) {
         this.tablero = tablero;
 
         this.sonidoPlayerCaminata = sonidoCaminata;
+        this.sonidoPlayerObstaculo = sonidoObstaculo;
+        this.sonidoPlayerPremio = sonidoPremio;
+
+        this.sonidoPlayerObstaculo.play();
+        if(this.sonidoPlayerObstaculo != null){
+            this.sonidoPlayerObstaculo.stop();
+        }
+
+        this.sonidoPlayerPremio.play();
+        if(this.sonidoPlayerPremio != null){
+            this.sonidoPlayerPremio.stop();
+        }
 
         int columnas = tablero.getLargo();
         int filas = tablero.getAncho();
@@ -80,15 +94,29 @@ public class ContenedorTablero extends GridPane {
         Timeline timeline = new Timeline();
 
         if (jugador != null) {
+            this.sonidoPlayerCaminata.play(); //Reproduccion del sonido
             Celda celdaSiguiente = celdaAnterior.celdaSiguiente();
             if (celdaSiguiente == celdaActual) {
                 int finalX = celdaSiguiente.getX();
                 int finalY = celdaSiguiente.getY();
                 setConstraints(jugador, finalX, finalY);
                 // Pausar el sonido al final de la animación
-                //this.sonidoPlayerCaminata.pause();
+                Duration duracionTotal = Duration.seconds(1);
+
+                Timeline timeline2 = new Timeline(
+                        new KeyFrame(duracionTotal, event -> {
+                            this.sonidoPlayerCaminata.stop();
+                            this.sonidoPremio(celdaActual.nombreImagenPremio());
+                        })
+                );
+                timeline2.play();
+
+                Duration duracionTotalObstaculo = Duration.seconds(3);
+                Timeline timeline3 = new Timeline(
+                        new KeyFrame(duracionTotalObstaculo, event -> this.sonidoObstaculo(celdaActual.nombreImagenObstaculo()))
+                );
+                timeline3.play();
             } else {
-                this.sonidoPlayerCaminata.play(); //Reproduccion del sonido
                 int i = 0;
                 Celda verificarCeldaFinal;
                 boolean celdaFinal = false;
@@ -123,6 +151,7 @@ public class ContenedorTablero extends GridPane {
                                 setConstraints(jugador, finalX, finalY);
                                 // Pausar el sonido al final de la animación
                                 this.sonidoPlayerCaminata.pause();
+                                this.sonidoPremio(celdaActual.nombreImagenPremio());
                             }
                     );
                     timeline.getKeyFrames().add(keyFrame);
@@ -132,15 +161,59 @@ public class ContenedorTablero extends GridPane {
                             event -> {
                                 // Pausar el sonido al final de la animación
                                 this.sonidoPlayerCaminata.pause();
+                                this.sonidoPremio(celdaActual.nombreImagenPremio());
                             }
                     );
                     timeline.getKeyFrames().add(keyFrame);
                 }
                 timeline.play();
+
+                Duration duracionTotalObstaculo = Duration.seconds(4);
+                Timeline timeline3 = new Timeline(
+                        new KeyFrame(duracionTotalObstaculo, event -> this.sonidoObstaculo(celdaActual.nombreImagenObstaculo()))
+                );
+                timeline3.play();
             }
         }
     }
 
+    private void sonidoPremio(String premio){
+        if(!premio.isEmpty()){
+            String rutaSonidoObstaculo = ("sonidos/" + premio + ".mp3");
+            Media sonidoObstaculo = new Media(new File(rutaSonidoObstaculo).toURI().toString());
+            this.sonidoPlayerPremio = new MediaPlayer(sonidoObstaculo);
+            this.sonidoPlayerPremio.setCycleCount(MediaPlayer.INDEFINITE);
+            this.sonidoPlayerPremio.setVolume(0.5);
+            this.sonidoPlayerPremio.play();
+
+            // Pausar el sonido al final de la animación
+            Duration duracionTotal = Duration.seconds(2);
+
+            Timeline timeline2 = new Timeline(
+                    new KeyFrame(duracionTotal, event -> this.sonidoPlayerPremio.stop())
+            );
+            timeline2.play();
+        }
+    }
+
+    private void sonidoObstaculo(String obstaculo){
+        if(!obstaculo.isEmpty()){
+            String rutaSonidoObstaculo = ("sonidos/" + obstaculo + ".mp3");
+            Media sonidoObstaculo = new Media(new File(rutaSonidoObstaculo).toURI().toString());
+            this.sonidoPlayerObstaculo = new MediaPlayer(sonidoObstaculo);
+            this.sonidoPlayerObstaculo.setCycleCount(MediaPlayer.INDEFINITE);
+            this.sonidoPlayerObstaculo.setVolume(0.5);
+            this.sonidoPlayerObstaculo.play();
+
+            // Pausar el sonido al final de la animación
+            Duration duracionTotal = Duration.seconds(2);
+
+            Timeline timeline2 = new Timeline(
+                    new KeyFrame(duracionTotal, event -> this.sonidoPlayerObstaculo.stop())
+            );
+            timeline2.play();
+        }
+    }
 
     // -------------------------------- PRIVADOS -------------------------------- //
     private void crearCamino(Tablero tablero) {

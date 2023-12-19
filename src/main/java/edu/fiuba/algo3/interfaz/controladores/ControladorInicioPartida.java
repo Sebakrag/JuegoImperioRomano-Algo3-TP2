@@ -6,6 +6,7 @@ import edu.fiuba.algo3.parsers.TableroParser;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import edu.fiuba.algo3.modelo.*;
 import org.apache.logging.log4j.LogManager;
@@ -44,7 +45,15 @@ public class ControladorInicioPartida implements EventHandler<ActionEvent> {
             vistaJuego.prefWidthProperty().bind(this.ventana.widthProperty());
             vistaJuego.prefHeightProperty().bind(this.ventana.heightProperty());
             this.ventana.setScene(escenaJuego);
+            this.ventana.setFullScreen(true); // Configurar la ventana para que se abra en pantalla completa
+            this.ventana.setOnCloseRequest(event -> System.exit(0)); // Establecer un evento para cerrar la aplicación al presionar Esc en pantalla completa
             this.ventana.setResizable(true);
+
+            escenaJuego.setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.F11) {
+                    this.ventana.setFullScreen(!this.ventana.isFullScreen());
+                }
+            });
 
         } catch (IOException | ParseException | ArchivoNoEncontradoError e) {
             return;

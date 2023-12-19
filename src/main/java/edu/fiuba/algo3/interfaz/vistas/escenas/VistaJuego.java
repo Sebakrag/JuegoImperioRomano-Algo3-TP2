@@ -7,6 +7,7 @@ import edu.fiuba.algo3.modelo.Observador;
 import edu.fiuba.algo3.modelo.Tablero;
 import edu.fiuba.algo3.modelo.celdas.Celda;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -22,6 +23,8 @@ public class VistaJuego extends GridPane implements Observador {
     private Stage ventana;
     private MediaPlayer sonidoPlayerCaminata;
     private MediaPlayer sonidoPlayerAplusos;
+    private MediaPlayer sonidoPlayerObstaculo;
+    private MediaPlayer sonidoPlayerPremio;
 
     public VistaJuego(Juego juego, Tablero tablero, ArrayList<String> nombreJugadores, Stage ventana) {
         this.ventana = ventana;
@@ -42,7 +45,15 @@ public class VistaJuego extends GridPane implements Observador {
         this.sonidoPlayerAplusos.setCycleCount(MediaPlayer.INDEFINITE);
         this.sonidoPlayerAplusos.setVolume(0.3);
 
-        this.contenedorTablero = new ContenedorTablero(tablero, nombreJugadores, this.sonidoPlayerCaminata);
+        this.sonidoPlayerObstaculo = new MediaPlayer(sonidoAplausos);
+        this.sonidoPlayerPremio = new MediaPlayer(sonidoAplausos);
+
+        this.sonidoPlayerObstaculo.setCycleCount(MediaPlayer.INDEFINITE);
+        this.sonidoPlayerObstaculo.setVolume(0.01);
+        this.sonidoPlayerPremio.setCycleCount(MediaPlayer.INDEFINITE);
+        this.sonidoPlayerPremio.setVolume(0.01);
+
+        this.contenedorTablero = new ContenedorTablero(tablero, nombreJugadores, this.sonidoPlayerCaminata, this.sonidoPlayerObstaculo, this.sonidoPlayerPremio);
         this.contenedorConsola = new ContenedorConsola(juego, this.contenedorTablero.getJugadoresImagenes());
 
         //Los StackPane los cree para que se adapten bien a la ventana (funcionaba), pero ahora que agregue las imagenes de los afectantes no se adapta bien
@@ -68,9 +79,11 @@ public class VistaJuego extends GridPane implements Observador {
     public void actualizar(String nombreJugador, Celda celdaAnterior, Celda celdaActual, int avances) {
         if (celdaAnterior != celdaActual) {
             this.contenedorConsola.actualizar(avances);
+            this.contenedorConsola.actualizar(celdaActual.nombreImagenPremio(), celdaActual.nombreImagenObstaculo());
             this.contenedorTablero.actualizar(nombreJugador, celdaAnterior, celdaActual);
         } else {
             this.contenedorConsola.actualizar(0);
+            this.contenedorConsola.actualizar("", "");
         }
     }
 
@@ -103,5 +116,13 @@ public class VistaJuego extends GridPane implements Observador {
 
         Scene escenaFinJuego = new Scene(panelFinalizarJuego, 800, 600);
         this.ventana.setScene(escenaFinJuego);
+        this.ventana.setFullScreen(true); // Configurar la ventana para que se abra en pantalla completa
+        this.ventana.setOnCloseRequest(event -> System.exit(0)); // Establecer un evento para cerrar la aplicación al presionar Esc en pantalla completa
+
+        escenaFinJuego.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.F11) {
+                this.ventana.setFullScreen(!this.ventana.isFullScreen());
+            }
+        });
     }
 }

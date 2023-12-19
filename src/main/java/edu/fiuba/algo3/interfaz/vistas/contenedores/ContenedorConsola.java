@@ -23,6 +23,8 @@ public class ContenedorConsola extends VBox {
     private Label datosDelJugadorAnterior;
     private Label estado;
     private Label energiaActual;
+    private Label premio;
+    private Label obstaculo;
     private StackPane panelImagenEquipamiento;
     private StackPane panelImagenSeniority;
     private StackPane panelImagenJugadorActual;
@@ -31,12 +33,18 @@ public class ContenedorConsola extends VBox {
 
     public ContenedorConsola(Juego juego, ArrayList<StackPane> jugadores) {
         this.jugadores = jugadores;
-        this.turnoActual = new Label("\n\n\n\nRonda Actual: 1");
-        this.nombreJugador = new Label("\n\n\n\nJugador le toca tirar");
+        this.turnoActual = new Label("Ronda Actual: 1");
+        this.nombreJugador = new Label("Jugador le toca tirar");
         this.numeroDeDado = new Label("Avances");
-        Label separarDado = new Label("\n\n");
+        this.premio = new Label("Premio: ");
+        this.obstaculo = new Label("Obstaculo: ");
 
-        this.datosDelJugadorAnterior = new Label("\n\n\n\nDatos del jugador Actual");
+        Label separarDado = new Label("\n\n");
+        Label separador = new Label("\n\n\n\n\n\n\n\n");
+        Label separador2 = new Label("\n\n\n\n\n\n\n\n\n");
+        Label separador3 = new Label("\n\n\n\n");
+
+        this.datosDelJugadorAnterior = new Label("Datos del jugador Actual");
         this.estado = new Label("Estado actual:");
         this.energiaActual = new Label("Energia :");
 
@@ -56,6 +64,8 @@ public class ContenedorConsola extends VBox {
         this.estiloDelLabel(this.datosDelJugadorAnterior, estiloLetra, "orange");
         this.estiloDelLabel(this.estado, estiloLetra2, "orange");
         this.estiloDelLabel(this.energiaActual, estiloLetra2, "orange");
+        this.estiloDelLabel(this.premio, estiloLetra2, "orange");
+        this.estiloDelLabel(this.obstaculo, estiloLetra2, "orange");
 
 
         //BotonJugarTurno botonJugarTurno = new BotonJugarTurno("Jugar Turno", juego);
@@ -69,7 +79,7 @@ public class ContenedorConsola extends VBox {
 
         this.setBackground(background);
 
-        this.getChildren().addAll(turnoActual, nombreJugador, panelImagenJugadorActual, separarDado, panelDado, datosDelJugadorAnterior, panelImagenJugadorAnterior, numeroDeDado, panelImagenSeniority,estado, energiaActual, panelImagenEquipamiento);
+        this.getChildren().addAll(separador, turnoActual, separador2, nombreJugador, panelImagenJugadorActual, separarDado, panelDado, separador3, datosDelJugadorAnterior, panelImagenJugadorAnterior, numeroDeDado, premio, obstaculo, panelImagenSeniority,estado, energiaActual, panelImagenEquipamiento);
         this.setAlignment(Pos.TOP_CENTER);
     }
 
@@ -96,8 +106,8 @@ public class ContenedorConsola extends VBox {
 
     public void actualizar(String nombreJugadorActual, int ronda) {
         this.jugadorAnterior = nombreJugadorActual;
-        this.turnoActual.setText("\n\n\n\nRonda Actual: " + ronda);
-        this.nombreJugador.setText("\n\n\n\nSiguiente jugador: " + nombreJugadorActual);
+        this.turnoActual.setText("Ronda Actual: " + ronda);
+        this.nombreJugador.setText("Siguiente jugador: " + nombreJugadorActual);
         StackPane panelImagen = this.obtenerPanelJugador(nombreJugadorActual);
 
         if(panelImagen != null){
@@ -141,8 +151,7 @@ public class ContenedorConsola extends VBox {
             this.panelImagenJugadorAnterior.getChildren().setAll(imagenJugadorActual);
         }
 
-
-        this.datosDelJugadorAnterior.setText("\n\n\n\nDatos del jugador " + this.jugadorAnterior);
+        this.datosDelJugadorAnterior.setText("Datos del jugador " + this.jugadorAnterior);
 
         this.panelImagenSeniority.getChildren().clear();
         Image imagen = new Image("file:" + System.getProperty("user.dir") + "/imagenes/" + seniorityID + ".png");
@@ -168,9 +177,21 @@ public class ContenedorConsola extends VBox {
         this.panelImagenEquipamiento.getChildren().add(imageView);
     }
 
-
     public void actualizar(int ultimoNumeroTirado){
-
         this.numeroDeDado.setText(this.jugadorAnterior + " avanzo " + ultimoNumeroTirado + " lugares");
+    }
+
+    public void actualizar(String premio, String obstaculo){
+        if(!premio.isEmpty()){
+            this.premio.setText("Premio: " + premio.toUpperCase());
+        }else{
+            this.premio.setText("Premio: NADA");
+        }
+
+        if(!obstaculo.isEmpty()){
+            this.obstaculo.setText("Obstaculo: " + obstaculo.toUpperCase());
+        }else{
+            this.obstaculo.setText("Obstaculo: NADA");
+        }
     }
 }

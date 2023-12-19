@@ -4,6 +4,7 @@ import edu.fiuba.algo3.interfaz.vistas.escenas.VistaInicial;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
@@ -31,6 +32,15 @@ public class App extends Application {
         stage.setTitle("IMPERIO ROMANO");
         stage.getIcons().add(icono);
         stage.setScene(scene);
+        stage.setFullScreen(true); // Configurar la ventana para que se abra en pantalla completa
+        stage.setOnCloseRequest(event -> System.exit(0)); // Establecer un evento para cerrar la aplicación al presionar Esc en pantalla completa
+
+        scene.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.F11) {
+                stage.setFullScreen(!stage.isFullScreen());
+            }
+        });
+
         stage.show();
     }
 
