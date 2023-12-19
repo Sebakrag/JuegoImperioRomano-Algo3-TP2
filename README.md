@@ -19,14 +19,22 @@ Corrector: [**Alejo Villores**](https://github.com/alejovillores)
 
 La versión más reciente de la aplicación puede encontrarse en la pestaña [releases](https://github.com/fiuba/algo3_proyecto_base_tp2/releases/latest) y ejecutarse en Linux, Windows o Mac de esta forma:
 
-## Aplicación
-
-![pestanaInicio](docs/imagenesAplicacion/inicio.png)
-
-
 ```bash
 $ java -jar <archivo.jar>
 ```
+
+## Sobre la aplicación
+
+La aplicación consiste en un juego de tablero por turnos. El mismo se puede jugar desde 2 a 6 jugadores. Cada jugador tiene un gladiador asignado y un nombre a elección.
+El objetivo del juego es llegar desde el *Coliseo Romano* hasta *Pompeya* atravesando distintos obstáculos y desafíos. El primero en **_llegar a Pompeya con la llave_** gana el juego.
+
+![pestanaInicio](docs/imagenesAplicacion/inicio.png)
+![ingresoJugadores](docs/imagenesAplicacion/ingresoJugadores.png)
+![partida](docs/imagenesAplicacion/partida.png)
+
+
+
+
 
 ## Desarrollo
 
