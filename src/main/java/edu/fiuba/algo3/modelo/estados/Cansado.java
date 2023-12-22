@@ -17,6 +17,7 @@ public class Cansado implements Estado {
 
     public Estado avanzar(Celda futuraCelda, Gladiador gladiador, Logger logger){
         logger.warn("Estoy cansado Jefe :(");
+
         int energia = 5;
         return new Sano(energia);
     }

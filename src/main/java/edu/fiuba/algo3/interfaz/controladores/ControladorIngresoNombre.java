@@ -34,10 +34,12 @@ public class ControladorIngresoNombre implements EventHandler<ActionEvent> {
     @Override
     public void handle(ActionEvent evento) {
         if (!this.cuadroTexto.ingresoValido()) {
-            this.etiquetaAviso.setText("Ingreso inválido. El nombre no puede ser vacío.");
+            this.etiquetaAviso.setText("Ingreso inválido. El nombre no puede repetirse ni tampoco ser vacío.");
         } else if ((this.cantidadLimite - 1) == this.nombresJugadores.size()) {
             etiquetaIngreso.setText("¡Cantidad máxima ingresada!");
-            this.nombresJugadores.add(String.valueOf(this.cuadroTexto.getText().trim()));
+            String textoIngresado = String.valueOf(this.cuadroTexto.getText().trim());
+            textoIngresado = cuadroTexto.toCapitalize(textoIngresado);
+            this.nombresJugadores.add(textoIngresado);
             this.etiquetaAviso.setText("\"" + this.cuadroTexto.getText() + "\"" + " Ingresado con éxito. \n\t ¡Es hora de jugar!");
             this.etiquetaAviso.setAlignment(Pos.CENTER);
             this.cuadroTexto.setDisable(true);
@@ -46,7 +48,9 @@ public class ControladorIngresoNombre implements EventHandler<ActionEvent> {
         } else {
             this.cantidadIngresada++;
             etiquetaIngreso.setText("Ingrese nombre del jugador " + this.cantidadIngresada);
-            this.nombresJugadores.add(String.valueOf(this.cuadroTexto.getText().trim()));
+            String textoIngresado = String.valueOf(this.cuadroTexto.getText().trim());
+            textoIngresado = cuadroTexto.toCapitalize(textoIngresado);
+            this.nombresJugadores.add(textoIngresado);
             this.etiquetaAviso.setText("\"" + this.cuadroTexto.getText() + "\"" + " ingresado con éxito.");
         }
 

@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.equipamientos.Equipamiento;
-import edu.fiuba.algo3.modelo.excepcion.TurnoPerdidoError;
 import edu.fiuba.algo3.modelo.seniorities.Novato;
 import edu.fiuba.algo3.modelo.equipamientos.Desequipado;
 import edu.fiuba.algo3.modelo.afectantes.*;
@@ -72,18 +71,20 @@ public class Gladiador extends Observable {
     }
 
     public Celda mover(Celda futuraCelda, int turnos) {
-        notificarObservadores(this.estado, this.seniority);
-        notificarObservadores(this.equipamiento);
 
         this.estado = this.estado.avanzar(futuraCelda, this, logger);
         this.mejorarSeniority(turnos);
+
+        notificarObservadores(this.estado, this.seniority);
+        notificarObservadores(this.equipamiento);
+
         return this.celdaActual;
     }
 
     public Estado mover(Celda nuevaCelda) {
         this.celdaActual = nuevaCelda;
         this.celdaActual = celdaActual.afectar(this);
-        return this.estado;
+        return  this.estado;
     }
 
 

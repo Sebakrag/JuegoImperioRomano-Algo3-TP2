@@ -8,9 +8,13 @@ import org.apache.logging.log4j.Logger;
 public class Comida implements Afectante {
     private static final int AUMENTO_ENERGIA = 15;
 
-
     public void afectar(Gladiador gladiador) {
         gladiador.recibirImpacto(this);
+    }
+
+    @Override
+    public String identificador() {
+        return "comida";
     }
 
     public Estado modificarEnergia(Estado estado){

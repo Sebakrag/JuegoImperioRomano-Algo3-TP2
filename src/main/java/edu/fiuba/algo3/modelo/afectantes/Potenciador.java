@@ -28,4 +28,10 @@ public class Potenciador implements Afectante {
     public Equipamiento equipamientoSiguiente(Llave llave) {
         return llave;
     }
+
+    @Override
+    public String identificador() {
+        return "equipamiento";
+    }
+
 }

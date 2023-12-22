@@ -2,13 +2,19 @@ package edu.fiuba.algo3.interfaz.vistas.contenedores;
 
 import edu.fiuba.algo3.modelo.Tablero;
 import edu.fiuba.algo3.modelo.celdas.Celda;
+import javafx.animation.PauseTransition;
+import javafx.animation.TranslateTransition;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.text.Font;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,18 +26,36 @@ public class ContenedorTablero extends GridPane {
     private final int xInicial;
     private final int yInicial;
     private final ArrayList<StackPane> jugadores;  // Array de StackPanes de gladiadores
+    private final ArrayList<StackPane> jugadoresImagenes;
     private List<String> imagenesGladiadores;
-
     private Tablero tablero;
+    private MediaPlayer sonidoPlayerCaminata;
+    private MediaPlayer sonidoPlayerObstaculo;
+    private MediaPlayer sonidoPlayerPremio;
 
-    public ContenedorTablero(Tablero tablero, ArrayList<String> nombresJugadores) {
+    public ContenedorTablero(Tablero tablero, ArrayList<String> nombresJugadores, MediaPlayer sonidoCaminata, MediaPlayer sonidoObstaculo, MediaPlayer sonidoPremio) {
         this.tablero = tablero;
+
+        this.sonidoPlayerCaminata = sonidoCaminata;
+        this.sonidoPlayerObstaculo = sonidoObstaculo;
+        this.sonidoPlayerPremio = sonidoPremio;
+
+        this.sonidoPlayerObstaculo.play();
+        if(this.sonidoPlayerObstaculo != null){
+            this.sonidoPlayerObstaculo.stop();
+        }
+
+        this.sonidoPlayerPremio.play();
+        if(this.sonidoPlayerPremio != null){
+            this.sonidoPlayerPremio.stop();
+        }
 
         int columnas = tablero.getLargo();
         int filas = tablero.getAncho();
         this.xInicial = tablero.getCeldaInicial().getX();
         this.yInicial = tablero.getCeldaInicial().getY();
         this.jugadores = new ArrayList<>();
+        this.jugadoresImagenes = new ArrayList<>();
         this.imagenesGladiadores = new ArrayList<>(List.of(
                 "gladiadores/Gladiador1",
                 "gladiadores/Gladiador2",
@@ -65,23 +89,48 @@ public class ContenedorTablero extends GridPane {
 
     // -------------------------------- PUBLICOS -------------------------------- //
     public void actualizar(String nombre, Celda celdaAnterior, Celda celdaActual) {
-        // TODO: Pregunta si el contenedorTablero puede ser un observador.
         StackPane jugador = obtenerPanelJugador(nombre);
         int retrasoEntreIteracionesEnMilisegundos = 500; // 1000 ms = 1 segundo
         Timeline timeline = new Timeline();
 
         if (jugador != null) {
+            this.sonidoPlayerCaminata.play(); //Reproduccion del sonido
             Celda celdaSiguiente = celdaAnterior.celdaSiguiente();
             if (celdaSiguiente == celdaActual) {
                 int finalX = celdaSiguiente.getX();
                 int finalY = celdaSiguiente.getY();
                 setConstraints(jugador, finalX, finalY);
+                // Pausar el sonido al final de la animación
+                Duration duracionTotal = Duration.seconds(1);
+
+                Timeline timeline2 = new Timeline(
+                        new KeyFrame(duracionTotal, event -> {
+                            this.sonidoPlayerCaminata.stop();
+                            this.sonidoPremio(celdaActual.nombreImagenPremio());
+                        })
+                );
+                timeline2.play();
+
+                Duration duracionTotalObstaculo = Duration.seconds(3);
+                Timeline timeline3 = new Timeline(
+                        new KeyFrame(duracionTotalObstaculo, event -> this.sonidoObstaculo(celdaActual.nombreImagenObstaculo()))
+                );
+                timeline3.play();
             } else {
                 int i = 0;
+                Celda verificarCeldaFinal;
+                boolean celdaFinal = false;
+
                 while (celdaAnterior != celdaActual) {
                     celdaAnterior = celdaAnterior.celdaSiguiente();
                     int finalX = celdaAnterior.getX();
                     int finalY = celdaAnterior.getY();
+
+                    verificarCeldaFinal = celdaAnterior.celdaSiguiente();
+                    if(celdaAnterior == verificarCeldaFinal){
+                        celdaAnterior = celdaActual;
+                        celdaFinal = true;
+                    }
 
                     KeyFrame keyFrame = new KeyFrame(
                             Duration.millis(i * retrasoEntreIteracionesEnMilisegundos),
@@ -92,12 +141,79 @@ public class ContenedorTablero extends GridPane {
                     timeline.getKeyFrames().add(keyFrame);
                     i++;
                 }
-
+                if(celdaFinal){
+                    int finalX = celdaActual.getX();
+                    int finalY = celdaActual.getY();
+                    setConstraints(jugador, finalX, finalY);
+                    KeyFrame keyFrame = new KeyFrame(
+                            Duration.millis(i * retrasoEntreIteracionesEnMilisegundos),
+                            event -> {
+                                setConstraints(jugador, finalX, finalY);
+                                // Pausar el sonido al final de la animación
+                                this.sonidoPlayerCaminata.pause();
+                                this.sonidoPremio(celdaActual.nombreImagenPremio());
+                            }
+                    );
+                    timeline.getKeyFrames().add(keyFrame);
+                }else{
+                    KeyFrame keyFrame = new KeyFrame(
+                            Duration.millis(i * retrasoEntreIteracionesEnMilisegundos),
+                            event -> {
+                                // Pausar el sonido al final de la animación
+                                this.sonidoPlayerCaminata.pause();
+                                this.sonidoPremio(celdaActual.nombreImagenPremio());
+                            }
+                    );
+                    timeline.getKeyFrames().add(keyFrame);
+                }
                 timeline.play();
+
+                Duration duracionTotalObstaculo = Duration.seconds(4);
+                Timeline timeline3 = new Timeline(
+                        new KeyFrame(duracionTotalObstaculo, event -> this.sonidoObstaculo(celdaActual.nombreImagenObstaculo()))
+                );
+                timeline3.play();
             }
         }
     }
 
+    private void sonidoPremio(String premio){
+        if(!premio.isEmpty()){
+            String rutaSonidoObstaculo = ("sonidos/" + premio + ".mp3");
+            Media sonidoObstaculo = new Media(new File(rutaSonidoObstaculo).toURI().toString());
+            this.sonidoPlayerPremio = new MediaPlayer(sonidoObstaculo);
+            this.sonidoPlayerPremio.setCycleCount(MediaPlayer.INDEFINITE);
+            this.sonidoPlayerPremio.setVolume(0.5);
+            this.sonidoPlayerPremio.play();
+
+            // Pausar el sonido al final de la animación
+            Duration duracionTotal = Duration.seconds(2);
+
+            Timeline timeline2 = new Timeline(
+                    new KeyFrame(duracionTotal, event -> this.sonidoPlayerPremio.stop())
+            );
+            timeline2.play();
+        }
+    }
+
+    private void sonidoObstaculo(String obstaculo){
+        if(!obstaculo.isEmpty()){
+            String rutaSonidoObstaculo = ("sonidos/" + obstaculo + ".mp3");
+            Media sonidoObstaculo = new Media(new File(rutaSonidoObstaculo).toURI().toString());
+            this.sonidoPlayerObstaculo = new MediaPlayer(sonidoObstaculo);
+            this.sonidoPlayerObstaculo.setCycleCount(MediaPlayer.INDEFINITE);
+            this.sonidoPlayerObstaculo.setVolume(0.5);
+            this.sonidoPlayerObstaculo.play();
+
+            // Pausar el sonido al final de la animación
+            Duration duracionTotal = Duration.seconds(2);
+
+            Timeline timeline2 = new Timeline(
+                    new KeyFrame(duracionTotal, event -> this.sonidoPlayerObstaculo.stop())
+            );
+            timeline2.play();
+        }
+    }
 
     // -------------------------------- PRIVADOS -------------------------------- //
     private void crearCamino(Tablero tablero) {
@@ -163,8 +279,10 @@ public class ContenedorTablero extends GridPane {
         int i = 0;
         while (i < nombresJugadores.size()) {
             StackPane panelJugador = crearPanelJugador(nombresJugadores, i);
+            StackPane panelJugador2 = crearPanelJugadorImagenView(nombresJugadores, i);
 
             this.jugadores.add(panelJugador);
+            this.jugadoresImagenes.add(panelJugador2);
 
             super.getChildren().add(panelJugador);
             setConstraints(panelJugador, this.xInicial, this.yInicial);
@@ -179,10 +297,37 @@ public class ContenedorTablero extends GridPane {
         Font estiloLetra = Font.loadFont("file:" + System.getProperty("user.dir") + "/fuentes/Cinzel-Black.ttf", 20);
         etiquetaNombreJugador.setFont(estiloLetra);
         etiquetaNombreJugador.setStyle("-fx-text-fill: RED");
+        etiquetaNombreJugador.setVisible(false); //Hace la etiqueta invisible
 
         panelJugador.getChildren().add(etiquetaNombreJugador);
 
         return panelJugador;
+    }
+
+    private StackPane crearPanelJugadorImagenView(ArrayList<String> nombresJugadores, int indiceJugador) {
+
+        StackPane panelJugador = crearPanelCeldaConImagenView(this.imagenesGladiadores.get(indiceJugador));
+        Label etiquetaNombreJugador = new Label(nombresJugadores.get(indiceJugador));
+        Font estiloLetra = Font.loadFont("file:" + System.getProperty("user.dir") + "/fuentes/Cinzel-Black.ttf", 20);
+        etiquetaNombreJugador.setFont(estiloLetra);
+        etiquetaNombreJugador.setStyle("-fx-text-fill: RED");
+
+        panelJugador.getChildren().add(etiquetaNombreJugador);
+
+        return panelJugador;
+    }
+
+    private StackPane crearPanelCeldaConImagenView(String nombreImagen) {
+        StackPane panelCelda = new StackPane();
+        Image imagenFondo = new Image("file:" + System.getProperty("user.dir") + "/imagenes/tableroYConsola/" + nombreImagen + ".png");
+
+        ImageView imageView = new ImageView(imagenFondo);
+        imageView.setPreserveRatio(true);
+        imageView.setFitWidth(50);
+        imageView.setFitHeight(50);
+        panelCelda.getChildren().add(imageView);
+
+        return panelCelda;
     }
 
     private StackPane crearPanelCamino(Celda celdaActual) {
@@ -215,5 +360,9 @@ public class ContenedorTablero extends GridPane {
             }
         }
         return null;
+    }
+
+    public ArrayList<StackPane> getJugadoresImagenes(){
+        return this.jugadoresImagenes;
     }
 }

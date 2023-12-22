@@ -10,15 +10,6 @@ import edu.fiuba.algo3.modelo.afectantes.*;
 import edu.fiuba.algo3.modelo.excepcion.*;
 import org.apache.logging.log4j.Logger;
 
-/*
-*       "x": 17,
-        "y": 4,
-        "tipo": "Camino",
-        "obstaculo": "",
-        "premio": "Comida"
-*
-* */
-
 public class CeldaParser {
 
     public Celda parse(JSONObject celda) {
@@ -36,14 +27,13 @@ public class CeldaParser {
 
         switch(tipo) {
             case "salida":
-                return new CeldaInicial(coorX, coorY, logger, premio, obstaculo, tipo);
+                return new CeldaInicial(coorX, coorY, logger);
             case "camino":
                 Afectante afectantePremio = this.parsearPremio(premio);
                 Afectante afectanteObstaculo = this.parsearObstaculo(obstaculo);
-                CeldaComun celdaComun = new CeldaComun(coorX, coorY, afectanteObstaculo, afectantePremio, logger, premio, obstaculo, tipo);
-                return celdaComun;
+                return new CeldaComun(coorX, coorY, afectantePremio, afectanteObstaculo, logger);
             case "llegada":
-                return new CeldaFinal(coorX, coorY, logger, premio, obstaculo, tipo);
+                return new CeldaFinal(coorX, coorY, logger);
             default:
                 throw new TipoDeCeldaEnArchivoNoValidaError();
         }

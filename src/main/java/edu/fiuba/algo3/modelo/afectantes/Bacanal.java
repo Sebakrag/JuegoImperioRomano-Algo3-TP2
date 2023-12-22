@@ -20,4 +20,10 @@ public class Bacanal implements Afectante {
         int cantidadCopas = dado.tirar(); // Se puede vincular la accion de un boton al metodo tirar() de Dado?
         return (estado.reducirEnergia(ENERGIA_POR_COPA * cantidadCopas));
     }
+
+    @Override
+    public String identificador() {
+        return "bacanal";
+    }
+
 }

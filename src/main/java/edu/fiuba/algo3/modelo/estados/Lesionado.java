@@ -6,11 +6,12 @@ import org.apache.logging.log4j.Logger;
 public class Lesionado implements Estado {
 
     private int energiaActual;
-    private final String id = "Lesionado";
 
+    private final String id = "Lesionado";
 
     public Lesionado(int energia){
         this.energiaActual = energia;
+
     }
 
     public Estado reducirEnergia(int energia) {

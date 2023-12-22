@@ -1,55 +1,75 @@
 package edu.fiuba.algo3.interfaz.vistas.contenedores;
 
-import edu.fiuba.algo3.interfaz.vistas.botones.BotonJugarTurno;
+import edu.fiuba.algo3.interfaz.vistas.botones.BotonJugarTurnoConImagen;
 import edu.fiuba.algo3.modelo.Juego;
 import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.geometry.Pos;
+
+import java.util.ArrayList;
 
 
 public class ContenedorConsola extends VBox {
     private String jugadorAnterior;
-    public ContenedorConsola(Juego juego) {
+    private Label turnoActual;
+    private Label nombreJugador;
+    private Label numeroDeDado;
+    private Label datosDelJugadorAnterior;
+    private Label estado;
+    private Label energiaActual;
+    private Label premio;
+    private Label obstaculo;
+    private StackPane panelImagenEquipamiento;
+    private StackPane panelImagenSeniority;
+    private StackPane panelImagenJugadorActual;
+    private StackPane panelImagenJugadorAnterior;
+    private final ArrayList<StackPane> jugadores;
 
-        Label turnoActual = new Label("Ronda Actual: 1");
-        Label nombreJugador = new Label("Jugador le toca tirar");
-        Label numeroDeDado = new Label("Avances");
+    public ContenedorConsola(Juego juego, ArrayList<StackPane> jugadores) {
+        this.jugadores = jugadores;
+        this.turnoActual = new Label("Ronda Actual: 1");
+        this.nombreJugador = new Label("Jugador le toca tirar");
+        this.numeroDeDado = new Label("Avances");
+        this.premio = new Label("Premio: ");
+        this.obstaculo = new Label("Obstaculo: ");
 
-        Label datos = new Label("\nDatos del jugador Actual");
-        Label estado = new Label("Estado actual:");
-        Label energiaActual = new Label("Energia :");
-        Label seniority = new Label("Seniority jugador:");
+        Label separarDado = new Label("\n\n");
+        Label separador = new Label("\n\n\n\n\n\n\n\n");
+        Label separador2 = new Label("\n\n\n\n\n\n\n\n\n");
+        Label separador3 = new Label("\n\n\n\n");
 
-        StackPane panelImagen = new StackPane();
+        this.datosDelJugadorAnterior = new Label("Datos del jugador Actual");
+        this.estado = new Label("Estado actual:");
+        this.energiaActual = new Label("Energia :");
+
+        this.panelImagenEquipamiento = new StackPane();
+        this.panelImagenSeniority = new StackPane();
+        this.panelImagenJugadorActual = new StackPane();
+        this.panelImagenJugadorAnterior = new StackPane();
 
         Font estiloLetra = Font.loadFont("file:" + System.getProperty("user.dir") + "/fuentes/Cinzel-Black.ttf", 20);
-        nombreJugador.setFont(estiloLetra);
-        nombreJugador.setStyle("-fx-text-fill: orange");
-        turnoActual.setFont(estiloLetra);
-        turnoActual.setStyle("-fx-text-fill: orange");
-        numeroDeDado.setFont(estiloLetra);
-        numeroDeDado.setStyle("-fx-text-fill: orange");
+        this.estiloDelLabel(this.nombreJugador, estiloLetra, "orange");
+        this.estiloDelLabel(this.turnoActual, estiloLetra, "orange");
 
         //------------ Datos del jugador ----------- //
 
         Font estiloLetra2 = Font.loadFont("file:" + System.getProperty("user.dir") + "/fuentes/Cinzel-Black.ttf", 15);
-        datos.setFont(estiloLetra2);
-        datos.setStyle("-fx-text-fill: orange");
-        estado.setFont(estiloLetra2);
-        estado.setStyle("-fx-text-fill: orange");
-        energiaActual.setFont(estiloLetra2);
-        energiaActual.setStyle("-fx-text-fill: orange");
-        seniority.setFont(estiloLetra2);
-        seniority.setStyle("-fx-text-fill: orange");
+        this.estiloDelLabel(this.numeroDeDado, estiloLetra2, "orange");
+        this.estiloDelLabel(this.datosDelJugadorAnterior, estiloLetra, "orange");
+        this.estiloDelLabel(this.estado, estiloLetra2, "orange");
+        this.estiloDelLabel(this.energiaActual, estiloLetra2, "orange");
+        this.estiloDelLabel(this.premio, estiloLetra2, "orange");
+        this.estiloDelLabel(this.obstaculo, estiloLetra2, "orange");
 
 
-        BotonJugarTurno botonJugarTurno = new BotonJugarTurno("Jugar Turno", juego);
+        //BotonJugarTurno botonJugarTurno = new BotonJugarTurno("Jugar Turno", juego);
+        StackPane panelDado = this.crearPanelDado(juego);
 
         Image imagenFondo = new Image("file:" + System.getProperty("user.dir") + "/imagenes/tableroYConsola/Consola.jpg");
 
@@ -59,31 +79,94 @@ public class ContenedorConsola extends VBox {
 
         this.setBackground(background);
 
-        this.getChildren().addAll(turnoActual, nombreJugador, numeroDeDado, botonJugarTurno, datos, seniority, estado, energiaActual, panelImagen);
-        this.setAlignment(Pos.CENTER);
+        this.getChildren().addAll(separador, turnoActual, separador2, nombreJugador, panelImagenJugadorActual, separarDado, panelDado, separador3, datosDelJugadorAnterior, panelImagenJugadorAnterior, numeroDeDado, premio, obstaculo, panelImagenSeniority,estado, energiaActual, panelImagenEquipamiento);
+        this.setAlignment(Pos.TOP_CENTER);
+    }
+
+    private StackPane crearPanelDado(Juego juego){
+        ImageView imagenDado = new BotonJugarTurnoConImagen(juego);
+        Rectangle fondo = new Rectangle(50, 50, Color.ORANGE);
+        StackPane panel = new StackPane(fondo, imagenDado);
+
+        panel.setOnMouseEntered(event -> {
+            fondo.setFill(Color.DARKORANGE);
+        });
+
+        panel.setOnMouseExited(event -> {
+            fondo.setFill(Color.ORANGE);
+        });
+
+        return panel;
+    }
+
+    private void estiloDelLabel(Label label, Font font, String colorDeLetra){
+        label.setFont(font);
+        label.setStyle("-fx-text-fill: " + colorDeLetra + ";");
     }
 
     public void actualizar(String nombreJugadorActual, int ronda) {
-        Label turnoActual = (Label) this.getChildren().get(0);
-        Label nombreJugador = (Label) this.getChildren().get(1);
         this.jugadorAnterior = nombreJugadorActual;
-        turnoActual.setText("Ronda Actual: " + ronda);
-        nombreJugador.setText("Jugador " + nombreJugadorActual + " le toca tirar");
+        this.turnoActual.setText("Ronda Actual: " + ronda);
+        this.nombreJugador.setText("Siguiente jugador: " + nombreJugadorActual);
+        StackPane panelImagen = this.obtenerPanelJugador(nombreJugadorActual);
+
+        if(panelImagen != null){
+            ImageView imagenJugador = (ImageView) panelImagen.getChildren().get(0);
+            Image imagen = this.imagenJugador(imagenJugador.getImage());
+            ImageView imagenJugadorActual = new ImageView(imagen);
+            imagenJugadorActual.setFitWidth(75);
+            imagenJugadorActual.setFitHeight(75);
+            this.panelImagenJugadorActual.getChildren().clear();
+            this.panelImagenJugadorActual.getChildren().setAll(imagenJugadorActual);
+        }
+    }
+
+    private Image imagenJugador(Image imagen){
+        String rutaImagen = imagen.getUrl();
+        Image imagenDevolver = new Image(rutaImagen);
+
+        return imagenDevolver;
+    }
+
+    private StackPane obtenerPanelJugador(String nombre) {
+        for (StackPane jugador : this.jugadores) {
+            Label nombreJugador = (Label) jugador.getChildren().get(1);
+            if (nombreJugador.getText().equals(nombre)) {
+                return jugador;
+            }
+        }
+        return null;
     }
 
     public void actualizar(int energia, String estadoID, String seniorityID) {
-        Label seniority = (Label) this.getChildren().get(5);
-        Label estado = (Label) this.getChildren().get(6);
-        Label energiaActual = (Label) this.getChildren().get(7);
+        StackPane panelImagen = this.obtenerPanelJugador(this.jugadorAnterior);
 
-        seniority.setText("Seniority jugador: " + seniorityID);
-        estado.setText("Estado: " + estadoID);
-        energiaActual.setText("Energia: " + energia);
+        if(panelImagen != null){
+            ImageView imagenJugador = (ImageView) panelImagen.getChildren().get(0);
+            Image imagen = this.imagenJugador(imagenJugador.getImage());
+            ImageView imagenJugadorActual = new ImageView(imagen);
+            imagenJugadorActual.setFitWidth(75);
+            imagenJugadorActual.setFitHeight(75);
+            this.panelImagenJugadorAnterior.getChildren().clear();
+            this.panelImagenJugadorAnterior.getChildren().setAll(imagenJugadorActual);
+        }
+
+        this.datosDelJugadorAnterior.setText("Datos del jugador " + this.jugadorAnterior);
+
+        this.panelImagenSeniority.getChildren().clear();
+        Image imagen = new Image("file:" + System.getProperty("user.dir") + "/imagenes/" + seniorityID + ".png");
+        ImageView imageView = new ImageView(imagen);
+        imageView.setPreserveRatio(true);
+        imageView.setFitWidth(100);
+        imageView.setFitHeight(100);
+        this.panelImagenSeniority.getChildren().add(imageView);
+
+        this.estado.setText(estadoID);
+        this.energiaActual.setText("Energia: " + energia);
     }
 
     public void actualizar(String equipamientoID){
-        StackPane panelImagen = (StackPane) this.getChildren().get(8);
-        panelImagen.getChildren().clear();
+        this.panelImagenEquipamiento.getChildren().clear();
 
         Image imagen = new Image("file:" + System.getProperty("user.dir") + "/imagenes/" + equipamientoID + ".png");
         ImageView imageView = new ImageView(imagen);
@@ -91,22 +174,24 @@ public class ContenedorConsola extends VBox {
         imageView.setFitWidth(40);
         imageView.setFitHeight(40);
 
-        panelImagen.getChildren().add(imageView);
+        this.panelImagenEquipamiento.getChildren().add(imageView);
     }
 
-    /*public void actualizar(int energia, String estadoID) {
-        Label estado = (Label) this.getChildren().get(7);
-        Label energiaActual = (Label) this.getChildren().get(8);
-
-        estado.setText("Estado: " + estadoID);
-        energiaActual.setText("Energia: " + energia);
-        //this.getChildren().add(7, estado);
-        //this.getChildren().add(8, energiaActual);
-    }*/
-
     public void actualizar(int ultimoNumeroTirado){
-        Label numeroDeDado = (Label) this.getChildren().get(2);
+        this.numeroDeDado.setText(this.jugadorAnterior + " avanzo " + ultimoNumeroTirado + " lugares");
+    }
 
-        numeroDeDado.setText(this.jugadorAnterior + " avanzo " + ultimoNumeroTirado + " lugares");
+    public void actualizar(String premio, String obstaculo){
+        if(!premio.isEmpty()){
+            this.premio.setText("Premio: " + premio.toUpperCase());
+        }else{
+            this.premio.setText("Premio: NADA");
+        }
+
+        if(!obstaculo.isEmpty()){
+            this.obstaculo.setText("Obstaculo: " + obstaculo.toUpperCase());
+        }else{
+            this.obstaculo.setText("Obstaculo: NADA");
+        }
     }
 }

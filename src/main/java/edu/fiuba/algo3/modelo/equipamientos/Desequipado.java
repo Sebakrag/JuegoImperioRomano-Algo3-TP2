@@ -6,7 +6,7 @@ public class Desequipado extends Equipamiento {
 
     public Desequipado(){
         this.danio = 20;
-        this.id = "EnBolainas";
+        this.id = "Desequipado";
     }
 
     @Override
