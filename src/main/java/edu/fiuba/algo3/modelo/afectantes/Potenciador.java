@@ -3,7 +3,6 @@ package edu.fiuba.algo3.modelo.afectantes;
 import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.modelo.equipamientos.*;
 
-
 public class Potenciador implements Afectante {
 
     public void afectar(Gladiador gladiador) {

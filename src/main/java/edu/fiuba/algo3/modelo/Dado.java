@@ -10,7 +10,6 @@ public class Dado {
     public Dado(int carasDado){
         this.caras = carasDado;
     }
-
     public int tirar() {
         Random random = new Random();
         this.ultimoNumeroTirado = (random.nextInt(caras) + 1);

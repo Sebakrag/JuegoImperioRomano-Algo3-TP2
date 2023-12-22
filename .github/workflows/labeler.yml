@@ -1,0 +1,17 @@
+name: Label Pull Request
+on:
+  pull_request:
+    types:
+      - opened
+
+jobs:
+  add-label:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add label to pull request
+        if: startsWith(github.event.pull_request.head.ref, 'semana-')
+        run: gh pr edit $LINK --add-label $LABEL --add-assignee alejovillores
+        env:
+          GITHUB_TOKEN: ${{ secrets.API_TOKEN }}
+          LINK: ${{ github.event.pull_request.html_url }}
+          LABEL: '📦entrega'
